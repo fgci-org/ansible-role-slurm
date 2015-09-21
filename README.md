@@ -15,6 +15,17 @@ Tested with these linux distributions:
 
  - see the group_vars/all/all file for default variables used for launching an OS instance
 
+playbook variables:
+
+ - slurm_type
+  - compute : runs slurmd
+  - submit :  needs to run munge
+  - service : runs slurmdbd, slurmctld
+
+Update the files in group_vars/ to your settings
+ 
+You also need to add a mysql_slurm_password: "PASSWORD" string somewhere. This will be used to set a password for the slurm mysql user.
+
 ### Initial configuration of the instances and your workstation:
 
  - First yum -y install nc on the bastion host.
@@ -58,11 +69,6 @@ Host slurm*
 </pre>
 
 ### Then we can finally run the slurm configuration playbooks:
-
-\_ Update the files in group_vars/ to your settings
- 
-You also need to add a mysql_slurm_password: "PASSWORD" string somewhere. This will be used to set a password for the slurm mysql user.
-
 
 #### Description of the playbooks:
 

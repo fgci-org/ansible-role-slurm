@@ -6,3 +6,9 @@
   when: slurm_build == True and slurm_type == "service"
 
 - include: common.yml
+
+- include: compute.yml
+  when: slurm_type == "compute"
+
+- include: login.yml
+  when: slurm_type == "submit"
