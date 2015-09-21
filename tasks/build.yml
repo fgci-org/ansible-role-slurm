@@ -25,6 +25,7 @@
         - "pam"
         - "pam-devel"
         - "hwloc"
+        - "hwloc-devel"
         - "munge"
         - "munge-devel"
         - "munge-libs"
