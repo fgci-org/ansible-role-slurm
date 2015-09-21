@@ -17,10 +17,10 @@ Tested with these linux distributions:
 
 playbook variables:
 
- - slurm_type
-  - compute : runs slurmd
-  - submit :  needs to run munge
-  - service : runs slurmdbd, slurmctld
+ - if {{ slurm_type }} in group_vars/group/group.yml is set to:
+  - "compute" the group runs slurmd
+  - "submit" the group run munge
+  - "service" the group runs slurmdbd, slurmctld
 
 Update the files in group_vars/ to your settings
  
