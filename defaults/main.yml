@@ -1,0 +1,20 @@
+---
+
+# Defaults for ansible-role-slurm
+#
+
+slurm_packages:
+ - slurm-plugins
+ - slurm
+ - slurm-perlapi
+ - slurm-slurmdb-direct
+ - slurm-sql
+ - slurm-lua
+ - slurm-devel
+ - slurm-pam_slurm
+ - slurm_sjstat
+ - slurm-slurmdbd
+ - slurm-torque
+ - slurm-munge
+ - slurm-sjobexit
+# - slurm-spank-x11

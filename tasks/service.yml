@@ -1,5 +1,5 @@
 ---
-  - name: name install service specific packages
+  - name: name install service specific packages for EL6
     yum: name="{{item}}" state=present
     with_items:
       - "mysql"
@@ -12,7 +12,22 @@
   - name: start mysql 
     service: name=mysqld state=started
     register: mysql_start
+    when: major_relase is "6"
 
+  - name: name install service specific packages for EL7
+    yum: name="{{item}}" state=present
+    with_items:
+      - "mariadb"
+      - "mariadb-server"
+      - "mariadb-devel"
+      - "lua-devel"
+      - "MySQL-python"
+    when: major_relase is "7"
+
+  - name: start mariadb on EL7
+    service: name=mariadb state=started
+    register: mariadb_start
+    when: major_relase is "7"
 
   - name: create slurm acct db
     mysql_db: name=slurm_acct_db state=present
@@ -38,14 +53,17 @@
         - "SOURCES"
         - "SPECS"
         - "SRPMS"
+    when: slurm_build == True
 
   - name: download Slurm source
     get_url: url="http://www.schedmd.com/download/latest/slurm-{{ slurm_version }}.tar.bz2" dest="/root/rpmbuild/SOURCES/slurm-{{ slurm_version }}.tar.bz2"
     tags: slurm
+    when: slurm_build == True
 
   - name: Extract Slurm source 2
     command: "tar -xjf /root/rpmbuild/SOURCES/slurm-{{ slurm_version}}.tar.bz2 -C /root/rpmbuild/SOURCES/ creates=/root/rpmbuild/SOURCES/slurm-{{ slurm_version }}"
     tags: slurm
+    when: slurm_build == True
 
   - name: build Slurm
     command: "{{ item }} chdir=/root/rpmbuild/SOURCES/slurm-{{ slurm_version}}/ creates=/root/rpmbuild/RPMS/x86_64/slurm-{{ slurm_version }}-1.el{{major_release}}.x86_64.rpm"
@@ -54,8 +72,7 @@
        #- ./configure
        #- "/usr/bin/make"
        #- "/usr/bin/make install"
-    tags:
-       - slurm
+    when: slurm_build == True
 
   - name: get slurm rpms to then distribute them to the nodes
     fetch: src={{ item }}
@@ -77,76 +94,38 @@
          - "/root/rpmbuild/RPMS/x86_64/slurm-torque-{{ slurm_version }}-1.el6.x86_64.rpm"
          - "/root/rpmbuild/RPMS/x86_64/slurm-munge-{{ slurm_version }}-1.el6.x86_64.rpm"
          - "/root/rpmbuild/RPMS/x86_64/slurm-sjobexit-{{ slurm_version }}-1.el6.x86_64.rpm"
+    when: slurm_build == True
 
   - name: add slurm etc dir
     file: path="/etc/slurm" state=directory owner=root group=root mode=755
-    tags: slurm
 
   - name: slurmdbd.conf
     template: src=slurmdbd.conf.j2 dest=/etc/slurm/slurmdbd.conf owner=root mode="640"
-    tags: slurm
 
   - name: start munge
     service: name=munge state=restarted
 
-
-
-
   - name: install Slurm
-    #yum: name="/root/rpmbuild/RPMS/x86_64/{{ item }}-{{ slurm_version }}-1.el6.x86_64.rpm" state=present
     yum: name={{ item }} state=present
-    tags: slurm
-    with_items:
-
-         - "/root/rpmbuild/RPMS/x86_64/slurm-plugins-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-perlapi-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-slurmdb-direct-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-sql-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-lua-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-devel-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-pam_slurm-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-sjstat-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-slurmdbd-{{ slurm_version }}-1.el6.x86_64.rpm"
-         #- "/root/rpmbuild/RPMS/x86_64/slurm-spank-x11-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-torque-{{ slurm_version }}-1.el6.x86_64.rpm"
-
-         - "/root/rpmbuild/RPMS/x86_64/slurm-munge-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-sjobexit-{{ slurm_version }}-1.el6.x86_64.rpm"
-
+    with_items: slurm_packages
 
   - name: pam.d/slurm
     copy: src=slurm dest=/etc/pam.d/slurm owner=root mode="644"
-    tags: slurm
-
 
   - name: slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode="644"
-    tags: slurm
 
   - name: add slurm user
     user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes
-    tags: slurm
 
   - name: add slurm log dir
     file: path="/var/log/slurm" state=directory owner=slurm group=slurm mode=750
-    tags: slurm
 
   - name: add slurm tmp dir
     file: path="/tmp/slurmd" state=directory owner=slurm group=slurm mode=750
-    tags: slurm
 
   - name: add slurm tmp dir
     file: path="/tmp/slurmstate" state=directory owner=slurm group=slurm mode=750
-    tags: slurm
-
-
-
-
-
-
-
-
 
   - name: start slurmdbd
     service: name=slurmdbd state=restarted

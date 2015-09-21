@@ -1,14 +1,18 @@
 ---
 
 # tasks file for ansible-role-slurm
+# Order matters.
 #
 - include: build.yml
   when: slurm_build == True and slurm_type == "service"
 
 - include: common.yml
 
+- include: service.yml
+  when: slurm_type == "service"
+
 - include: compute.yml
   when: slurm_type == "compute"
 
-- include: login.yml
+- include: submit.yml
   when: slurm_type == "submit"
