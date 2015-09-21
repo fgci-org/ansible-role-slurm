@@ -4,6 +4,7 @@
 
     - name: Remove duplicate CentOS repos
       file: name=/etc/yum.repos.d/centos6-latest.repo state=absent
+      when: major_relase is "6"
 
     - name: install EPEL6
       yum: name='http://www.nic.funet.fi/pub/mirrors/fedora.redhat.com/pub/epel/6/i386/epel-release-6-8.noarch.rpm' state=present
@@ -37,29 +38,3 @@
 
     - debug: msg="{{groups['all']}}"
       tags: debug
-
-
-
-#    - name: create /etc/hosts
-#      lineinfile: dest=/etc/hosts regexp='.*{{ item }}$' line="{{ hostvars[item]['ansible_default_ipv4']['address'] }} {{item}}" state=present
-#      when: hostvars[item]['ansible_default_ipv4']['address'] is defined
-#      with_items: groups['all']
-#      tags: debug
-
-    - name: Add cluster hosts to local /etc/hosts
-      sudo: yes
-      action: lineinfile
-        state=present
-        dest=/etc/hosts
-        line="{{ hostvars[item]['ssh_host'] }} {{ item }}"
-      when: hostvars[item]['ssh_host'] is defined
-      with_items: groups.all
-      tags: debug
-
-    - name: copy iptables settings
-      copy: src=iptables
-            dest=/etc/sysconfig/iptables owner=root mode=600
-
-
-    - name: restart iptables
-      service: name=iptables state=restarted
