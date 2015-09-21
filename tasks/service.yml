@@ -105,7 +105,7 @@
   - name: start munge
     service: name=munge state=restarted
 
-  - name: install Slurm
+  - name: install Slurm ( state=present - not updating )
     yum: name={{ item }} state=present
     with_items: slurm_packages
 
