@@ -1,0 +1,6 @@
+---
+
+# tasks file for ansible-role-slurm
+#
+- include: build.yml
+  when: slurm_build == True and slurm_type == "service"
