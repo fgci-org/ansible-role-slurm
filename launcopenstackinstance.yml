@@ -1,0 +1,27 @@
+---
+    - name: launch an instance
+      hosts: localhost
+      gather_facts: False
+ 
+      tasks:
+        - name: launch the Slurm servers
+          nova_compute:
+            state: present
+            login_username: "{{ lookup('env','OS_USERNAME') }}"
+            login_password: "{{ lookup('env','OS_PASSWORD') }}"
+            login_tenant_name: "{{ tenant_name }}"
+            auth_url: "{{ auth_url }}"
+            name: "{{ item }}"
+            image: "{{ image }}"
+            key_name: "{{ key_name }}"
+            wait_for: 200
+            flavor: "{{ flavor }}"
+            security_groups: "{{ security_groups }}"
+            nics:
+              - net-id: "{{ network_name }}"
+            meta:
+              hostname: slurms
+          with_items:
+            - slurm2-login
+            - slurm2-service
+            - slurm2-compute1

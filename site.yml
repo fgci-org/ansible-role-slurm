@@ -1,0 +1,6 @@
+---
+# file: site.yml
+ - include: slurm_service.yml
+ - include: slurm_compute.yml
+ - include: slurm_login.yml
+

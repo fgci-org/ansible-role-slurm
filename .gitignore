@@ -1,0 +1,6 @@
+# ignore the file that should contain the mysql_slurm_password
+group_vars/*/mysql
+
+# Backup files
+*~
+*.swp

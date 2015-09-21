@@ -1,0 +1,12 @@
+---
+
+  - name: get munge key for distribution to nodes
+    copy: src=roles/slurm_common/files/munge.key
+          dest=/etc/munge/munge.key
+          owner=munge
+          group=munge
+          mode=400
+          
+  - name: start munge
+    service: name=munge state=restarted
+
