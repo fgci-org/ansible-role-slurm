@@ -5,6 +5,10 @@ Tested with slurm versions:
  - 14.11.3
  - 15.08.0
 
+Tested with these linux distributions:
+ - CentOS 6
+ - CentOS 7
+
 ## How-To
 
 ### Launch the Openstack instances:
