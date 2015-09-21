@@ -1,9 +1,0 @@
----
-
-tenant_name: "tenant_name"
-key_name: "key_name"
-image: "CentOS-7.0"
-flavor: "small"
-security_groups: "default,slurm"
-network_name: "default"
-auth_url: "https://pouta.csc.fi:5000/v2.0/"
