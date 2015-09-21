@@ -1,4 +1,4 @@
-# Creates a slurm cluster in pouta
+# Creates a slurm cluster
 
 Tested with slurm versions:
  - 14.11.0
@@ -11,10 +11,9 @@ Tested with these linux distributions:
 
 ## How-To
 
-### Launch the Openstack instances:
+### Initial playbook configuration
 
- - ansible-playbook launcopenstackinstance.yml # launches the VMs. source the openstack-rc script before running this playbook. Also update the playbook to include the names of your key and tenant.
-  - see the group_vars/all/all file for default variables used for launching an OS instance
+ - see the group_vars/all/all file for default variables used for launching an OS instance
 
 ### Initial configuration of the instances and your workstation:
 
