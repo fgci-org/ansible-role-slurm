@@ -33,8 +33,7 @@
     mysql_db: name=slurm_acct_db state=present
 
   - name: create slurm db user
-    mysql_user: name=slurm password="d*d_ev_Eod42_24dArXx-" priv=slurm_acct_db.*:ALL state=present
-
+    mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present"
 
   - name: create munge key
     command: /usr/sbin/create-munge-key creates=/etc/munge/munge.key
