@@ -1,5 +1,5 @@
 ---
-    - name: update all packages first
+    - name: BUILD. update all packages first
       yum: pkg=* state=latest
 
     - name: Remove duplicate CentOS repos

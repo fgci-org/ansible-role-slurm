@@ -12,7 +12,7 @@ slurm_packages:
  - slurm-lua
  - slurm-devel
  - slurm-pam_slurm
- - slurm_sjstat
+ - slurm-sjstat
  - slurm-slurmdbd
  - slurm-torque
  - slurm-munge
