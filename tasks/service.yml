@@ -40,7 +40,7 @@
 
   - name: get munge key for distribution to nodes
     fetch: src=/etc/munge/munge.key
-           dest=roles/slurm_common/files/munge.key
+           dest=files/munge.key
            fail_on_missing=yes
            flat=yes
 
