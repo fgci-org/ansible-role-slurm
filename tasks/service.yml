@@ -1,33 +1,33 @@
 ---
   - name: name install service specific packages for EL6
-    yum: name="{{item}}" state=present
+    yum: "name={{item}} state=present"
     with_items:
       - "mysql"
       - "mysql-server"
       - "mysql-devel"
       - "lua-devel"
       - "MySQL-python"
-    when: major_release is 6
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
   - name: start mysql 
     service: name=mysqld state=started
     register: mysql_start
-    when: major_release is 6
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
   - name: name install service specific packages for EL7
-    yum: name="{{item}}" state=present
+    yum: "name={{item}} state=present"
     with_items:
       - "mariadb"
       - "mariadb-server"
       - "mariadb-devel"
       - "lua-devel"
       - "MySQL-python"
-    when: major_release is 7
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
   - name: start mariadb on EL7
     service: name=mariadb state=started
     register: mariadb_start
-    when: major_release is 7
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
   - name: create slurm acct db
     mysql_db: name=slurm_acct_db state=present
@@ -118,10 +118,10 @@
   - name: add slurm log dir
     file: path="/var/log/slurm" state=directory owner=slurm group=slurm mode=750
 
-  - name: add slurm tmp dir
+  - name: add slurmd tmp dir
     file: path="/tmp/slurmd" state=directory owner=slurm group=slurm mode=750
 
-  - name: add slurm tmp dir
+  - name: add slurmstate tmp dir
     file: path="/tmp/slurmstate" state=directory owner=slurm group=slurm mode=750
 
   - name: start slurmdbd
