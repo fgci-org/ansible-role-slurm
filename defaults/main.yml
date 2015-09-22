@@ -18,3 +18,28 @@ slurm_packages:
  - slurm-munge
  - slurm-sjobexit
 # - slurm-spank-x11
+#
+slurm_dep_packages:
+ - "xterm"
+ - "sssd"
+ - "gcc" 
+ - "make"
+ - "gcc-c++"
+ - "wget"
+ - "vim"
+ - "man"
+ - "rpm-build"
+ - "pam"
+ - "pam-devel"
+ - "hwloc"
+ - "hwloc-devel"
+ - "munge"
+ - "munge-devel"
+ - "munge-libs"
+ - "readline-devel"
+ - "openssl-devel"
+ - "perl-ExtUtils-MakeMaker"
+ - "lua"
+ - "lua-devel"
+ - "lua-posix"
+ - "lua-filesystem"
