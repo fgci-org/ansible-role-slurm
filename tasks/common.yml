@@ -1,48 +1,33 @@
 ---
+# This sh/could be put in a separate role..
+  - name: Add FGI slurm repo
+    template: src=fgislurm.repo dest=/etc/yum.repos.d/fgislurm.repo owner=root group=root mode=0644 backup=yes
+
+  - name: Import FGI slurm repo key
+    rpm_key: key=http://idris.fgi.csc.fi/fgirepo6/RPM-GPG-KEY-CSC-GRID-2 state=present
+
+##
 
   - name: install Slurm
     yum: name={{ item }} state=present
-    tags: slurm
-    with_items:
-         - "/root/rpmbuild/RPMS/x86_64/slurm-plugins-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-perlapi-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-slurmdb-direct-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-sql-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-lua-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-devel-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-pam_slurm-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-sjstat-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-slurmdbd-{{ slurm_version }}-1.el6.x86_64.rpm"
-         #- "/root/rpmbuild/RPMS/x86_64/slurm-spank-x11-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-torque-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-munge-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-sjobexit-{{ slurm_version }}-1.el6.x86_64.rpm"
-
+    with_items: slurm_packages
 
   - name: pam.d/slurm
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode="644"
-    tags: slurm
  
-
   - name: slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode="644"
-    tags: slurm
    
   - name: add slurm user
     user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes
-    tags: slurm
    
   - name: add slurm log dir
     file: path="/var/log/slurm" state=directory owner=slurm group=slurm mode=750
-    tags: slurm
 
   - name: add slurm tmp dir
     file: path="/tmp/slurmd" state=directory owner=slurm group=slurm mode=750
-    tags: slurm
 
   - name: add slurm tmp dir
     file: path="/tmp/slurmstate" state=directory owner=slurm group=slurm mode=750
-    tags: slurm
 
 

@@ -7,7 +7,6 @@
           group=munge
           mode=400
 
- 
   - name: start munge
     service: name=munge state=restarted
 

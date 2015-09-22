@@ -56,12 +56,10 @@
 
   - name: download Slurm source
     get_url: url="http://www.schedmd.com/download/latest/slurm-{{ slurm_version }}.tar.bz2" dest="/root/rpmbuild/SOURCES/slurm-{{ slurm_version }}.tar.bz2"
-    tags: slurm
     when: slurm_build == True
 
   - name: Extract Slurm source 2
     command: "tar -xjf /root/rpmbuild/SOURCES/slurm-{{ slurm_version}}.tar.bz2 -C /root/rpmbuild/SOURCES/ creates=/root/rpmbuild/SOURCES/slurm-{{ slurm_version }}"
-    tags: slurm
     when: slurm_build == True
 
   - name: build Slurm
