@@ -13,21 +13,21 @@
     with_items: slurm_packages
 
   - name: pam.d/slurm
-    copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode="644"
+    copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
  
   - name: slurm.conf
-    template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode="644"
+    template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644
    
   - name: add slurm user
     user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes
    
   - name: add slurm log dir
-    file: path="/var/log/slurm" state=directory owner=slurm group=slurm mode=750
+    file: path="/var/log/slurm" state=directory owner=slurm group=slurm mode=0750
 
   - name: add slurm tmp dir
-    file: path="/tmp/slurmd" state=directory owner=slurm group=slurm mode=750
+    file: path="/tmp/slurmd" state=directory owner=slurm group=slurm mode=0750
 
   - name: add slurm tmp dir
-    file: path="/tmp/slurmstate" state=directory owner=slurm group=slurm mode=750
+    file: path="/tmp/slurmstate" state=directory owner=slurm group=slurm mode=0750
 
 

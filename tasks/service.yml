@@ -107,7 +107,7 @@
     with_items: slurm_packages
 
   - name: pam.d/slurm
-    copy: src=slurm dest=/etc/pam.d/slurm owner=root mode="644"
+    copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode="644"
 
   - name: slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode="644"
