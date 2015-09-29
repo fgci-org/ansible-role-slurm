@@ -1,7 +1,7 @@
 ---
 
   - name: get munge key for distribution to nodes
-    copy: src=roles/slurm_common/files/munge.key
+    copy: src=files/munge.key
           dest=/etc/munge/munge.key
           owner=munge
           group=munge
