@@ -98,7 +98,7 @@
     file: path="/etc/slurm" state=directory owner=root group=root mode=0755
 
   - name: slurmdbd.conf
-    template: src=slurmdbd.conf.j2 dest=/etc/slurm/slurmdbd.conf owner=root mode=0640
+    template: src=slurmdbd.conf.j2 dest=/etc/slurm/slurmdbd.conf owner=root mode=0640 backup=yes
 
   - name: restart munge
     service: name=munge state=restarted
@@ -115,7 +115,7 @@
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
 
   - name: slurm.conf
-    template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644
+    template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
 
   - name: add slurm user
     user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes
