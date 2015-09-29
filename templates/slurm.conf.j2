@@ -9,8 +9,8 @@
 # See the slurm.conf man page for more information.
 #
 ClusterName=test_cluster
-ControlMachine={{ hostvars[groups['slurm_service'][0]]['inventory_hostname']  }}
-ControlAddr={{ hostvars[groups['slurm_service'][0]]['inventory_hostname'] }}
+ControlMachine={{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}
+ControlAddr={{ hostvars[groups['slurm_service'][0]]['ansible_hostname'] }}
 #BackupController=service02
 #BackupAddr=service02
 #
