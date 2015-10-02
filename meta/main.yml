@@ -2,7 +2,7 @@
 galaxy_info:
   author: Johan Guldmyr
   description:  Installs and configures squid on a cluster
-  company: CSC
+  company: CSC - IT Center for Science Ltd.
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
   # issue_tracker_url: http://example.com/issue/tracker
