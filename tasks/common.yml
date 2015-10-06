@@ -18,7 +18,7 @@
   - name: slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644
    
-  - name: add slurm user
+  - name: add slurm unix user
     user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes
    
   - name: add slurm log dir

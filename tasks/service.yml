@@ -1,5 +1,5 @@
 ---
-  - name: name install service specific packages for EL6
+  - name: install service specific packages for EL6
     yum: "name={{item}} state=present"
     with_items:
       - "mysql"
@@ -14,7 +14,7 @@
     register: mysql_start
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
-  - name: name install service specific packages for EL7
+  - name: install service specific packages for EL7
     yum: "name={{item}} state=present"
     with_items:
       - "mariadb"
@@ -35,14 +35,16 @@
   - name: check if slurm db user exists
     mysql_user: "name=slurm state=present"
     register: mysqlslurmuser
+    ignore_errors: yes
     tags: debug
 
   - name: print mysqlslurmuser
     debug: "var=mysqlslurmuser"
     tags: debug
 
-  - name: create slurm db user
+  - name: create slurm db user if it does not exist
     mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present"
+    when: mysqlslurmuser|failed
 
   - name: create munge key
     command: /usr/sbin/create-munge-key creates=/etc/munge/munge.key
