@@ -32,6 +32,15 @@
   - name: create slurm acct db
     mysql_db: name=slurm_acct_db state=present
 
+  - name: check if slurm db user exists
+    mysql_user: "name=slurm state=present"
+    register: mysqlslurmuser
+    tags: debug
+
+  - name: print mysqlslurmuser
+    debug: "var=mysqlslurmuser"
+    tags: debug
+
   - name: create slurm db user
     mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present"
 
