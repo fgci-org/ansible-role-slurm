@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Johan Guldmyr
-  description:  Installs and configures squid on a cluster
+  description:  Installs and configures slurm on a cluster
   company: CSC - IT Center for Science Ltd.
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
