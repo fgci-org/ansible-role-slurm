@@ -8,9 +8,15 @@
 
 ##
 
-  - name: install Slurm
+  - name: install Slurm on non-compute nodes
     yum: name={{ item }} state=present
     with_items: slurm_packages
+    when: slurm_type != "compute"
+
+  - name: install Slurm on compute nodes
+    yum: name={{ item }} state=present
+    with_items: slurm_node_packages
+    when: slurm_type == "compute"
 
   - name: pam.d/slurm
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644

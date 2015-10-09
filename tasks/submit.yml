@@ -8,5 +8,5 @@
           mode=400
           
   - name: start munge
-    service: name=munge state=restarted
+    service: name=munge state=restarted enabled=yes
 

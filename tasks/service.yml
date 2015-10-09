@@ -9,8 +9,8 @@
       - "MySQL-python"
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
-  - name: start mysql 
-    service: name=mysqld state=started
+  - name: start and enable mysql 
+    service: name=mysqld state=started enables=yes
     register: mysql_start
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
@@ -24,8 +24,8 @@
       - "MySQL-python"
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
-  - name: start mariadb on EL7
-    service: name=mariadb state=started
+  - name: start and enable mariadb on EL7
+    service: name=mariadb state=started enabled=yes
     register: mariadb_start
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
@@ -140,14 +140,14 @@
   - name: add slurmstate tmp dir
     file: path="/tmp/slurmstate" state=directory owner=slurm group=slurm mode=0750
 
-  - name: start slurmdbd
-    service: name=slurmdbd state=restarted
+  - name: start and enable slurmdbd
+    service: name=slurmdbd state=restarted enables=yes
 
   - name: add cluster to accounting
     command: "sacctmgr -i add cluster test_cluster"
     ignore_errors: yes
 
-  - name: start slurmctld
-    service: name=slurm state=restarted
+  - name: start and enable slurmctld
+    service: name=slurm state=restarted enabled=yes
 
 
