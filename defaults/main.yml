@@ -19,6 +19,22 @@ slurm_packages:
  - slurm-sjobexit
 # - slurm-spank-x11
 #
+
+slurm_node_packages:
+ - slurm
+ - slurm-devel
+ - slurm-lua
+ - slurm-munge
+ - slurm-pam_slurm
+ - slurm-perlapi
+ - slurm-plugins
+ - slurm-sjobexit
+ - slurm-sjstat
+ - slurm-sql
+ - slurm-torque
+# - slurm-spank-x11-0.2.5-1.x86_64
+# - slurm-spank-x11-debuginfo-0.2.5-1.x86_64
+
 slurm_dep_packages:
  - "xterm"
  - "sssd"
