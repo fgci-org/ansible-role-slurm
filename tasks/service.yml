@@ -10,7 +10,7 @@
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
   - name: start and enable mysql 
-    service: name=mysqld state=started enables=yes
+    service: name=mysqld state=started enabled=yes
     register: mysql_start
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
@@ -141,7 +141,7 @@
     file: path="/tmp/slurmstate" state=directory owner=slurm group=slurm mode=0750
 
   - name: start and enable slurmdbd
-    service: name=slurmdbd state=restarted enables=yes
+    service: name=slurmdbd state=restarted enabled=yes
 
   - name: add cluster to accounting
     command: "sacctmgr -i add cluster test_cluster"
