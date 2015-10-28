@@ -8,7 +8,7 @@
 #
 # See the slurm.conf man page for more information.
 #
-ClusterName=test_cluster
+ClusterName={{ siteName }}
 ControlMachine={{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}
 ControlAddr={{ hostvars[groups['slurm_service'][0]]['ansible_hostname'] }}
 #BackupController=service02
@@ -22,22 +22,22 @@ AuthType=auth/munge
 #JobCredentialPrivateKey=
 #JobCredentialPublicCertificate=
 StateSaveLocation=/tmp/slurmstate
-SlurmdSpoolDir=/tmp/slurmd
+SlurmdSpoolDir=/var/tmp/slurmd
 SwitchType=switch/none
 MpiDefault=none
 MpiParams=ports=12000-12999
 SlurmctldPidFile=/var/run/slurmctld.pid
 SlurmdPidFile=/var/run/slurmd.pid
-#ProctrackType=proctrack/cgroup
+ProctrackType=proctrack/linuxproc
 #PluginDir=
-CacheGroups=0
+CacheGroups=1
 FirstJobId=2230000
 ReturnToService=1
 MaxJobCount=30000
 #PlugStackConfig=
 #PropagatePrioProcess=
 #PropagateResourceLimits=
-PropagateResourceLimitsExcept=MEMLOCK,RLIMIT_AS,RLIMIT_CPU,RLIMIT_NPROC,RLIMIT_CORE,RLIMIT_DATA,RLIMIT_RSS,STACK
+PropagateResourceLimitsExcept=MEMLOCK
 EnforcePartLimits=YES
 #Prolog=/etc/slurm/prolog
 #Epilog=/etc/slurm/epilog
@@ -46,17 +46,17 @@ EnforcePartLimits=YES
 #SrunProlog=
 #SrunEpilog=
 #TaskProlog=
-#TaskEpilog=
-#TaskPlugin=task/cgroup
-TaskPlugin=task/none
+TaskEpilog=/usr/bin/epilog
+TaskPlugin=task/cgroup
+#TaskPlugin=task/none
 #TrackWCKey=no
 #TreeWidth=50
 #TmpFs=
 UsePAM=1
 RebootProgram=/sbin/reboot
 #
-#HealthCheckInterval=1800
-#HealthCheckProgram=/etc/slurm/health_check
+HealthCheckInterval=300
+HealthCheckProgram=/usr/bin/healthcheck
 #HealthCheckNodeState=IDLE
 
 #
@@ -66,61 +66,68 @@ RebootProgram=/sbin/reboot
 # TIMERS
 SlurmctldTimeout=300
 SlurmdTimeout=600
-InactiveLimit=1800
-MinJobAge=300
-MessageTimeout=99
-KillWait=10
+InactiveLimit=0
+MinJobAge=30
+MessageTimeout=30
+KillWait=30
 CompleteWait=12
 Waittime=0
 KillOnBadExit=1
 KeepAliveTime=60
+OverTimeLimit=60
 #
 # SCHEDULING
 SchedulerType=sched/backfill
-SchedulerParameters     = bf_max_job_user=30,bf_continue,bf_interval=60,bf_resolution=180,max_job_bf=300,defer_rpc_cnt=10
+#SchedulerParameters     = bf_max_job_user=30,bf_continue,bf_interval=60,bf_resolution=180,max_job_bf=300,defer_rpc_cnt=10
+ SchedulerParameters=bf_max_job_test=300,bf_max_job_part=200,bf_max_job_user=30,defer,bf_continue,bf_window=7200,bf_resolution=1800
+#
 #SchedulerAuth=
-#SchedulerPort=
+SchedulerPort=7321
 #SchedulerRootFilter=
 SelectType=select/cons_res
-SelectTypeParameters=CR_Core_Memory,CR_CORE_DEFAULT_DIST_BLOCK
-DefMemPerCPU=512
+SelectTypeParameters=CR_Core_Memory
+#DefMemPerCPU=512
 FastSchedule=2
 PriorityType=priority/multifactor
-PriorityDecayHalfLife=7-0
+PriorityDecayHalfLife=14-0
+PriorityFavorSmall=NO
 #PriorityUsageResetPeriod=14-0
-PriorityWeightFairshare=1000
-PriorityWeightAge=500
-PriorityWeightPartition=1000
-PriorityWeightJobSize=1000
-PriorityMaxAge=6-0
-Licenses=mdcs:256
+PriorityWeightFairshare=10000000
+PriorityWeightAge=10000
+PriorityWeightPartition=0
+PriorityWeightJobSize=10000
+PriorityWeightQOS=10000
+PriorityMaxAge=7-0
+#Licenses=mdcs:256
 #MaxSubmitJobs=2000
 #
 # LOGGING
-SlurmctldDebug=4
-SlurmctldLogFile=/var/log/slurm/Slurmctld.log
+SlurmctldDebug=3
+SlurmctldLogFile=/var/log/slurm/slurmctld.log
 SlurmdDebug=3
 #DebugFlags=backfill
-SlurmdLogFile=/var/log/slurm/Slurmd.log
+SlurmdLogFile=/var/log/slurm/slurmd.log
+JobCompLoc=/var/log/slurm/slurm_jobcomp.log
+JobCompType=jobcomp/filetxt
 #JobCompType=jobcomp/filetxt
 #JobCompLoc=/slurmdb/log/jobcomp.log
 #JobCompLoc=
 #
 # ACCOUNTING
 JobAcctGatherType=jobacct_gather/linux
-JobAcctGatherFrequency=energy=30,task=30
+JobAcctGatherFrequency=energy=60,task=60
 AcctGatherEnergyType=acct_gather_energy/rapl
-AcctGatherNodeFreq=30
+AcctGatherNodeFreq=60
 #JobAcctGatherFrequency=task=30
 #
 
 #
 AccountingStorageType=accounting_storage/slurmdbd
-AccountingStorageHost={{ hostvars[groups['slurm_service'][0]]['inventory_hostname']  }}
+AccountingStorageHost={{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}
 AccountingStorageLoc=slurm_acct_db
 #AccountingStoragePass=
 AccountingStorageUser=slurm
-AccountingStorageEnforce=associations,limits
+AccountingStorageEnforce=limits,qos
 
 
 #JobSubmitPlugins=lua
@@ -130,7 +137,9 @@ AccountingStorageEnforce=associations,limits
 #
 #TopologyPlugin=topology/tree
 # COMPUTE NODES
-NodeName={{ hostvars[groups['slurm_compute'][0]]['inventory_hostname']  }} Sockets=1 CoresPerSocket=1 ThreadsPerCore=1 RealMemory=3500 TmpDisk=1000 Weight=10
+NodeName={{ nodeBase }}[1-4] Procs=12 RealMemory=35000 Sockets=2 CoresPerSocket=6 ThreadsPerCore=1 State=UNKNOWN
 
-PartitionName=serial Nodes={{ hostvars[groups['slurm_compute'][0]]['inventory_hostname']  }} Default=YES MaxNodes=1 Shared=No DefaultTime=5 MaxTime=3-0 State=UP
+PartitionName=normal Nodes={{ nodeBase }}[1-4] Default=YES MaxTime=INFINITE State=UP DefaultTime=2:00:00
+PartitionName=test Nodes={{ nodeBase }}[1-4] Default=NO MaxTime=INFINITE State=UP DefaultTime=2:00:00
+
 
