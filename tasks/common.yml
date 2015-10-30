@@ -28,7 +28,7 @@
     user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes
 
   - name: write all slurm logs handled by rsyslog to one file
-    template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/slurm_rsyslog.conf owner=root mode=0644 backup=no
+    template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/10_slurm_rsyslog.conf owner=root mode=0644 backup=yes
    
   - name: add slurm log dir
     file: "path={{ slurm_log_dir }} state=directory owner=slurm group=slurm mode=0750"
