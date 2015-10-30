@@ -122,7 +122,7 @@ galaxy_info:
   #- cloud:ec2
   #- cloud:gce
   #- cloud:rax
-  #- clustering
+  - clustering
   #- database
   #- database:nosql
   #- database:sql
