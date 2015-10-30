@@ -4,15 +4,16 @@
 # Order matters.
 #
 - include: build.yml
-  when: slurm_build == True and slurm_type == "service"
+  when: slurm_build == True and slurm_type == "service" and ansible_os_family == "RedHat"
 
 - include: common.yml
+  when: ansible_os_family == "RedHat"
 
 - include: service.yml
-  when: slurm_type == "service"
+  when: slurm_type == "service" and ansible_os_family == "RedHat"
 
 - include: compute.yml
-  when: slurm_type == "compute"
+  when: slurm_type == "compute" and ansible_os_family == "RedHat"
 
 - include: submit.yml
-  when: slurm_type == "submit"
+  when: slurm_type == "submit" and ansible_os_family == "RedHat"
