@@ -63,6 +63,7 @@ slurm_dep_packages:
 #####
 # slurm_type (service, compute or submit) should be set with group_vars
 slurm_type: ""
+slurm_build: False
 slurm_log_dir: "/var/log/slurm"
 slurm_tmp_dir: "/var/tmp/slurmd"
 slurmd_tmp_dir: "{{ slurm_tmp_dir }}"
