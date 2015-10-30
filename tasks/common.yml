@@ -31,12 +31,12 @@
     template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/slurm_rsyslog.conf owner=root mode=0644 backup=no
    
   - name: add slurm log dir
-    file: path="/var/log/slurm" state=directory owner=slurm group=slurm mode=0750
+    file: "path={{ slurm_log_dir }} state=directory owner=slurm group=slurm mode=0750"
 
   - name: add slurm tmp dir
-    file: path="/tmp/slurmd" state=directory owner=slurm group=slurm mode=0750
+    file: "path={{ slurmd_tmp_dir }} state=directory owner=slurm group=slurm mode=0750"
 
   - name: add slurm tmp dir
-    file: path="/tmp/slurmstate" state=directory owner=slurm group=slurm mode=0750
+    file: "path={{ slurm_state_dir }} state=directory owner=slurm group=slurm mode=0750"
 
 

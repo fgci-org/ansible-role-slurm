@@ -8,7 +8,7 @@
 #
 # See the slurm.conf man page for more information.
 #
-ClusterName={{ siteName }}
+ClusterName={{ slurm_clustername }}
 ControlMachine={{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}
 ControlAddr={{ hostvars[groups['slurm_service'][0]]['ansible_hostname'] }}
 #BackupController=service02
@@ -21,8 +21,8 @@ SlurmdPort=6818
 AuthType=auth/munge
 #JobCredentialPrivateKey=
 #JobCredentialPublicCertificate=
-StateSaveLocation=/tmp/slurmstate
-SlurmdSpoolDir=/var/tmp/slurmd
+StateSaveLocation={{ slurm_state_dir }}
+SlurmdSpoolDir={{ slurm_tmp_dir }}
 SwitchType=switch/none
 MpiDefault=none
 MpiParams=ports=12000-12999
@@ -103,15 +103,12 @@ PriorityMaxAge=7-0
 #
 # LOGGING
 SlurmctldDebug=3
-#SlurmctldLogFile=/var/log/slurm/slurmctld.log
+#SlurmctldLogFile={{ slurm_log_dir }}/slurmctld.log
 SlurmdDebug=3
 #DebugFlags=backfill
-#SlurmdLogFile=/var/log/slurm/slurmd.log
-JobCompLoc=/var/log/slurm/slurm_jobcomp.log
+#SlurmdLogFile={{ slurm_log_dir }}/slurmd.log
+JobCompLoc={{ slurm_log_dir }}/slurm_jobcomp.log
 JobCompType=jobcomp/filetxt
-#JobCompType=jobcomp/filetxt
-#JobCompLoc=/slurmdb/log/jobcomp.log
-#JobCompLoc=
 #
 # ACCOUNTING
 JobAcctGatherType=jobacct_gather/linux

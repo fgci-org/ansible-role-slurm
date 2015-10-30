@@ -133,19 +133,19 @@
     user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes
 
   - name: add slurm log dir
-    file: path="/var/log/slurm" state=directory owner=slurm group=slurm mode=0750
+    file: path={{ slurm_log_dir }} state=directory owner=slurm group=slurm mode=0750
 
   - name: add slurmd tmp dir
-    file: path="/tmp/slurmd" state=directory owner=slurm group=slurm mode=0750
+    file: "path={{ slurmd_tmp_dir }} state=directory owner=slurm group=slurm mode=0750"
 
   - name: add slurmstate tmp dir
-    file: path="/tmp/slurmstate" state=directory owner=slurm group=slurm mode=0750
+    file: "path={{ slurm_state_dir }} state=directory owner=slurm group=slurm mode=0750"
 
   - name: start and enable slurmdbd
     service: name=slurmdbd state=restarted enabled=yes
 
   - name: add cluster to accounting
-    command: "sacctmgr -i add cluster test_cluster"
+    command: "sacctmgr -i add cluster {{ siteName }}"
     ignore_errors: yes
 
   - name: start and enable slurmctld

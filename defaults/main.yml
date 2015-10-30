@@ -59,3 +59,10 @@ slurm_dep_packages:
  - "lua-devel"
  - "lua-posix"
  - "lua-filesystem"
+
+#####
+slurm_log_dir: "/var/log/slurm"
+slurm_tmp_dir: "/var/tmp/slurmd"
+slurmd_tmp_dir: {{ slurm_tmp_dir }}
+slurm_state_dir: "/tmp/slurmstate"
+slurm_clustername: {{ siteName | default("test_cluster")}}
