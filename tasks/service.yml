@@ -35,6 +35,14 @@
     service: name=mariadb state=restarted
     when: install_slurm_packages.changed
 
+  - name: systemctl mariadb status
+    command: systemctl mariadb status
+    register: systemctl_slurm_status
+
+  - name: print systemctl_slurm_status
+    debug: "var=systemctl_slurm_status"
+    tags: debug
+
   - name: wait for mysql in port 3306 to start
     wait_for: port=3306 delay=10 timeout=60
 
