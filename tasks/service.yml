@@ -35,6 +35,16 @@
     service: name=mariadb state=restarted
     when: install_slurm_packages.changed
 
+  - name: cat /etc/my.cnf
+    command: cat /etc/my.cnf
+    register: slurm_mariadb_cnf
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
+  - name: print slurm_mariadb_cnf
+    debug: "var=slurm_mariadb_cnf"
+    tags: debug
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
   - name: systemctl status mariadb
     command: systemctl status mariadb
     register: systemctl_slurm_status
