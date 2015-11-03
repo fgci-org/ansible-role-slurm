@@ -35,8 +35,8 @@
     service: name=mariadb state=restarted
     when: install_slurm_packages.changed
 
-  - name: systemctl mariadb status
-    command: systemctl mariadb status
+  - name: systemctl status mariadb
+    command: systemctl status mariadb
     register: systemctl_slurm_status
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
