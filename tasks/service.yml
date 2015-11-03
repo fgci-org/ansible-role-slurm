@@ -16,7 +16,7 @@
 
   - name: install service specific packages for EL7
     yum: "name={{item}} state=present"
-    regster: install_slurm_packages
+    register: install_slurm_packages
     with_items:
       - "mariadb"
       - "mariadb-server"
