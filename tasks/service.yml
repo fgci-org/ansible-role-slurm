@@ -9,13 +9,14 @@
       - "MySQL-python"
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
-  - name: start and enable mysql 
+  - name: start and enable mysql
     service: name=mysqld state=started enabled=yes
     register: mysql_start
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
   - name: install service specific packages for EL7
     yum: "name={{item}} state=present"
+    regster: install_slurm_packages
     with_items:
       - "mariadb"
       - "mariadb-server"
@@ -29,6 +30,10 @@
     service: name=mariadb state=started enabled=yes
     register: mariadb_start
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
+  - name: restart mariadb after install
+    service: name=mariadb state=restarted
+    when: install_slurm_packages.changed
 
   - name: wait for mysql in port 3306 to start
     wait_for: port=3306 delay=10
