@@ -30,6 +30,9 @@
     register: mariadb_start
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
+  - name: wait for mysql in port 3306 to start
+    wait_for: port=3306 delay=10
+
   - name: create slurm acct db
     mysql_db: name=slurm_acct_db state=present
 
