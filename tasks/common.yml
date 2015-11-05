@@ -6,6 +6,10 @@
   - name: Import FGI slurm repo key
     rpm_key: key=http://idris.fgi.csc.fi/fgirepo6/RPM-GPG-KEY-CSC-GRID-2 state=present
 
+  - name: Install FGCI repo 
+    yum: pkg=http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
+    when: ansible_distribution_major_version == "7" and fgci_install == True
+
 ##
 
   - name: install Slurm on non-compute nodes
@@ -17,6 +21,10 @@
     yum: name={{ item }} state=present
     with_items: slurm_node_packages
     when: slurm_type == "compute"
+
+  - name: install fgci Slurm addons
+    yum: name=slurm-fgi-addons state=present
+    when: fgci_install and ansible_distribution_major_version == "7"
 
   - name: pam.d/slurm
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644

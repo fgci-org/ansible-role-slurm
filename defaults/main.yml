@@ -69,3 +69,4 @@ slurm_tmp_dir: "/var/tmp/slurmd"
 slurmd_tmp_dir: "{{ slurm_tmp_dir }}"
 slurm_state_dir: "/tmp/slurmstate"
 slurm_clustername: "{{ siteName | default('test_cluster')}}"
+fgci_install: True
