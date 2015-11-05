@@ -134,7 +134,7 @@ AccountingStorageEnforce=limits,qos
 #
 #TopologyPlugin=topology/tree
 # COMPUTE NODES
-NodeName={{ nodeBase }}[1-4] Procs=12 RealMemory=35000 Sockets=2 CoresPerSocket=6 ThreadsPerCore=1 State=UNKNOWN
+NodeName={{ nodeBase }}[1-4] RealMemory=126000 Sockets=2 CoresPerSocket=6 ThreadsPerCore=1 State=UNKNOWN
 
 PartitionName=normal Nodes={{ nodeBase }}[1-4] Default=YES MaxTime=INFINITE State=UP DefaultTime=2:00:00
 PartitionName=test Nodes={{ nodeBase }}[1-4] Default=NO MaxTime=INFINITE State=UP DefaultTime=2:00:00
