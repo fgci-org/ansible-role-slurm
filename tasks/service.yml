@@ -75,9 +75,16 @@
     mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present"
     when: mysqlslurmuser|failed
 
+  - name: does the munge.key exist?
+    stat: path=/etc/munge/munge.key
+    register: mungekeystat
+    always_run: True
+    ignore_errors: True
+
   - name: create munge key
     command: /usr/sbin/create-munge-key creates=/etc/munge/munge.key
     register: mungekeygen
+    when: mungekeystat is defined and mungekeystat.stat.exists == False
 
   - name: get munge key for distribution to nodes
     fetch: src=/etc/munge/munge.key
@@ -142,7 +149,7 @@
 
   - name: restart munge
     service: name=munge state=restarted
-    when: mungekeygen.changed
+    when: mungekeygen.changed and mungekeygen is defined
 
   - name: start and enable munge
     service: name=munge state=started enabled=yes
