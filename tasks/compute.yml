@@ -10,5 +10,10 @@
   - name: start and enable munge
     service: name=munge state=restarted enabled=yes
 
-  - name: start and enable slurm
+  - name: start and enable slurm on EL6
     service: name=slurm state=restarted enabled=yes
+    when: ansible_distribution_major_version == "6"
+
+  - name: start and enable slurmD on EL7
+    service: name=slurmd state=restarted enabled=yes
+    when: ansible_distribution_major_version == "7"
