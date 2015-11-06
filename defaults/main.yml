@@ -61,6 +61,10 @@ slurm_dep_packages:
  - "lua-filesystem"
 
 #####
+fgci_install: True
+siteName: "io"
+nodeBase: "{{ siteName }}"
+nodeGpuBase: "gpu"
 # slurm_type (service, compute or submit) should be set with group_vars
 slurm_type: ""
 slurm_build: False
@@ -68,5 +72,23 @@ slurm_log_dir: "/var/log/slurm"
 slurm_tmp_dir: "/var/tmp/slurmd"
 slurmd_tmp_dir: "{{ slurm_tmp_dir }}"
 slurm_state_dir: "/tmp/slurmstate"
+##
 slurm_clustername: "{{ siteName | default('test_cluster')}}"
-fgci_install: True
+slurm_compute_nodes: "{{ nodeBase }}[1-4]"
+slurm_with_gpu: True
+slurm_gpu_nodes: "{{ nodeGpuBase }}"
+##
+slurm_first_job_id: "2230000"
+slurm_max_job_count: "30000"
+slurm_scheduler_parameters: "bf_max_job_test=300,bf_max_job_part=200,bf_max_job_user=30,defer,bf_continue,bf_window=7200,bf_resolution=1800"
+slurm_select_type_parameters: "CR_Core_Memory"
+slurm_priority_type: "priority/multifactor"
+slurm_priority_decayhalflife: "14-0"
+slurm_priority_favorsmall: "NO"
+slurm_priority_weight_fairshare: "10000000"
+slurm_priority_weight_age: "10000"
+slurm_priority_weight_partition: "0"
+slurm_priority_weight_jobsize: "10000"
+slurm_priority_weight_qos: "10000"
+slurm_priority_maxage: "7"
+slurm_accounting_storage_enforce: "limits,qos"
