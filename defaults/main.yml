@@ -2,7 +2,6 @@
 
 # Defaults for ansible-role-slurm
 #
-
 slurm_packages:
  - slurm-plugins
  - slurm
@@ -65,6 +64,8 @@ fgci_install: True
 siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"
+# slurm_version is only used when grabbing the source 
+slurm_version: "15.08.3"
 # slurm_type (service, compute or submit) should be set with group_vars
 slurm_type: ""
 slurm_build: False
