@@ -63,8 +63,16 @@ TaskPlugin=task/cgroup
 UsePAM=1
 RebootProgram=/sbin/reboot
 #
+{% if slurm_healthcheck_interval is defined %}
+HealthCheckInterval={{ slurm_healthcheck_interval }}
+{% else %}
 HealthCheckInterval=300
+{% endif %}
+{% if slurm_healthcheck_program is defined %}
+HealthCheckProgram={{ slurm_healthcheck_program }}
+{% else %}
 HealthCheckProgram=/usr/bin/healthcheck
+{% endif %}
 #HealthCheckNodeState=IDLE
 
 #
