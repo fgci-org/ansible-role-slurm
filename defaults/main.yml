@@ -64,6 +64,8 @@ fgci_install: True
 siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"
+#set slurm_mysql_passwords to something. If this variable is not set the role will fail.
+#slurm_mysql_password: "CHANGEME"
 # slurm_version is only used when grabbing the source 
 slurm_version: "15.08.3"
 # slurm_type (service, compute or submit) should be set with group_vars
