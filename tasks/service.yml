@@ -180,14 +180,18 @@
   - name: add slurmstate tmp dir
     file: "path={{ slurm_state_dir }} state=directory owner=slurm group=slurm mode=0750"
 
-  - name: start and enable slurmdbd
+  - name: restart and enable slurmdbd
     service: name=slurmdbd state=restarted enabled=yes
+
+  - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
+    command: "sacctmgr -n show cluster {{ siteName }}"
+    register: slurm_clusterlist
+    always_run: yes
+    changed_when: False
 
   - name: add cluster to accounting
     command: "sacctmgr -i add cluster {{ siteName }}"
-    ignore_errors: yes
+    when: slurm_clusterlist.stdout.find("{{siteName}}") == -1
 
-  - name: start and enable slurmctld
+  - name: restart and enable slurm
     service: name=slurm state=restarted enabled=yes
-
-
