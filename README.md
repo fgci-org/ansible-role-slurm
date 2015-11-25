@@ -4,11 +4,13 @@
 Tested with slurm versions:
  - 14.11.0
  - 14.11.3
- - 15.08.0
+ - 15.08.x
 
 Tested with these linux distributions:
  - CentOS 6
+  - Only 14.11.x
  - CentOS 7
+  - Only 15.08.x
 
 ## How-To
 
@@ -27,7 +29,10 @@ Update the files in group_vars/ to your settings
  
 You also need to add a mysql_slurm_password: "PASSWORD" string somewhere. This will be used to set a password for the slurm mysql user.
 
-### Initial configuration of the instances and your workstation:
+
+### Below instructions are for running slurm and perhaps multiple slurm instances in openstack
+
+#### Initial configuration of the instances and your workstation:
 
  - First yum -y install nc on the bastion host.
  - Then setup SSH config so you don't have to have a public IP on each instance. Change the Hostname in "Host bastion" to the service node.
@@ -100,4 +105,3 @@ sacctmgr create user name=cloud-user account=csc
 
  - Marco Passerini (original author)
  - Johan Guldmyr (updates done as part of FGCI work)
-
