@@ -78,6 +78,11 @@ slurm_state_dir: "/tmp/slurmstate"
 ##
 slurm_clustername: "{{ siteName | default('test_cluster')}}"
 slurm_compute_nodes: "{{ nodeBase }}[1-4]"
+slurm_compute_realmemory: "126000"
+slurm_compute_sockets: "2"
+slurm_compute_corespersocket: "12"
+slurm_compute_threadspercore: "2"
+slurm_node_state: "UNKNOWN"
 slurm_with_gpu: True
 slurm_gpu_nodes: "{{ nodeGpuBase }}"
 ##
