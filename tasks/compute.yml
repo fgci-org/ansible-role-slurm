@@ -6,15 +6,15 @@
           owner=munge
           group=munge
           mode=400
-    when: slurm_munge_ansible_push == True
+    when: slurm_munge_key_from_nfs == False
 
   - name: copy the munge key from NFS
     command: cp -v {{ slurm_munge_key_nfs }} /etc/munge/munge.key
-    when: slurm_munge_ansible_push == False
+    when: slurm_munge_key_from_nfs == True
 
   - name: set permissions on the munge key from NFS
     file: path=/etc/munge/munge.key mode=0400 owner=munge group=munge
-    when: slurm_munge_ansible_push == False
+    when: slurm_munge_key_from_nfs == True
 
   - name: start and enable munge
     service: name=munge state=restarted enabled=yes
