@@ -59,13 +59,14 @@ slurm_dep_packages:
  - "lua-posix"
  - "lua-filesystem"
 
+admingroup: "admin"
 # By setting slurm_munge_key_from_nfs to True we copy the munge.key from slurm_munge_key_nfs
 # If it's False then we copy it from files/ where ansible runs
 # This is the default. So with ansible-pull we set slurm_munge_key_nfs to True
 slurm_munge_key_from_nfs: False
 # By default we copy the munge.key to NFS
 slurm_munge_key_to_nfs: True
-slurm_munge_key_nfs_dir: "/home/admin"
+slurm_munge_key_nfs_dir: "/home/{{ admingroup }}"
 slurm_munge_key_nfs: "{{ slurm_munge_key_nfs_dir }}/munge.key"
 #
 
