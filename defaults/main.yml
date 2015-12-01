@@ -77,6 +77,10 @@ slurmd_tmp_dir: "{{ slurm_tmp_dir }}"
 slurm_state_dir: "/tmp/slurmstate"
 ##
 slurm_service_node: "{{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}"
+# By setting slurm_munge_ansible_push we copy the munge.key from the machine where ansible runes
+# If it's False then we copy it from slurm_munge_key_nfs
+slurm_munge_ansible_push: True
+slurm_munge_key_nfs: "/home/admin/munge.key"
 
 slurm_clustername: "{{ siteName | default('test_cluster')}}"
 slurm_compute_nodes: "{{ nodeBase }}[1-4]"

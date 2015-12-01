@@ -96,6 +96,10 @@
            fail_on_missing=yes
            flat=yes
 
+  - name: copy munge.key to /home/admin/munge.key too
+    copy: src=files/munge.key dest={{ slurm_munge_key_nfs }}
+    when: slurm_munge_ansible_push == False
+
   - name: create build dirs
     file: path="/root/rpmbuild/{{ item }}" state=directory
     with_items:
