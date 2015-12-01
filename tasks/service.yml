@@ -101,7 +101,7 @@
     when: slurm_munge_key_to_nfs
 
   - name: copy munge.key to slurm_munge_key_nfs_dir too
-    copy: src=files/munge.key dest={{ slurm_munge_key_nfs }}
+    copy: src=files/munge.key dest={{ slurm_munge_key_nfs }} mode=0400 owner=munge group=munge
     when: slurm_munge_key_to_nfs
 
   - name: create build dirs
