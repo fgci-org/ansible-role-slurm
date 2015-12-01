@@ -17,8 +17,6 @@
     when: slurm_munge_ansible_push == False
 
   - name: start and enable munge
-
-  - name: start and enable munge
     service: name=munge state=restarted enabled=yes
 
   - name: start and enable slurm on EL6
