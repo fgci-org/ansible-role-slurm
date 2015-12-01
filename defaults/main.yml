@@ -76,6 +76,8 @@ slurm_tmp_dir: "/var/tmp/slurmd"
 slurmd_tmp_dir: "{{ slurm_tmp_dir }}"
 slurm_state_dir: "/tmp/slurmstate"
 ##
+slurm_service_node: "{{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}"
+
 slurm_clustername: "{{ siteName | default('test_cluster')}}"
 slurm_compute_nodes: "{{ nodeBase }}[1-4]"
 slurm_compute_realmemory: "126000"

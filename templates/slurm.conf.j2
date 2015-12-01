@@ -9,8 +9,8 @@
 # See the slurm.conf man page for more information.
 #
 ClusterName={{ slurm_clustername }}
-ControlMachine={{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}
-ControlAddr={{ hostvars[groups['slurm_service'][0]]['ansible_hostname'] }}
+ControlMachine={{ slurm_service_node }}
+ControlAddr={{ slurm_service_node }}
 #BackupController=service02
 #BackupAddr=service02
 #
@@ -180,7 +180,7 @@ AcctGatherNodeFreq=60
 
 #
 AccountingStorageType=accounting_storage/slurmdbd
-AccountingStorageHost={{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}
+AccountingStorageHost={{ slurm_service_node }}
 AccountingStorageLoc=slurm_acct_db
 #AccountingStoragePass=
 AccountingStorageUser=slurm
