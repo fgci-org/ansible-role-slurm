@@ -46,7 +46,7 @@
   - name: add slurm tmp dir
     file: "path={{ slurmd_tmp_dir }} state=directory owner=slurm group=slurm mode=0750"
 
-  - name: add slurm tmp dir
+  - name: add slurm state dir
     file: "path={{ slurm_state_dir }} state=directory owner=slurm group=slurm mode=0750"
 
 

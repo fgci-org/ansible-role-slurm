@@ -83,9 +83,9 @@ slurm_version: "15.08.3"
 slurm_type: ""
 slurm_build: False
 slurm_log_dir: "/var/log/slurm"
-slurm_tmp_dir: "/var/tmp/slurmd"
+slurm_tmp_dir: "/slurmdb/tmp/slurmd"
 slurmd_tmp_dir: "{{ slurm_tmp_dir }}"
-slurm_state_dir: "/tmp/slurmstate"
+slurm_state_dir: "/slurmdb/tmp"
 ##
 slurm_service_node: "{{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}"
 slurm_clustername: "{{ siteName | default('test_cluster')}}"
