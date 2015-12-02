@@ -9,7 +9,7 @@
     when: slurm_munge_key_from_nfs == False
 
   - name: copy the munge key from NFS
-    command: cp -v {{ slurm_munge_key_nfs }} /etc/munge/munge.key
+    command: cp -v {{ slurm_munge_key_nfs }} /etc/munge/munge.key creates=/etc/munge/munge.key
     when: slurm_munge_key_from_nfs == True
 
   - name: set permissions on the munge key from NFS
