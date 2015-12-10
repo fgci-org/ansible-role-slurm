@@ -39,21 +39,25 @@
     command: cat /etc/my.cnf
     register: slurm_mariadb_cnf
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+    changed_when: False
 
   - name: print slurm_mariadb_cnf
     debug: "var=slurm_mariadb_cnf"
     tags: debug
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+    changed_when: False
 
   - name: systemctl status mariadb
     command: systemctl status mariadb
     register: systemctl_slurm_status
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+    changed_when: False
 
   - name: print systemctl_slurm_status
     debug: "var=systemctl_slurm_status"
     tags: debug
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+    changed_when: False
 
   - name: wait for mysql in port 3306 to start
     wait_for: port=3306 delay=10 timeout=60
@@ -70,6 +74,7 @@
   - name: print mysqlslurmuser
     debug: "var=mysqlslurmuser"
     tags: debug
+    changed_when: False
 
   - name: slurm_mysql_password variable must be set
     assert:
