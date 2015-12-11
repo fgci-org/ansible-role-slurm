@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+# FGCI slurm.conf
 # Example slurm.conf file. Please run configurator.html
 # (in doc/html) to build a configuration file customized
 # for your environment.
@@ -21,7 +21,7 @@ AuthType=auth/munge
 #JobCredentialPrivateKey=
 #JobCredentialPublicCertificate=
 StateSaveLocation={{ slurm_state_dir }}
-SlurmdSpoolDir={{ slurm_tmp_dir }}
+#SlurmdSpoolDir={{ slurm_tmp_dir }}
 SwitchType=switch/none
 MpiDefault=none
 MpiParams=ports=12000-12999
