@@ -179,11 +179,11 @@ AcctGatherNodeFreq=60
 #
 
 #
-AccountingStorageType=accounting_storage/slurmdbd
-AccountingStorageHost={{ slurm_service_node }}
-AccountingStorageLoc=slurm_acct_db
+AccountingStorageType={{ slurm_accounting_storage_type }}
+AccountingStorageHost={{ slurm_accounting_storage_host }}
+AccountingStorageLoc={{ slurm_accounting_storage_loc }}
 #AccountingStoragePass=
-AccountingStorageUser=slurm
+AccountingStorageUser={{ slurm_accounting_storage_user }}
 {% if slurm_accounting_storage_enforce is defined %}
 AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
 {% else %}
