@@ -72,6 +72,7 @@ slurm_munge_key_nfs: "{{ slurm_munge_key_nfs_dir }}/munge.key"
 
 #####
 fgci_install: True
+fgci_slurmrepo_version: "fgcislurm1508"
 siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"
