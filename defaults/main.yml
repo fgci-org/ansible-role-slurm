@@ -123,4 +123,10 @@ slurm_cgroup_constrain_cores: "yes"
 slurm_cgroup_cpu_affinity: "yes"
 slurm_cgroup_constrain_ram: "no" # Use the very strict cgroup-based memory tracker?
 slurm_cgroup_constrain_ram_limit: "100.1" # At which % of requested memory should the process get killed?
+slurm_cgroup_constrain_swap: "no"
+slurm_cgroup_taskaffinity: "yes" 
+slurm_cgroup_allowedswapspace: "120" # % of memory allocation that can be phys mem+swap
+slurm_cgroup_constrain_devices: "no" 
+slurm_cgroup_min_ram: "500" # always allocate this much memory to each job
+slurm_cgroup_release_agent_dir: "/etc/slurm/cgroup"
 
