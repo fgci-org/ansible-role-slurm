@@ -1,0 +1,14 @@
+###
+#
+# Slurm cgroup support configuration file
+#
+# See man slurm.conf and man cgroup.conf for further
+# information on cgroup configuration parameters
+#--
+CgroupAutomount={{ slurm_cgroup_automount }}
+CgroupReleaseAgentDir="/etc/slurm/cgroup"
+
+ConstrainCores={{ slurm_cgroup_constrain_cores }}
+ConstrainRAMSpace={{ slurm_cgroup_constrain_ram }}
+ConstrainRAMlimit={{ slurm_cgroup_constrain_ram_limit }}
+

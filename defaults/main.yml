@@ -118,3 +118,9 @@ slurm_priority_maxage: "7"
 slurm_accounting_storage_enforce: "limits,qos"
 slurm_healthcheck_program: "/usr/sbin/nhc"
 slurm_healthcheck_interval: "300"
+slurm_cgroup_automount : "yes"
+slurm_cgroup_constrain_cores: "yes"
+slurm_cgroup_cpu_affinity: "yes"
+slurm_cgroup_constrain_ram: "no" # Use the very strict cgroup-based memory tracker?
+slurm_cgroup_constrain_ram_limit: "100.1" # At which % of requested memory should the process get killed?
+
