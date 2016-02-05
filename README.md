@@ -1,5 +1,9 @@
-# Creates a slurm cluster
+ansible-role-slurm
+------------------
 
+[![Build Status](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-slurm.svg?branch=master)](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-slurm)
+
+# Creates a slurm cluster
 
 Tested with slurm versions:
  - 14.11.0
@@ -101,7 +105,9 @@ sacctmgr create user name=cloud-user account=csc
 
  - Would be nice with a role /tag where one could just run ansible-playbook site.yml --tag new-slur-config and it pushes new config and restarts/reconfigs as necessary.
 
-# Authors:
+# Authors / Contributors:
 
  - Marco Passerini (original author)
- - Johan Guldmyr (updates done as part of FGCI work)
+ - https://github.com/martbhell
+ - https://github.com/tiggi
+ - https://github.com/A1ve5
