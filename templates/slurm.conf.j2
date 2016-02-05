@@ -30,17 +30,9 @@ SlurmdPidFile=/var/run/slurmd.pid
 ProctrackType=proctrack/linuxproc
 #PluginDir=
 CacheGroups=1
-{% if slurm_first_job_id is defined %}
 FirstJobId={{ slurm_first_job_id }}
-{% else %}
-FirstJobId=1
-{% endif %}
 ReturnToService=1
-{% if slurm_max_job_count is defined %}
 MaxJobCount={{ slurm_max_job_count }}
-{% else %}
-MaxJobCount=30000
-{% endif %}
 #PlugStackConfig=
 #PlugStackConfig=
 #PropagatePrioProcess=
@@ -63,16 +55,8 @@ TaskPlugin=task/cgroup
 UsePAM=1
 RebootProgram=/sbin/reboot
 #
-{% if slurm_healthcheck_interval is defined %}
 HealthCheckInterval={{ slurm_healthcheck_interval }}
-{% else %}
-HealthCheckInterval=300
-{% endif %}
-{% if slurm_healthcheck_program is defined %}
 HealthCheckProgram={{ slurm_healthcheck_program }}
-{% else %}
-HealthCheckProgram=/usr/bin/healthcheck
-{% endif %}
 #HealthCheckNodeState=IDLE
 
 #
@@ -95,69 +79,25 @@ OverTimeLimit=60
 # SCHEDULING
 SchedulerType=sched/backfill
 #SchedulerParameters     = bf_max_job_user=30,bf_continue,bf_interval=60,bf_resolution=180,max_job_bf=300,defer_rpc_cnt=10
-{% if slurm_scheduler_parameters is defined %}
 SchedulerParameters={{ slurm_scheduler_parameters }}
-{% else %}
-SchedulerParameters=bf_max_job_test=300,bf_max_job_part=200,bf_max_job_user=30,defer,bf_continue,bf_window=7200,bf_resolution=1800
-{% endif %}
 #
 #SchedulerAuth=
 SchedulerPort=7321
 #SchedulerRootFilter=
 SelectType=select/cons_res
-{% if slurm_select_type_parameters is defined %}
 SelectTypeParameters={{ slurm_select_type_parameters }}
-{% else %}
-SelectTypeParameters=CR_Core_Memory
-{% endif %}
 #DefMemPerCPU=512
 FastSchedule=2
-{% if slurm_priority_type is defined %}
 PriorityType={{ slurm_priority_type }}
-{% else %}
-PriorityType=priority/multifactor
-{% endif %}
-{% if slurm_priority_decayhalflife is defined %}
 PriorityDecayHalfLife={{ slurm_priority_decayhalflife }}
-{% else %}
-PriorityDecayHalfLife=14-0
-{% endif %}
-{% if slurm_priority_favorsmall is defined %}
 PriorityFavorSmall={{ slurm_priority_favorsmall }}
-{% else %}
-PriorityFavorSmall=NO
-{% endif %}
 #PriorityUsageResetPeriod=14-0
-{% if slurm_priority_weight_fairshare is defined %}
 PriorityWeightFairshare={{ slurm_priority_weight_fairshare }}
-{% else %}
-PriorityWeightFairshare=10000000
-{% endif %}
-{% if slurm_priority_weight_age is defined %}
 PriorityWeightAge={{ slurm_priority_weight_age }}
-{% else %}
-PriorityWeightAge=10000
-{% endif %}
-{% if slurm_priority_weight_partition is defined %}
 PriorityWeightPartition={{ slurm_priority_weight_partition }}
-{% else %}
-PriorityWeightPartition=0
-{% endif %}
-{% if slurm_priority_weight_jobsize is defined %}
 PriorityWeightJobSize={{ slurm_priority_weight_jobsize }}
-{% else %}
-PriorityWeightJobSize=10000
-{% endif %}
-{% if slurm_priority_weight_qos is defined %}
 PriorityWeightQOS={{ slurm_priority_weight_qos }}
-{% else %}
-PriorityWeightQOS=10000
-{% endif %}
-{% if slurm_priority_maxage is defined %}
 PriorityMaxAge={{ slurm_priority_maxage }}
-{% else %}
-PriorityMaxAge=7-0
-{% endif %}
 #Licenses=mdcs:256
 #MaxSubmitJobs=2000
 #
@@ -184,11 +124,7 @@ AccountingStorageHost={{ slurm_accounting_storage_host }}
 AccountingStorageLoc={{ slurm_accounting_storage_loc }}
 #AccountingStoragePass=
 AccountingStorageUser={{ slurm_accounting_storage_user }}
-{% if slurm_accounting_storage_enforce is defined %}
 AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
-{% else %}
-AccountingStorageEnforce=limits,qos
-{% endif %}
 
 
 #JobSubmitPlugins=lua
@@ -201,6 +137,7 @@ AccountingStorageEnforce=limits,qos
 #NodeName={{ nodeBase }}[1-4] RealMemory=126000 Sockets=2 CoresPerSocket=6 ThreadsPerCore=1 State=UNKNOWN
 NodeName={{ slurm_compute_nodes }} RealMemory={{ slurm_compute_realmemory }} Sockets={{ slurm_compute_sockets }} CoresPerSocket={{ slurm_compute_corespersocket }} ThreadsPerCore={{ slurm_compute_threadspercore }} State={{ slurm_node_state }}
 
+# If slurm_with_gpu is True then add some nodes and a partition for them.
 {% if slurm_with_gpu %}
 NodeName={{ slurm_gpu_nodes }} RealMemory=250000 Sockets=2 CoresPerSocket=12 ThreadsPerCore=2 State=UNKNOWN feature=gpu
 PartitionName=normal Nodes={{ slurm_compute_nodes }},{{ slurm_gpu_nodes }} Default=YES MaxTime=INFINITE State=UP DefaultTime=2:00:00
