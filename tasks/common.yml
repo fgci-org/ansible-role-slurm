@@ -32,7 +32,7 @@
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
 
   - name: cgroup.conf
-    template: src=cgroup.conf.template dest=/etc/slurm/cgroup.conf owner=root mode=0644
+    template: src=cgroup.conf.j2 dest=/etc/slurm/cgroup.conf owner=root mode=0644 backup=yes
  
   - name: slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
