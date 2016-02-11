@@ -69,6 +69,9 @@ slurm_munge_key_to_nfs: True
 slurm_munge_key_nfs_dir: "/home/{{ admingroup }}"
 slurm_munge_key_nfs: "{{ slurm_munge_key_nfs_dir }}/munge.key"
 #
+# The UID and GID to use when creating the slurm user and group (which
+# is used for running the slurm daemons).
+slurm_user_uid_gid: 681
 
 #####
 fgci_install: True
