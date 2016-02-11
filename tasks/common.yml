@@ -38,7 +38,7 @@
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
    
   - name: add slurm unix user
-    user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes
+    user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes uid={{ slurm_uid }}
 
   - name: write all slurm logs handled by rsyslog to one file
     template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/10_slurm_rsyslog.conf owner=root mode=0644 backup=yes
