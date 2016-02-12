@@ -38,10 +38,12 @@
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
 
   - name: add slurm unix group
-    group: name=slurm gid={{ slurm_gid }} system=yes state=present
+    group: name=slurm system=yes state=present
+    when: nis_server
    
   - name: add slurm unix user
-    user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes uid={{ slurm_uid }}
+    user: name=slurm shell=/sbin/nologin createhome=no home=/ system=yes append=yes group=slurm
+    when: nis_server
 
   - name: write all slurm logs handled by rsyslog to one file
     template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/10_slurm_rsyslog.conf owner=root mode=0644 backup=yes

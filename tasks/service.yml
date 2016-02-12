@@ -181,12 +181,6 @@
   - name: slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
 
-  - name: add slurm unix group
-    group: name=slurm gid={{ slurm_gid }} system=yes state=present
-
-  - name: add slurm user
-    user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes uid="{{ slurm_uid }}"
-
   - name: add slurm log dir
     file: path={{ slurm_log_dir }} state=directory owner=slurm group=slurm mode=0750
 
