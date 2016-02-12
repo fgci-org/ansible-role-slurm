@@ -41,7 +41,7 @@
     group: name=slurm gid={{ slurm_gid }} system=yes state=present
    
   - name: add slurm unix user
-    user: name=slurm shell=/sbin/nologin createhome=no home=/nonexixtent system=yes append=yes uid={{ slurm_uid }}
+    user: name=slurm shell=/sbin/nologin createhome=no home=/ system=yes append=yes uid={{ slurm_uid }} group=slurm
 
   - name: write all slurm logs handled by rsyslog to one file
     template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/10_slurm_rsyslog.conf owner=root mode=0644 backup=yes
