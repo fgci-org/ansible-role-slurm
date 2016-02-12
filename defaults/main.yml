@@ -87,8 +87,11 @@ slurm_log_dir: "/var/log/slurm"
 slurm_tmp_dir: "/opt/slurmdb/tmp/slurmd"
 slurmd_tmp_dir: "{{ slurm_tmp_dir }}"
 slurm_state_dir: "/opt/slurmdb/tmp"
-slurm_uid: "995"
-slurm_gid: "992"
+
+# If the current node is a nis server, make sure the slurm user and
+# group exist
+nis_server: False
+
 ##
 slurm_service_node: "{{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}"
 slurm_accounting_storage_host: "{{ slurm_service_node }}"
