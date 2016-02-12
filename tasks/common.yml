@@ -42,7 +42,7 @@
     when: nis_server
    
   - name: add slurm unix user
-    user: name=slurm shell=/sbin/nologin createhome=no home=/ system=yes append=yes group=slurm
+    user: name=slurm shell=/sbin/nologin createhome=no system=yes append=yes group=slurm state=present
     when: nis_server
 
   - name: write all slurm logs handled by rsyslog to one file
