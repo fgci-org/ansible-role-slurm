@@ -13,7 +13,6 @@
     when: ansible_distribution_major_version == "7" and fgci_install == True
 
 ##
-
   - name: install Slurm on non-compute nodes
     yum: name={{ item }} state=present
     with_items: slurm_packages
@@ -36,25 +35,6 @@
  
   - name: slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
-
-  - name: add slurm unix group
-    group: name=slurm system=yes state=present
-    when: nis_server
    
-  - name: add slurm unix user
-    user: name=slurm shell=/sbin/nologin createhome=no system=yes append=yes group=slurm state=present
-    when: nis_server
-
   - name: write all slurm logs handled by rsyslog to one file
     template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/10_slurm_rsyslog.conf owner=root mode=0644 backup=yes
-   
-  - name: add slurm log dir
-    file: "path={{ slurm_log_dir }} state=directory owner=slurm group=slurm mode=0750"
-
-  - name: add slurm tmp dir
-    file: "path={{ slurmd_tmp_dir }} state=directory owner=slurm group=slurm mode=0750"
-
-  - name: add slurm state dir
-    file: "path={{ slurm_state_dir }} state=directory owner=slurm group=slurm mode=0750"
-
-
