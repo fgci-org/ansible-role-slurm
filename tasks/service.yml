@@ -176,6 +176,10 @@
   - name: add slurm etc dir
     file: path="/etc/slurm" state=directory owner=root group=root mode=0755
 
+  - name: Update NIS DB
+    command: /usr/bin/make -C /var/yp
+    when: nis_server
+
   - name: slurmdbd.conf
     template: src=slurmdbd.conf.j2 dest=/etc/slurm/slurmdbd.conf owner=root mode=0640 backup=yes
 
