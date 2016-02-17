@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Managed by ansible-role-slurm
+
+# If pam_namespace is used to create per-job /tmp/, /var/tmp, /dev/shm,
+# clean it here in the epilog when no jobs are running on the node.
+{% if pam_use_namespace %}
+# Annoyingly, squeue always exits with status 0, so we must check that
+# the output is empty, that is no jobs by the user running on the node
+# and no error occurred (timeout etc.)
+userlist=$(squeue -w $HOSTNAME -o%u -h -u $SLURM_JOB_USER 2>&1)
+if [ -z $userlist ]; then
+    rm -rf {{ pam_tmp_inst_dir }}/$SLURM_JOB_USER {{ pam_var_tmp_inst_dir }}/$SLURM_JOB_USER /dev/shm/$SLURM_JOB_USER
+fi
+{% endif %}
