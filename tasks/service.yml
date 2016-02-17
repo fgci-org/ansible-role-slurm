@@ -159,10 +159,10 @@
     when: slurm_build == True
 
   - name: add slurm unix group
-    group: name=slurm system=yes state=present
+    group: name=slurm system=no state=present
 
   - name: add slurm unix user
-    user: name=slurm shell=/sbin/nologin createhome=no system=yes append=yes group=slurm state=present
+    user: name=slurm shell=/sbin/nologin createhome=no system=no append=yes group=slurm state=present
 
   - name: add slurm log dir
     file: "path={{ slurm_log_dir }} state=directory owner=slurm group=slurm mode=0750"
