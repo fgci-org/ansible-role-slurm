@@ -137,3 +137,7 @@ slurm_cgroup_constrain_devices: "no"
 slurm_cgroup_min_ram: "500" # always allocate this much memory to each job
 slurm_cgroup_release_agent_dir: "/etc/slurm/cgroup"
 
+# Job-private /tmp, /var/tmp and /dev/shm
+pam_use_namespace: False
+pam_tmp_inst_dir: /l/tmp-inst/
+pam_var_tmp_inst_dir: /l/vartmp_inst/

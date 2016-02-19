@@ -1,3 +1,5 @@
-        auth    required        pam_localuser.so
-        account required        pam_unix.so
-        session required        pam_limits.so
+# Managed by ansible-role-slurm
+auth      required      pam_localuser.so
+account   required      pam_unix.so
+session   required      pam_limits.so
+session   required      pam_namespace.so
