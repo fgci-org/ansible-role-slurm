@@ -6,7 +6,9 @@
           owner=munge
           group=munge
           mode=400
+    notify:
+     - restart munge
           
   - name: start munge
-    service: name=munge state=restarted enabled=yes
+    service: name=munge state=started enabled=yes
 

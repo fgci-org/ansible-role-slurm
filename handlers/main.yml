@@ -1,0 +1,4 @@
+---
+
+  - name: restart munge
+    service: name=munge state=restarted
