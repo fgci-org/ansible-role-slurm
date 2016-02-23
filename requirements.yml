@@ -1,0 +1,4 @@
+---
+
+- src: https://github.com/jabl/ansible-role-pam
+  path: ../
