@@ -3,4 +3,5 @@
  - hosts: localhost
    remote_user: root
    roles:
+     - ansible-role-pam
      - ansible-role-slurm
