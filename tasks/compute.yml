@@ -25,6 +25,12 @@
   - name: Create namespace epilog script
     template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
 
+  - name: add pam_slurm.so to pam-files
+    lineinfile: "dest='/etc/pam.d/{{ item }}'
+                regexp='^account\t    required\t  pam_slurm.so$'
+                line='account\t    required\t  pam_slurm.so'"
+    with_items: slurm_pam_files
+
   - name: start and enable slurm on EL6
     service: name=slurm state=restarted enabled=yes
     when: ansible_distribution_major_version == "6"

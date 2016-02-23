@@ -141,3 +141,8 @@ slurm_cgroup_release_agent_dir: "/etc/slurm/cgroup"
 pam_use_namespace: False
 pam_tmp_inst_dir: /l/tmp-inst/
 pam_var_tmp_inst_dir: /l/vartmp_inst/
+
+# Files in /etc/pam.d where we add "account required pam_slurm.so"
+slurm_pam_files:
+ - sshd
+ - system-auth
