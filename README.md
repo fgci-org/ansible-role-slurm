@@ -16,6 +16,12 @@ Tested with these linux distributions:
  - CentOS 7
   - Only 15.08.x
 
+## Dependencies
+
+ - https://github.com/jabl/ansible-role-pam
+  - Used to configure PAM - limit access to the compute nodes
+
+
 ## How-To
 
 ### Initial playbook configuration
