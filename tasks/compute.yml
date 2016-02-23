@@ -25,11 +25,33 @@
   - name: Create namespace epilog script
     template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
 
-  - name: add pam_slurm.so to pam-files
+  - name: lineinfile pam_slurm.so to pam-files
     lineinfile: "dest='/etc/pam.d/{{ item }}'
                 regexp='^account\t    required\t  pam_slurm.so$'
                 line='account\t    required\t  pam_slurm.so'"
     with_items: slurm_pam_files
+    when: slurm_manage_pam
+
+  - name: lineinfile pam_access.so to sshd pam-file before the pam_slurm.so
+    lineinfile: "dest='/etc/pam.d/sshd'
+                regexp='^account\t    sufficient\t  pam_access.so$'
+                line='account\t    sufficient\t  pam_access.so'
+                insertbefore='^account\t    required\t  pam_slurm.so$'"
+    when: slurm_manage_pam
+
+  - name: lineinfile add admin groups to /etc/security/access.conf
+    lineinfile: 'dest="/etc/security/access.conf"
+                regexp="(^\+\:{{ item }}\:ALL$)"
+                line="+:{{ item }}:ALL"'
+    register: reg_slurm_access_conf
+    with_items: slurm_sshd_access_groups
+
+  - name: lineinfile deny all at the end of /etc/security/access.conf
+    lineinfile: 'dest="/etc/security/access.conf"
+                regexp="(^\-\:ALL\:ALL$)"
+                line="-:ALL:ALL"
+                insertafter="EOF"'
+    when: reg_slurm_access_conf|success
 
   - name: start and enable slurm on EL6
     service: name=slurm state=restarted enabled=yes

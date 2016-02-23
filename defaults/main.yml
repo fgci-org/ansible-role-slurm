@@ -142,7 +142,15 @@ pam_use_namespace: False
 pam_tmp_inst_dir: /l/tmp-inst/
 pam_var_tmp_inst_dir: /l/vartmp_inst/
 
+# Make changes to files in /etc/pam.d/
+slurm_manage_pam: True
 # Files in /etc/pam.d where we add "account required pam_slurm.so"
 slurm_pam_files:
  - sshd
  - system-auth
+
+# These are allowed in /etc/security/access.conf
+slurm_sshd_access_groups:
+ - "{{ admingroup | default('admin') }}"
+ - "root"
+ - "wheel"
