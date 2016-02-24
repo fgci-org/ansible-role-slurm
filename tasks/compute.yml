@@ -5,7 +5,7 @@
           dest=/etc/munge/munge.key
           owner=munge
           group=munge
-          mode=400
+          mode=0400
     when: slurm_munge_key_from_nfs == False
     notify:
      - restart munge
