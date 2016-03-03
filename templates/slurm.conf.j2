@@ -27,7 +27,7 @@ MpiDefault=none
 MpiParams=ports=12000-12999
 SlurmctldPidFile=/var/run/slurmctld.pid
 SlurmdPidFile=/var/run/slurmd.pid
-ProctrackType=proctrack/linuxproc
+ProctrackType=proctrack/cgroup
 #PluginDir=
 CacheGroups=1
 FirstJobId={{ slurm_first_job_id }}
