@@ -47,3 +47,4 @@ A playbook that uses this role: https://github.com/CSC-IT-Center-for-Science/fgc
  - https://github.com/martbhell
  - https://github.com/tiggi
  - https://github.com/A1ve5
+ - https://github.com/jabl
