@@ -88,6 +88,11 @@ slurm_tmp_dir: "/opt/slurmdb/tmp/slurmd"
 slurmd_tmp_dir: "{{ slurm_tmp_dir }}"
 slurm_state_dir: "/opt/slurmdb/tmp"
 
+slurm_switch_type: "switch/none"
+slurm_mpi_default: "none"
+slurm_mpi_params: "ports=12000-12999"
+slurm_proctrack_type: "proctrack/cgroup"
+
 # If the current node is a nis server, make sure the slurm user and
 # group exist
 nis_server: False
@@ -109,9 +114,18 @@ slurm_with_gpu: True
 slurm_gpu_nodes: "{{ nodeGpuBase }}"
 ##
 slurm_first_job_id: "2230000"
+slurm_return_to_service: "1"
 slurm_max_job_count: "30000"
+
+slurm_propagate_resource_limits_except: "MEMLOCK"
+slurm_enforce_part_limits: "YES"
+
+slurm_usepam: "1"
+
 slurm_scheduler_parameters: "bf_max_job_test=300,bf_max_job_part=200,bf_max_job_user=30,defer,bf_continue,bf_window=7200,bf_resolution=1800"
+slurm_select_type: "select/cons_res"
 slurm_select_type_parameters: "CR_Core_Memory"
+slurm_fast_schedule: "2"
 slurm_priority_type: "priority/multifactor"
 slurm_priority_decayhalflife: "14-0"
 slurm_priority_favorsmall: "NO"
