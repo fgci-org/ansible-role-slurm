@@ -155,3 +155,11 @@ slurm_cgroup_release_agent_dir: "/etc/slurm/cgroup"
 pam_use_namespace: False
 pam_tmp_inst_dir: /l/tmp-inst/
 pam_var_tmp_inst_dir: /l/vartmp_inst/
+
+#slurm_nodelist:
+# - "NodeName=cn[1-1234] RealMemory=128000 Feature=haswell"
+# - "NodeName=gpu[1-1234] RealMemory=128000 Feature=haswell"
+
+#slurm_partitionlist:
+# - "PartitionName=batch Nodes={{ slurm_compute_nodes }} Default=NO MaxTime=INFINITE State=UP DefaultTime=2:00:00"
+# - "PartitionName=grid Nodes=gpu[1-1234] Default=NO MaxTime=INFINITE State=UP DefaultTime=2:00:00"
