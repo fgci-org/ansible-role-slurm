@@ -37,6 +37,8 @@ All variables should be defined in defaults/main.yml
 
 You also need to add a mysql_slurm_password: "PASSWORD" string somewhere. This will be used to set a password for the slurm mysql user. See http://docs.ansible.com/ansible/playbooks_vault.html
 
+To add your own nodes and queues define the slurm_nodelist and slurm_partitionlist lists.
+
 ### Implementation
 
 A playbook that uses this role: https://github.com/CSC-IT-Center-for-Science/fgci-ansible
