@@ -89,6 +89,9 @@ SelectTypeParameters={{ slurm_select_type_parameters }}
 #DefMemPerCPU=512
 FastSchedule={{ slurm_fast_schedule }}
 PriorityType={{ slurm_priority_type }}
+{% if slurm_priority_type == "priority/multifactor" %}
+PriorityFlags={{ slurm_priority_flags }}
+{% endif %}
 PriorityDecayHalfLife={{ slurm_priority_decayhalflife }}
 PriorityFavorSmall={{ slurm_priority_favorsmall }}
 #PriorityUsageResetPeriod=14-0
