@@ -14,8 +14,7 @@ AuthType=auth/munge
 #AuthInfo=/var/run/munge/munge.socket.2
 #
 # slurmDBD info
-DbdAddr={{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}
-DbdHost={{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}
+DbdHost={{ slurm_accounting_storage_host }}
 #DbdPort=7031
 SlurmUser=slurm
 #MessageTimeout=300

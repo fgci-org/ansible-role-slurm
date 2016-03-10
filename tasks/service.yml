@@ -2,87 +2,22 @@
   - name: install service specific packages for EL6
     yum: "name={{item}} state=present"
     with_items:
-      - "mysql"
-      - "mysql-server"
-      - "mysql-devel"
       - "lua-devel"
-      - "MySQL-python"
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
-
-  - name: start and enable mysql
-    service: name=mysqld state=started enabled=yes
-    register: mysql_start
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
   - name: install service specific packages for EL7
     yum: "name={{item}} state=present"
     register: install_slurm_packages
     with_items:
-      - "mariadb"
-      - "mariadb-server"
-      - "mariadb-devel"
       - "lua-devel"
-      - "MySQL-python"
       - "mailx"
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-
-  - name: start and enable mariadb on EL7
-    service: name=mariadb state=started enabled=yes
-    register: mariadb_start
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-
-  - name: restart mariadb after install
-    service: name=mariadb state=restarted
-    when: install_slurm_packages.changed
-
-  - name: cat /etc/my.cnf
-    command: cat /etc/my.cnf
-    register: slurm_mariadb_cnf
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-    changed_when: False
-
-  - name: print slurm_mariadb_cnf
-    debug: "var=slurm_mariadb_cnf"
-    tags: debug
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-    changed_when: False
-
-  - name: systemctl status mariadb
-    command: systemctl status mariadb
-    register: systemctl_slurm_status
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-    changed_when: False
 
   - name: print systemctl_slurm_status
     debug: "var=systemctl_slurm_status"
     tags: debug
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
     changed_when: False
-
-  - name: wait for mysql in port 3306 to start
-    wait_for: port=3306 delay=10 timeout=60
-
-  - name: create slurm acct db
-    mysql_db: name=slurm_acct_db state=present
-
-  - name: check if slurm db user exists
-    mysql_user: "name=slurm state=present"
-    register: mysqlslurmuser
-    ignore_errors: yes
-    tags: debug
-
-  - name: print mysqlslurmuser
-    debug: "var=mysqlslurmuser"
-    tags: debug
-    changed_when: False
-
-  - name: slurm_mysql_password variable must be set
-    assert:
-      that: "slurm_mysql_password is defined"
-
-  - name: create slurm db user if it does not exist
-    mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present"
-    when: mysqlslurmuser|failed
 
   - name: does the munge.key exist?
     stat: path=/etc/munge/munge.key
@@ -180,9 +115,6 @@
     command: /usr/bin/make -C /var/yp
     when: nis_server
 
-  - name: slurmdbd.conf
-    template: src=slurmdbd.conf.j2 dest=/etc/slurm/slurmdbd.conf owner=root mode=0640 backup=yes
-
   - name: restart munge
     service: name=munge state=restarted
     when: mungekeygen.changed and mungekeygen is defined
@@ -208,9 +140,6 @@
 
   - name: add slurmstate tmp dir
     file: "path={{ slurm_state_dir }} state=directory owner=slurm group=slurm mode=0750"
-
-  - name: restart and enable slurmdbd
-    service: name=slurmdbd state=restarted enabled=yes
 
   - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
     command: "sacctmgr -n show cluster {{ siteName }}"

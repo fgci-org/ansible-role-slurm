@@ -9,6 +9,9 @@
 - include: common.yml
   when: ansible_os_family == "RedHat"
 
+- include: dbd.yml
+  when: (slurm_accounting_storage_host == ansible_hostname) and ansible_os_family == "RedHat"
+
 - include: service.yml
   when: slurm_type == "service" and ansible_os_family == "RedHat"
 
