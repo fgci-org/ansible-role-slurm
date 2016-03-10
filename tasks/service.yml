@@ -95,9 +95,11 @@
 
   - name: add slurm unix group
     group: name=slurm system=no state=present
+    register: reg_slurm_unixgroup
 
   - name: add slurm unix user
     user: name=slurm shell=/sbin/nologin createhome=no system=no append=yes group=slurm state=present
+    register: reg_slurm_unixuser
 
   - name: add slurm log dir
     file: "path={{ slurm_log_dir }} state=directory owner=slurm group=slurm mode=0750"
@@ -113,7 +115,7 @@
 
   - name: Update NIS DB
     command: /usr/bin/make -C /var/yp
-    when: nis_server
+    when: nis_server and (reg_slurm_unixgroup.changed or reg_slurm_unixuser.changed)
 
   - name: restart munge
     service: name=munge state=restarted
