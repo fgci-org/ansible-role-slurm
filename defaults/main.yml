@@ -122,7 +122,7 @@ slurm_enforce_part_limits: "YES"
 
 slurm_usepam: "1"
 
-slurm_scheduler_parameters: "bf_max_job_test=300,bf_max_job_part=200,bf_max_job_user=30,defer,bf_continue,bf_window=7200,bf_resolution=1800"
+slurm_scheduler_parameters: "bf_max_job_test=300,bf_max_job_part=200,bf_max_job_user=30,defer,bf_continue,bf_window=7200,bf_resolution=1800,pack_serial_at_end"
 slurm_select_type: "select/cons_res"
 slurm_select_type_parameters: "CR_Core_Memory"
 slurm_fast_schedule: "2"
