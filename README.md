@@ -21,7 +21,6 @@ Tested with these linux distributions:
  - https://github.com/jabl/ansible-role-pam
   - Used to configure PAM - limit access to the compute nodes
 
-
 ## How-To
 
 ### Initial playbook configuration
@@ -38,6 +37,8 @@ All variables should be defined in defaults/main.yml
 You also need to add a mysql_slurm_password: "PASSWORD" string somewhere. This will be used to set a password for the slurm mysql user. See http://docs.ansible.com/ansible/playbooks_vault.html
 
 To add your own nodes and queues define the slurm_nodelist and slurm_partitionlist lists.
+
+It is possible to ru the slurmdbd on a different host than the slurmctld by changing the slurm_accounting_storage_host variable.
 
 ### Implementation
 
