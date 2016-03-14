@@ -10,7 +10,9 @@
 #
 ClusterName={{ slurm_clustername }}
 ControlMachine={{ slurm_service_node }}
-ControlAddr={{ slurm_service_node }}
+{% if slurm_control_addr is defined %}
+ControlAddr={{ slurm_control_addr }}
+{% endif }
 #BackupController=service02
 #BackupAddr=service02
 #
