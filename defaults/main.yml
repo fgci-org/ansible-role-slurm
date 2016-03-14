@@ -99,6 +99,8 @@ nis_server: False
 
 ##
 slurm_service_node: "{{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}"
+# slurm_control_addr is the same as controlmachine by default. Define it here to change it.
+# slurm_control_addr: "{{ slurm_service_node }}"
 slurm_accounting_storage_host: "{{ slurm_service_node }}"
 slurm_accounting_storage_type: "accounting_storage/slurmdbd"
 slurm_accounting_storage_loc: "slurm_acct_db"
