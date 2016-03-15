@@ -137,7 +137,11 @@ AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
 #
 # TOPOLOGY
 #
+{% if slurm_topology_plugin is defined %}
+TopologyPlugin={{ slurm_topology_plugin }}
+{% else %}
 #TopologyPlugin=topology/tree
+{% endif %}
 
 # COMPUTE NODES
 {% if slurm_nodelist is defined %}

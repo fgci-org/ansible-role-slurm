@@ -105,6 +105,9 @@ slurm_accounting_storage_host: "{{ slurm_service_node }}"
 slurm_accounting_storage_type: "accounting_storage/slurmdbd"
 slurm_accounting_storage_loc: "slurm_acct_db"
 slurm_accounting_storage_user: "slurm"
+# If you wish to use a topology plugins (parameter TopologyPlugin=),
+# uncomment and edit the following:
+#slurm_topology_plugin: "topology/tree"
 slurm_clustername: "{{ siteName | default('test_cluster')}}"
 slurm_compute_nodes: "{{ nodeBase }}[1-4]"
 slurm_compute_realmemory: "126000"
