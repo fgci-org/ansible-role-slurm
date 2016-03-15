@@ -32,6 +32,10 @@
 
   - name: cgroup.conf
     template: src=cgroup.conf.j2 dest=/etc/slurm/cgroup.conf owner=root mode=0644 backup=yes
+
+  - name: gres.conf
+    template: src=gres.conf.j2 dest=/etc/slurm/gres.conf owner=root mode=0644
+    when: slurm_with_gpu
  
   - name: slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes

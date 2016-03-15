@@ -63,8 +63,8 @@ HealthCheckProgram={{ slurm_healthcheck_program }}
 
 #
 #
-#GresTypes=mic,gpu
-#GresTypes=gpu
+GresTypes={{ slurm_grestypes }}
+
 # TIMERS
 SlurmctldTimeout=300
 SlurmdTimeout=600
@@ -148,7 +148,7 @@ AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
 NodeName={{ slurm_compute_nodes }} RealMemory={{ slurm_compute_realmemory }} Sockets={{ slurm_compute_sockets }} CoresPerSocket={{ slurm_compute_corespersocket }} ThreadsPerCore={{ slurm_compute_threadspercore }} State={{ slurm_node_state }}
 # If slurm_with_gpu is True then add some nodes and a partition for them.
 {% if slurm_with_gpu %}
-NodeName={{ slurm_gpu_nodes }} RealMemory=250000 Sockets=2 CoresPerSocket=12 ThreadsPerCore=2 State=UNKNOWN feature=gpu
+NodeName={{ slurm_gpu_nodes }} Gres=gpu:tesla:8 RealMemory=250000 Sockets=2 CoresPerSocket=12 ThreadsPerCore=2 State=UNKNOWN
 {% endif %}
 {% endif %}
 
