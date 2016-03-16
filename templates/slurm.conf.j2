@@ -42,7 +42,7 @@ PropagateResourceLimitsExcept={{ slurm_propagate_resource_limits_except }}
 EnforcePartLimits={{ slurm_enforce_part_limits }}
 {% if slurm_jobsubmitplugins is defined %}
 JobSubmitPlugins={{ slurm_jobsubmitplugins }}
-{% endif }
+{% endif %}
 #Prolog=/etc/slurm/prolog
 Epilog=/usr/local/libexec/slurm/epilog.d/*
 #PrologSlurmctld=/etc/slurm/slurmctld_prolog
