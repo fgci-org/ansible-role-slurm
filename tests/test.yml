@@ -5,3 +5,10 @@
    roles:
      - ansible-role-pam
      - ansible-role-slurm
+   vars:
+     - slurm_type: submit
+
+   pre_tasks:
+   - name: create munge.key
+     command: id > files/munge.key
+     delegate_to: localhost
