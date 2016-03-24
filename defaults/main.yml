@@ -117,6 +117,10 @@ slurm_compute_threadspercore: "2"
 slurm_node_state: "UNKNOWN"
 slurm_with_gpu: True
 slurm_gpu_nodes: "{{ nodeGpuBase }}"
+slurm_grestypes: "gpu"
+slurm_greslist:
+  - "NodeName={{ nodeGpuBase }} Name=gpu Type=teslak80 File=/dev/nvidia[0-8]"
+
 ##
 slurm_first_job_id: "2230000"
 slurm_return_to_service: "1"
