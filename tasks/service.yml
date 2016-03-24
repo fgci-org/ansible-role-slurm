@@ -124,6 +124,18 @@
   - name: start and enable munge
     service: name=munge state=started enabled=yes
 
+  - name: Increase net.core.somaxconn for slurmctld
+    sysctl: name=net.core.somaxconn
+            value={{ slurm_sysctl_core_somaxcon }}
+            sysctl_file=/etc/sysctl.d/50-slurm.conf
+    when: slurm_manage_sysctl
+
+  - name: Increase net.ipv4.tcp_max_syn_backlog for slurmctld
+    sysctl: name=net.ipv4.tcp_max_syn_backlog
+            value={{ slurm_sysctl_tcp_max_syn_backlog }}
+            sysctl_file=/etc/sysctl.d/50-slurm.conf
+    when: slurm_manage_sysctl
+
   - name: install Slurm ( state=present - not updating )
     yum: name={{ item }} state=present
     with_items: slurm_packages
