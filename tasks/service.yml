@@ -126,7 +126,7 @@
 
   - name: Increase net.core.somaxconn for slurmctld
     sysctl: name=net.core.somaxconn
-            value={{ slurm_sysctl_core_somaxcon }}
+            value={{ slurm_sysctl_core_somaxconn }}
             sysctl_file=/etc/sysctl.d/50-slurm.conf
     when: slurm_manage_sysctl
 

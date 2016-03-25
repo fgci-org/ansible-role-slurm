@@ -173,8 +173,8 @@ pam_var_tmp_inst_dir: /l/vartmp_inst/
 
 # sysctl settings from slurm htc guide.
 slurm_manage_sysctl: True
-slurm_sysctl_core_somaxcon: 4096 # 128 default in el7
-slurm_sysctl_tcp_max_syn_backlog: 4096 # 512 default in el7
+slurm_sysctl_core_somaxconn: 4096 # 128 is the default in el7
+slurm_sysctl_tcp_max_syn_backlog: 4096 # 512 is the default in el7
 
 #slurm_nodelist:
 # - "NodeName=cn[1-1234] RealMemory=128000 Feature=haswell"
