@@ -119,7 +119,7 @@ slurm_with_gpu: True
 slurm_gpu_nodes: "{{ nodeGpuBase }}"
 slurm_grestypes: "gpu"
 slurm_greslist:
-  - "NodeName={{ nodeGpuBase }} Name=gpu Type=teslak80 File=/dev/nvidia[0-8]"
+  - "NodeName={{ nodeGpuBase }} Name=gpu Type=teslak80 File=/dev/nvidia[0-7]"
 
 ##
 slurm_first_job_id: "2230000"
