@@ -108,6 +108,7 @@ slurm_accounting_storage_user: "slurm"
 # If you wish to add accounting for additional TRES types, uncomment
 # and edit the following:
 #slurm_accounting_storage_tres: "gres/gpu:teslak80,gres/gpu:teslak40"
+slurm_accounting_storage_enforce: "safe,qos"
 # If you wish to use a topology plugins (parameter TopologyPlugin=),
 # uncomment and edit the following:
 #slurm_topology_plugin: "topology/tree"
@@ -153,7 +154,6 @@ slurm_priority_weight_partition: "0"
 slurm_priority_weight_jobsize: "10000"
 slurm_priority_weight_qos: "10000"
 slurm_priority_maxage: "7"
-slurm_accounting_storage_enforce: "limits,qos"
 slurm_healthcheck_program: "/usr/sbin/nhc"
 slurm_healthcheck_interval: "300"
 slurm_cgroup_mountpoint: "/sys/fs/cgroup"
