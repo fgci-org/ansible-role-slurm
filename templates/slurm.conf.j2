@@ -133,7 +133,11 @@ AccountingStorageLoc={{ slurm_accounting_storage_loc }}
 #AccountingStoragePass=
 AccountingStorageUser={{ slurm_accounting_storage_user }}
 AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
-
+{% if slurm_accounting_storage_tres is defined %}
+AccuntingStorageTRES={{ slurm_accounting_storage_tres }}
+{% elif slurm_with_gpu %}
+AccountingStorageTRES=gres/gpu:teslak80
+{% endif %}
 
 #
 # TOPOLOGY
