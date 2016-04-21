@@ -121,6 +121,8 @@ slurm_gpu_nodes: "{{ nodeGpuBase }}"
 slurm_first_job_id: "2230000"
 slurm_return_to_service: "1"
 slurm_max_job_count: "30000"
+slurm_max_job_time: "7-00:00:00"
+slurm_job_def_time: "2:00:00"
 
 slurm_propagate_resource_limits_except: "MEMLOCK"
 slurm_enforce_part_limits: "YES"
