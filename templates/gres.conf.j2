@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+{% for gres in slurm_greslist %}
+{{ gres }}
+{% endfor %}

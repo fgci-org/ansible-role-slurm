@@ -105,6 +105,10 @@ slurm_accounting_storage_host: "{{ slurm_service_node }}"
 slurm_accounting_storage_type: "accounting_storage/slurmdbd"
 slurm_accounting_storage_loc: "slurm_acct_db"
 slurm_accounting_storage_user: "slurm"
+# If you wish to add accounting for additional TRES types, uncomment
+# and edit the following:
+#slurm_accounting_storage_tres: "gres/gpu:teslak80,gres/gpu:teslak40"
+slurm_accounting_storage_enforce: "safe,qos"
 # If you wish to use a topology plugins (parameter TopologyPlugin=),
 # uncomment and edit the following:
 #slurm_topology_plugin: "topology/tree"
@@ -117,12 +121,17 @@ slurm_compute_threadspercore: "2"
 slurm_node_state: "UNKNOWN"
 slurm_with_gpu: True
 slurm_gpu_nodes: "{{ nodeGpuBase }}"
+slurm_grestypes: "gpu"
+slurm_greslist:
+  - "NodeName={{ nodeGpuBase }} Name=gpu Type=teslak80 File=/dev/nvidia[0-7]"
+
 ##
 slurm_first_job_id: "2230000"
 slurm_return_to_service: "1"
 slurm_max_job_count: "30000"
 slurm_max_job_time: "7-00:00:00"
 slurm_job_def_time: "2:00:00"
+slurm_max_array_size: "10001"
 
 slurm_propagate_resource_limits_except: "MEMLOCK"
 slurm_enforce_part_limits: "YES"
@@ -147,7 +156,6 @@ slurm_priority_weight_partition: "0"
 slurm_priority_weight_jobsize: "10000"
 slurm_priority_weight_qos: "10000"
 slurm_priority_maxage: "7"
-slurm_accounting_storage_enforce: "limits,qos"
 slurm_healthcheck_program: "/usr/sbin/nhc"
 slurm_healthcheck_interval: "300"
 slurm_cgroup_mountpoint: "/sys/fs/cgroup"
@@ -167,6 +175,11 @@ slurm_cgroup_release_agent_dir: "/etc/slurm/cgroup"
 pam_use_namespace: False
 pam_tmp_inst_dir: /l/tmp-inst/
 pam_var_tmp_inst_dir: /l/vartmp_inst/
+
+# sysctl settings from slurm htc guide.
+slurm_manage_sysctl: True
+slurm_sysctl_core_somaxconn: 4096 # 128 is the default in el7
+slurm_sysctl_tcp_max_syn_backlog: 4096 # 512 is the default in el7
 
 #slurm_nodelist:
 # - "NodeName=cn[1-1234] RealMemory=128000 Feature=haswell"

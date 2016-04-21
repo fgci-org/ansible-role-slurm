@@ -35,6 +35,7 @@ CacheGroups=1
 FirstJobId={{ slurm_first_job_id }}
 ReturnToService={{ slurm_return_to_service }}
 MaxJobCount={{ slurm_max_job_count }}
+MaxArraySize={{ slurm_max_array_size }}
 #PlugStackConfig=
 #PropagatePrioProcess=
 #PropagateResourceLimits=
@@ -65,8 +66,8 @@ HealthCheckProgram={{ slurm_healthcheck_program }}
 
 #
 #
-#GresTypes=mic,gpu
-#GresTypes=gpu
+GresTypes={{ slurm_grestypes }}
+
 # TIMERS
 SlurmctldTimeout=300
 SlurmdTimeout=600
@@ -132,7 +133,11 @@ AccountingStorageLoc={{ slurm_accounting_storage_loc }}
 #AccountingStoragePass=
 AccountingStorageUser={{ slurm_accounting_storage_user }}
 AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
-
+{% if slurm_accounting_storage_tres is defined %}
+AccountingStorageTRES={{ slurm_accounting_storage_tres }}
+{% elif slurm_with_gpu %}
+AccountingStorageTRES=gres/gpu:teslak80
+{% endif %}
 
 #
 # TOPOLOGY
@@ -152,7 +157,7 @@ TopologyPlugin={{ slurm_topology_plugin }}
 NodeName={{ slurm_compute_nodes }} RealMemory={{ slurm_compute_realmemory }} Sockets={{ slurm_compute_sockets }} CoresPerSocket={{ slurm_compute_corespersocket }} ThreadsPerCore={{ slurm_compute_threadspercore }} State={{ slurm_node_state }}
 # If slurm_with_gpu is True then add some nodes and a partition for them.
 {% if slurm_with_gpu %}
-NodeName={{ slurm_gpu_nodes }} RealMemory=250000 Sockets=2 CoresPerSocket=12 ThreadsPerCore=2 State=UNKNOWN feature=gpu
+NodeName={{ slurm_gpu_nodes }} Gres=gpu:teslak80:8 RealMemory=250000 Sockets=2 CoresPerSocket=12 ThreadsPerCore=2 State=UNKNOWN
 {% endif %}
 {% endif %}
 

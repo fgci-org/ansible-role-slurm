@@ -5,3 +5,15 @@
    roles:
      - ansible-role-pam
      - ansible-role-slurm
+   vars:
+     - slurm_type: "notype"
+     - slurm_accounting_storage_host: "dbdhost.example.com"
+
+#   pre_tasks:
+#   - name: create files dir
+#     file: path=files state=directory
+#     delegate_to: localhost
+#
+#   - name: create munge.key
+#     file: path=files/munge.key state=touch
+#     delegate_to: localhost
