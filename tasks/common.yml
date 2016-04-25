@@ -15,12 +15,12 @@
 ##
   - name: install Slurm on non-compute nodes
     yum: name={{ item }} state=present
-    with_items: slurm_packages
+    with_items: "{{ slurm_packages }}"
     when: slurm_type != "compute" and slurm_packages.0 != ""
 
   - name: install Slurm on compute nodes
     yum: name={{ item }} state=present
-    with_items: slurm_node_packages
+    with_items: "{{ slurm_node_packages }}"
     when: slurm_type == "compute" and slurm_node_packages.0 != ""
 
   - name: install fgci Slurm addons
