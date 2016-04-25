@@ -16,7 +16,7 @@
 
     - name: install software required to build slurm
       yum: name="{{item}}" state=present
-      with_items: slurm_dep_packages
+      with_items: "{{ slurm_dep_packages }}"
 
     - debug: msg="{{groups['all']}}"
       tags: debug
