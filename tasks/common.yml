@@ -41,3 +41,7 @@
    
   - name: write all slurm logs handled by rsyslog to one file
     template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/10_slurm_rsyslog.conf owner=root mode=0644 backup=yes
+
+  - name: configure logrotate to rotate slurm_logs in slurm_log_dir
+    template: src=slurm_logrotate.j2 dest=/etc/logrotate.d/slurm owner=root mode=0644 backup=no
+    when: slurm_log_dir is defined

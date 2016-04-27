@@ -1,0 +1,17 @@
+# Managed by ansible
+{% if slurm_log_dir is defined %}
+{{ slurm_log_dir }}/*.log {
+	{{ slurm_logrotate_rotate_interval }}
+	missingok
+	notifempty
+	sharedscripts
+	rotate {{ slurm_logrotate_rotate }}
+	compress
+	create 644 slurm slurm
+	postrotate
+		/bin/kill -HUP cat /var/run/slurmctld.pid 2>/dev/null 2> /dev/null || true
+		/bin/kill -HUP cat /var/run/syslogd.pid 2> /dev/null 2> /dev/null || true
+		/bin/kill -HUP cat /var/run/slurmdbd.pid 2>/dev/null 2> /dev/null || true
+	endscript
+}
+{% endif %}
