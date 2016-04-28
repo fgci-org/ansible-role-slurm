@@ -65,7 +65,7 @@
   - name: build Slurm
     command: "{{ item }} chdir=/root/rpmbuild/SOURCES/slurm-{{ slurm_version}}/ creates=/root/rpmbuild/RPMS/x86_64/slurm-{{ slurm_version }}-1.el{{major_release}}.x86_64.rpm"
     with_items:
-       - rpmbuild -bb --with lua  slurm.spec
+       - "rpmbuild -bb --with lua  slurm.spec"
        #- ./configure
        #- "/usr/bin/make"
        #- "/usr/bin/make install"
@@ -138,7 +138,7 @@
 
   - name: install Slurm ( state=present - not updating )
     yum: name={{ item }} state=present
-    with_items: slurm_packages
+    with_items: "{{ slurm_packages }}"
 
   - name: pam.d/slurm
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
