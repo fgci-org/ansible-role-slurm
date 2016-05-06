@@ -16,82 +16,81 @@ ControlAddr={{ slurm_control_addr }}
 #BackupController=service02
 #BackupAddr=service02
 #
-SlurmUser=slurm
-SlurmctldPort=6817
-SlurmdPort=6818
-AuthType=auth/munge
-#JobCredentialPrivateKey=
-#JobCredentialPublicCertificate=
+SlurmUser={{ slurm_SlurmUser }}
+SlurmctldPort={{ slurm_SlurmctldPort }}
+SlurmdPort={{ slurm_SlurmdPort }}
+AuthType={{ slurm_AuthType }}
+#JobCredentialPrivateKey={{ slurm_JobCredentialPrivateKey }}
+#JobCredentialPublicCertificate={{ slurm_JobCredentialPublicCertificate }}
 StateSaveLocation={{ slurm_state_dir }}
 #SlurmdSpoolDir={{ slurm_tmp_dir }}
 SwitchType={{ slurm_switch_type }}
 MpiDefault={{ slurm_mpi_default }}
 MpiParams={{ slurm_mpi_params }}
-SlurmctldPidFile=/var/run/slurmctld.pid
-SlurmdPidFile=/var/run/slurmd.pid
+SlurmctldPidFile={{ slurm_SlurmctldPidFile }}
+SlurmdPidFile={{ slurm_SlurmdPidFile }}
 ProctrackType={{ slurm_proctrack_type }}
-#PluginDir=
-CacheGroups=1
+#PluginDir={{ slurm_PluginDir }}
+CacheGroups={{ slurm_CacheGroups }}
 FirstJobId={{ slurm_first_job_id }}
 ReturnToService={{ slurm_return_to_service }}
 MaxJobCount={{ slurm_max_job_count }}
 MaxArraySize={{ slurm_max_array_size }}
-#PlugStackConfig=
-#PropagatePrioProcess=
-#PropagateResourceLimits=
+#PlugStackConfig={{ slurm_PlugStackConfig }}
+#PropagatePrioProcess=={{ slurm_PropagatePrioProcess }}
+#PropagateResourceLimits=={{ slurm_PropagateResourceLimits }}
 PropagateResourceLimitsExcept={{ slurm_propagate_resource_limits_except }}
 EnforcePartLimits={{ slurm_enforce_part_limits }}
 {% if slurm_jobsubmitplugins is defined %}
 JobSubmitPlugins={{ slurm_jobsubmitplugins }}
 {% endif %}
-#Prolog=/etc/slurm/prolog
-Epilog=/usr/local/libexec/slurm/epilog.d/*
-#PrologSlurmctld=/etc/slurm/slurmctld_prolog
-#EpilogSlurmctld=/etc/slurm/slurmctld_epilog
-#SrunProlog=
-#SrunEpilog=
-#TaskProlog=
-TaskEpilog=/usr/bin/epilog
-TaskPlugin=task/cgroup
-#TaskPlugin=task/none
-#TrackWCKey=no
-#TreeWidth=50
-#TmpFs=
+#Prolog={{ slurm_Prolog }}
+Epilog={{ slurm_Epilog }}
+#PrologSlurmctld={{ slurm_PrologSlurmctld }}
+#EpilogSlurmctld={{ slurm_EpilogSlurmctld }}
+#SrunProlog={{ slurm_SrunProlog }}
+#SrunEpilog={{ slurm_SrunEpilog }}
+#TaskProlog={{ slurm_TaskProlog }}
+TaskEpilog={{ slurm_TaskEpilog  }}
+TaskPlugin={{ slurm_TaskPlugin }}
+#TrackWCKey={{ slurm_TrackWCKey }}
+#TreeWidth={{ slurm_TreeWidth }}
+#TmpFs={{ slurm_TmpFs }}
 UsePAM={{ slurm_usepam }}
-RebootProgram=/sbin/reboot
+RebootProgram={{ slurm_rebootProgram }}
 #
 HealthCheckInterval={{ slurm_healthcheck_interval }}
 HealthCheckProgram={{ slurm_healthcheck_program }}
-#HealthCheckNodeState=IDLE
+#HealthCheckNodeState={{ slurm_HealthCheckNodeState }}
 
 #
 #
 GresTypes={{ slurm_grestypes }}
 
 # TIMERS
-SlurmctldTimeout=300
-SlurmdTimeout=600
-InactiveLimit=0
-MinJobAge=30
-MessageTimeout=30
-KillWait=30
-CompleteWait=12
-Waittime=0
-KillOnBadExit=1
-KeepAliveTime=60
-OverTimeLimit=60
+SlurmctldTimeout={{ slurm_SlurmctldTimeout }}
+SlurmdTimeout={{ slurm_SlurmdTimeout }}
+InactiveLimit={{ slurm_InactiveLimit }}
+MinJobAge={{ slurm_MinJobAge }}
+MessageTimeout={{ slurm_MessageTimeout }}
+KillWait={{ slurm_KillWait }}
+CompleteWait={{ slurm_CompleteWait }}
+Waittime={{ slurm_Waittime }}
+KillOnBadExit={{ slurm_KillOnBadExit }}
+KeepAliveTime={{ slurm_KeepAliveTime }}
+OverTimeLimit={{ slurm_OverTimeLimit }}
 #
 # SCHEDULING
-SchedulerType=sched/backfill
-#SchedulerParameters     = bf_max_job_user=30,bf_continue,bf_interval=60,bf_resolution=180,max_job_bf=300,defer_rpc_cnt=10
+SchedulerType={{ slurm_SchedulerType }}
+#SchedulerParameters=bf_max_job_user=30,bf_continue,bf_interval=60,bf_resolution=180,max_job_bf=300,defer_rpc_cnt=10
 SchedulerParameters={{ slurm_scheduler_parameters }}
 #
-#SchedulerAuth=
-SchedulerPort=7321
-#SchedulerRootFilter=
+#SchedulerAuth={{ slurm_SchedulerAuth }}
+SchedulerPort={{ slurm_SchedulerPort }}
+#SchedulerRootFilter={{ slurm_SchedulerRootFilter }}
 SelectType={{ slurm_select_type }}
 SelectTypeParameters={{ slurm_select_type_parameters }}
-#DefMemPerCPU=512
+#DefMemPerCPU={{ slurm_DefMemPerCPU }}
 FastSchedule={{ slurm_fast_schedule }}
 PriorityType={{ slurm_priority_type }}
 {% if slurm_priority_type == "priority/multifactor" %}
@@ -99,44 +98,44 @@ PriorityFlags={{ slurm_priority_flags }}
 {% endif %}
 PriorityDecayHalfLife={{ slurm_priority_decayhalflife }}
 PriorityFavorSmall={{ slurm_priority_favorsmall }}
-#PriorityUsageResetPeriod=14-0
+#PriorityUsageResetPeriod={{ slurm_PriorityUsageResetPeriod }}
 PriorityWeightFairshare={{ slurm_priority_weight_fairshare }}
 PriorityWeightAge={{ slurm_priority_weight_age }}
 PriorityWeightPartition={{ slurm_priority_weight_partition }}
 PriorityWeightJobSize={{ slurm_priority_weight_jobsize }}
 PriorityWeightQOS={{ slurm_priority_weight_qos }}
 PriorityMaxAge={{ slurm_priority_maxage }}
-#Licenses=mdcs:256
-#MaxSubmitJobs=2000
+#Licenses={{ slurm_Licenses }}
+#MaxSubmitJobs={{ slurm_MaxSubmitJobs }}
 #
 # LOGGING
-SlurmctldDebug=3
-#SlurmctldLogFile={{ slurm_log_dir }}/slurmctld.log
-SlurmdDebug=3
-#DebugFlags=backfill
-#SlurmdLogFile={{ slurm_log_dir }}/slurmd.log
-JobCompLoc={{ slurm_log_dir }}/slurm_jobcomp.log
-JobCompType=jobcomp/filetxt
+SlurmctldDebug={{ slurm_SlurmctldDebug }}
+#SlurmctldLogFile={{ slurm_SlurmctldLogFile }}
+SlurmdDebug={{ slurm_SlurmdDebug }}
+#DebugFlags={{ slurm_DebugFlags }}
+#SlurmdLogFile={{ slurm_SlurmdLogFile }}
+JobCompLoc={{ slurm_JobCompLoc }}
+JobCompType={{ slurm_JobCompType }}
 #
 # ACCOUNTING
-JobAcctGatherType=jobacct_gather/linux
-JobAcctGatherFrequency=energy=60,task=60
-AcctGatherEnergyType=acct_gather_energy/rapl
-AcctGatherNodeFreq=60
-#JobAcctGatherFrequency=task=30
+JobAcctGatherType={{ slurm_JobAcctGatherType }}
+JobAcctGatherFrequency={{ slurm_JobAcctGatherFrequency }}
+AcctGatherEnergyType={{ slurm_AcctGatherEnergyType }}
+AcctGatherNodeFreq={{ slurm_AcctGatherNodeFreq }}
+#JobAcctGatherFrequency=task={{ slurm_ JobAcctGatherFrequency}}
 #
 
 #
 AccountingStorageType={{ slurm_accounting_storage_type }}
 AccountingStorageHost={{ slurm_accounting_storage_host }}
 AccountingStorageLoc={{ slurm_accounting_storage_loc }}
-#AccountingStoragePass=
+#AccountingStoragePass={{ slurm_AccountingStoragePass }}
 AccountingStorageUser={{ slurm_accounting_storage_user }}
 AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
 {% if slurm_accounting_storage_tres is defined %}
 AccountingStorageTRES={{ slurm_accounting_storage_tres }}
 {% elif slurm_with_gpu %}
-AccountingStorageTRES=gres/gpu:teslak80
+AccountingStorageTRES={{ slurm_AccountingStorageTRES }}
 {% endif %}
 
 #

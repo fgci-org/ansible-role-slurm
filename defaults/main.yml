@@ -60,6 +60,11 @@ slurm_dep_packages:
  - "lua-filesystem"
 
 admingroup: "admin"
+
+# If the current node is a nis server, make sure the slurm user and
+# group exist
+nis_server: False
+
 # By setting slurm_munge_key_from_nfs to True we copy the munge.key from slurm_munge_key_nfs
 # If it's False then we copy it from files/ where ansible runs
 # This is the default. So with ansible-pull we set slurm_munge_key_nfs to True
@@ -76,6 +81,39 @@ fgci_slurmrepo_version: "fgcislurm1508"
 siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"
+
+slurm_SlurmUser: "slurm"
+slurm_SlurmctldPort: "6817"
+slurm_SlurmdPort: "6818"
+slurm_AuthType: "auth/munge"
+
+#slurm_JobCredentialPrivateKey: ""
+#slurm_JobCredentialPublicCertificate: ""
+
+slurm_SlurmctldPidFile: "/var/run/slurmctld.pid"
+slurm_SlurmdPidFile: "/var/run/slurmd.pid"
+
+#slurm_PluginDir: ""
+
+slurm_CacheGroups: "1"
+
+#slurm_PlugStackConfig: ""
+#slurm_PropagatePrioProcess: ""
+#slurm_PropagateResourceLimits: ""
+
+slurm_Prolog: "/etc/slurm/prolog"
+slurm_Epilog: "/usr/local/libexec/slurm/epilog.d/*"
+#slurm_PrologSlurmctld: "/etc/slurm/slurmctld_prolog"
+#slurm_EpilogSlurmctld: "/etc/slurm/slurmctld_epilog"
+#slurm_SrunProlog: ""
+#slurm_SrunEpilog: ""
+#slurm_TaskProlog: ""
+#slurm_TaskEpilog: "/usr/bin/epilog"
+#slurm_TaskPlugin: "task/cgroup"
+#slurm_TrackWCKey: "no"
+#slurm_TreeWidth: "50"
+#slurm_TmpFs: ""
+
 #set slurm_mysql_passwords to something. If this variable is not set the role will fail.
 #slurm_mysql_password: "CHANGEME"
 # slurm_version is only used when grabbing the source 
@@ -94,10 +132,6 @@ slurm_switch_type: "switch/none"
 slurm_mpi_default: "none"
 slurm_mpi_params: "ports=12000-12999"
 slurm_proctrack_type: "proctrack/cgroup"
-
-# If the current node is a nis server, make sure the slurm user and
-# group exist
-nis_server: False
 
 ##
 slurm_service_node: "{{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}"
@@ -127,6 +161,19 @@ slurm_grestypes: "gpu"
 slurm_greslist:
   - "NodeName={{ nodeGpuBase }} Name=gpu Type=teslak80 File=/dev/nvidia[0-7]"
 
+# TIMERS
+slurm_SlurmctldTimeout: "300"
+slurm_SlurmdTimeout: "600"
+slurm_InactiveLimit: "0"
+slurm_MinJobAge: "30"
+slurm_MessageTimeout: "30"
+slurm_KillWait: "30"
+slurm_CompleteWait: "12"
+slurm_Waittime: "0"
+slurm_KillOnBadExit: "1"
+slurm_KeepAliveTime: "60"
+slurm_OverTimeLimit: "60"
+
 ##
 slurm_first_job_id: "2230000"
 slurm_return_to_service: "1"
@@ -139,12 +186,18 @@ slurm_propagate_resource_limits_except: "MEMLOCK"
 slurm_enforce_part_limits: "YES"
 
 slurm_usepam: "1"
+slurm_RebootProgram: "/sbin/reboot"
 
 # If you wish to use job submit plugins (parameter JobSubmitPlugins=),
 # uncomment and edit the following:
 # slurm_jobsubmitplugins: "lua"
 
+slurm_SchedulerType: "sched/backfill"
 slurm_scheduler_parameters: "bf_max_job_test=300,bf_max_job_part=200,bf_max_job_user=30,defer,bf_continue,bf_window=7200,bf_resolution=1800,pack_serial_at_end"
+#slurm_SchedulerAuth: ""
+slurm_SchedulerPort: "7321"
+#slurm_SchedulerRootFilter: ""
+#slurm_DefMemPerCPU: "512"
 slurm_select_type: "select/cons_res"
 slurm_select_type_parameters: "CR_Core_Memory"
 slurm_fast_schedule: "2"
@@ -152,6 +205,7 @@ slurm_priority_type: "priority/multifactor"
 slurm_priority_flags: "FAIR_TREE,SMALL_RELATIVE_TO_TIME,MAX_TRES"
 slurm_priority_decayhalflife: "14-0"
 slurm_priority_favorsmall: "NO"
+#slurm_PriorityUsageResetPeriod: "14-0"
 slurm_priority_weight_fairshare: "10000000"
 slurm_priority_weight_age: "10000"
 slurm_priority_weight_partition: "0"
@@ -160,6 +214,7 @@ slurm_priority_weight_qos: "10000"
 slurm_priority_maxage: "7"
 slurm_healthcheck_program: "/usr/sbin/nhc"
 slurm_healthcheck_interval: "300"
+#slurm_HealthCheckNodeState: "IDLE"
 slurm_cgroup_mountpoint: "/sys/fs/cgroup"
 slurm_cgroup_automount : "no"
 slurm_cgroup_constrain_cores: "yes"
@@ -173,6 +228,26 @@ slurm_cgroup_constrain_devices: "no"
 slurm_cgroup_min_ram: "500" # always allocate this much memory to each job
 slurm_cgroup_release_agent_dir: "/etc/slurm/cgroup"
 
+#slurm_Licenses: "mdcs:256"
+#slurm_MaxSubmitJobs: "2000"
+
+# LOGGING
+slurm_SlurmctldDebug: "3"
+#slurm_SlurmctldLogFile: {{ slurm_log_dir }}"/slurmctld.log"
+slurm_SlurmdDebug: "3"
+#slurm_DebugFlags: "backfill"
+#slurm_SlurmdLogFile: {{ slurm_log_dir }}"/slurmd.log"
+slurm_JobCompLoc: {{ slurm_log_dir }}"/slurm_jobcomp.log"
+slurm_JobCompType: "jobcomp/filetxt"
+
+# ACCOUNTING
+slurm_JobAcctGatherType: "jobacct_gather/linux"
+slurm_JobAcctGatherFrequency: "energy=60,task=60"
+slurm_AcctGatherEnergyType: "acct_gather_energy/rapl"
+slurm_AcctGatherNodeFreq: "60"
+#slurm_JobAcctGatherFrequency: "task=30"
+#slurm_AccountingStoragePass: ""
+
 # Job-private /tmp, /var/tmp and /dev/shm
 pam_use_namespace: False
 pam_tmp_inst_dir: /l/tmp-inst/
@@ -183,10 +258,12 @@ slurm_manage_sysctl: True
 slurm_sysctl_core_somaxconn: 4096 # 128 is the default in el7
 slurm_sysctl_tcp_max_syn_backlog: 4096 # 512 is the default in el7
 
+slurm_AccountingStorageTRES: "gres/gpu:teslak80"
+
 #slurm_nodelist:
 # - "NodeName=cn[1-1234] RealMemory=128000 Feature=haswell"
 # - "NodeName=gpu[1-1234] RealMemory=128000 Feature=haswell"
 
 #slurm_partitionlist:
 # - "PartitionName=batch Nodes={{ slurm_compute_nodes }} Default=NO MaxTime=INFINITE State=UP DefaultTime=2:00:00"
-# - "PartitionName=grid Nodes=gpu[1-1234] Default=NO MaxTime=INFINITE State=UP DefaultTime=2:00:00"
+# - "PartitionName=grid Nodes=gpu[1-1234] Default=NO MaxTime={{ slurm_max_job_time }} State=UP DefaultTime=2:00:00"
