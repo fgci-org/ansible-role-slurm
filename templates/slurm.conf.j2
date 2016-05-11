@@ -43,38 +43,6 @@ HealthCheckInterval={{ slurm_healthcheck_interval }}
 HealthCheckProgram={{ slurm_healthcheck_program }}
 GresTypes={{ slurm_grestypes }}
 
-{# 
- # Note: The following variables have been commented
- # they'll not be populated by ansible unless you take them out of this block
- # and either set them on your variables' files or uncomment the correspondent 
- # default value on defaults file
- #
-
-BackupController=service02
-BackupAddr=service02
-JobCredentialPrivateKey={{ slurm_JobCredentialPrivateKey }}
-JobCredentialPublicCertificate={{ slurm_JobCredentialPublicCertificate }}
-SlurmdSpoolDir={{ slurm_tmp_dir }}
-PluginDir={{ slurm_PluginDir }}
-PlugStackConfig={{ slurm_PlugStackConfig }}
-PropagatePrioProcess=={{ slurm_PropagatePrioProcess }}
-PropagateResourceLimits=={{ slurm_PropagateResourceLimits }}
-Prolog={{ slurm_Prolog }}
-PrologSlurmctld={{ slurm_PrologSlurmctld }}
-EpilogSlurmctld={{ slurm_EpilogSlurmctld }}
-SrunProlog={{ slurm_SrunProlog }}
-SrunEpilog={{ slurm_SrunEpilog }}
-TaskProlog={{ slurm_TaskProlog }}
-TrackWCKey={{ slurm_TrackWCKey }}
-TreeWidth={{ slurm_TreeWidth }}
-TmpFs={{ slurm_TmpFs }}
-HealthCheckNodeState={{ slurm_HealthCheckNodeState }}
-
- #
- # End of commented block
- # 
- # }
-
 # TIMERS
 SlurmctldTimeout={{ slurm_SlurmctldTimeout }}
 SlurmdTimeout={{ slurm_SlurmdTimeout }}
@@ -90,14 +58,10 @@ OverTimeLimit={{ slurm_OverTimeLimit }}
 
 # SCHEDULING
 SchedulerType={{ slurm_SchedulerType }}
-{# SchedulerParameters=bf_max_job_user=30,bf_continue,bf_interval=60,bf_resolution=180,max_job_bf=300,defer_rpc_cnt=10#}
 SchedulerParameters={{ slurm_scheduler_parameters }}
-{# SchedulerAuth={{ slurm_SchedulerAuth }} #}
 SchedulerPort={{ slurm_SchedulerPort }}
-{# SchedulerRootFilter={{ slurm_SchedulerRootFilter }} #}
 SelectType={{ slurm_select_type }}
 SelectTypeParameters={{ slurm_select_type_parameters }}
-{# DefMemPerCPU={{ slurm_DefMemPerCPU }} #}
 FastSchedule={{ slurm_fast_schedule }}
 PriorityType={{ slurm_priority_type }}
 {% if slurm_priority_type == "priority/multifactor" %}
@@ -105,22 +69,16 @@ PriorityFlags={{ slurm_priority_flags }}
 {% endif %}
 PriorityDecayHalfLife={{ slurm_priority_decayhalflife }}
 PriorityFavorSmall={{ slurm_priority_favorsmall }}
-{# PriorityUsageResetPeriod={{ slurm_PriorityUsageResetPeriod }} #}
 PriorityWeightFairshare={{ slurm_priority_weight_fairshare }}
 PriorityWeightAge={{ slurm_priority_weight_age }}
 PriorityWeightPartition={{ slurm_priority_weight_partition }}
 PriorityWeightJobSize={{ slurm_priority_weight_jobsize }}
 PriorityWeightQOS={{ slurm_priority_weight_qos }}
 PriorityMaxAge={{ slurm_priority_maxage }}
-{# Licenses={{ slurm_Licenses }} #}
-{# MaxSubmitJobs={{ slurm_MaxSubmitJobs }} #}
 
 # LOGGING
 SlurmctldDebug={{ slurm_SlurmctldDebug }}
-{# SlurmctldLogFile={{ slurm_SlurmctldLogFile }} #}
 SlurmdDebug={{ slurm_SlurmdDebug }}
-{# DebugFlags={{ slurm_DebugFlags }} #}
-{# SlurmdLogFile={{ slurm_SlurmdLogFile }} #}
 JobCompLoc={{ slurm_JobCompLoc }}
 JobCompType={{ slurm_JobCompType }}
 
@@ -129,11 +87,9 @@ JobAcctGatherType={{ slurm_JobAcctGatherType }}
 JobAcctGatherFrequency={{ slurm_JobAcctGatherFrequency }}
 AcctGatherEnergyType={{ slurm_AcctGatherEnergyType }}
 AcctGatherNodeFreq={{ slurm_AcctGatherNodeFreq }}
-{# JobAcctGatherFrequency=task={{ slurm_ JobAcctGatherFrequency}} #}
 AccountingStorageType={{ slurm_accounting_storage_type }}
 AccountingStorageHost={{ slurm_accounting_storage_host }}
 AccountingStorageLoc={{ slurm_accounting_storage_loc }}
-{# AccountingStoragePass={{ slurm_AccountingStoragePass }} #}
 AccountingStorageUser={{ slurm_accounting_storage_user }}
 AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
 {% if slurm_accounting_storage_tres is defined %}
@@ -175,4 +131,11 @@ PartitionName=normal Nodes={{ slurm_compute_nodes }} Default=YES MaxTime={{ slur
 {% endif %}
 PartitionName=test Nodes={{ slurm_compute_nodes }} Default=NO MaxTime={{ slurm_max_job_time }} State=UP DefaultTime={{ slurm_job_def_time }}
 PartitionName=grid Nodes={{ slurm_compute_nodes }} Default=NO MaxTime={{ slurm_max_job_time }} State=UP DefaultTime={{ slurm_job_def_time }}
+{% endif %}
+
+# Slurm Extra Parameters
+{% if slurm_ExtraParamsList is defined %}
+{% for slurm_Param in slurm_ExtraParamsList %}
+{{ slurm_Param }}
+{% endfor %}
 {% endif %}
