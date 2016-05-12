@@ -119,8 +119,8 @@ function test_playbook(){
 }
 function extra_tests(){
 
-    echo "TEST: cat /etc/slurm.conf"
-    cat /etc/slurm.conf
+    echo "TEST: cat /etc/slurm/slurm.conf"
+    cat /etc/slurm/slurm.conf
     
 }
 
