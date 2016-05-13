@@ -10,8 +10,8 @@
      - slurm_accounting_storage_host: "dbdhost.example.com"
      - slurm_TrackWCKey: "no"
      - slurm_ExtraParamsList:
-       - slurm_PrologSlurmctld: "/etc/slurm/slurmctld_prolog"
        - "TrackWCKey={{ slurm_TrackWCKey }}"
+       - "TreeWidth=50"
 
 #   pre_tasks:
 #   - name: create files dir
