@@ -1,0 +1,4 @@
+---
+
+slurmd_service: "slurm"
+slurmctld_service: "slurm"
