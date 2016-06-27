@@ -9,6 +9,7 @@ RUN yum clean all && \
     yum -y groups mark convert "Development Tools" && \
     yum -y groupinstall "Development Tools" && \
     yum -y install libffi-devel openssl-devel && \
+    yum -y install dbus-devel dbus-python-devel dbus dbus-glib dbus-glib-devel && \
     yum -y install python-devel MySQL-python sshpass && \
     yum -y install acl sudo && \
     sed -i -e 's/^Defaults.*requiretty/Defaults    !requiretty/' -e 's/^%wheel.*ALL$/%wheel    ALL=(ALL)    NOPASSWD: ALL/' /etc/sudoers && \
