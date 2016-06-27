@@ -140,12 +140,6 @@
     yum: name={{ item }} state=present
     with_items: "{{ slurm_packages }}"
 
-  - name: pam.d/slurm
-    copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
-
-  - name: slurm.conf
-    template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
-
   - name: add slurm log dir
     file: path={{ slurm_log_dir }} state=directory owner=slurm group=slurm mode=0750
 
@@ -165,5 +159,5 @@
     command: "sacctmgr -i add cluster {{ siteName }}"
     when: slurm_clusterlist.stdout.find("{{siteName}}") == -1
 
-  - name: restart and enable slurm
-    service: name=slurm state=restarted enabled=yes
+  - name: start and enable slurmctld
+    service: name={{ slurmctld_service }} state=started enabled=yes

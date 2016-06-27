@@ -3,6 +3,15 @@
 # tasks file for ansible-role-slurm
 # Order matters.
 #
+
+- name: Slurm OS dependent variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - default.yml
+
+
 - include: build.yml
   when: slurm_build == True and slurm_type == "service" and ansible_os_family == "RedHat"
 

@@ -89,6 +89,8 @@
 
   - name: slurmdbd.conf
     template: src=slurmdbd.conf.j2 dest=/etc/slurm/slurmdbd.conf owner=root mode=0640 backup=yes
+    notify:
+      - restart slurmdbd
 
-  - name: restart and enable slurmdbd
-    service: name=slurmdbd state=restarted enabled=yes
+  - name: start and enable slurmdbd
+    service: name=slurmdbd state=started enabled=yes
