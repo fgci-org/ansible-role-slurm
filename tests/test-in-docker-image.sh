@@ -97,10 +97,10 @@ function test_install_requirements(){
 
 }
 function slurm_create_munge_key(){
-    echo "TEST: creating munge.key"
+    echo "TEST: creating munge.key without any special tools or depending on entropy"
 
     mkdir -vp /ansible-role-slurm/tests/files/
-    date > /ansible-role-slurm/tests/files/munge.key
+    cp -v /ansible-role-slurm/README.md /ansible-role-slurm/tests/files/munge.key
 }
 
 
