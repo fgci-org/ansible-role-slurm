@@ -29,12 +29,14 @@ Tested with these linux distributions:
 
 All variables should be defined in defaults/main.yml
 
- - if {{ slurm_type }} in group_vars/group/group.yml is set to:
-  - "compute" the group runs slurmd
-  - "submit" the group run munge
-  - "service" the group runs slurmdbd, slurmctld
+All nodes run munge. Nodes which are part of the slurm\_compute host
+group will additionally run slurmd. Nodes which are part of the
+slurm\_service host group will additionally runs slurmctld and
+slurmdbd.
 
-You also need to add a mysql_slurm_password: "PASSWORD" string somewhere. This will be used to set a password for the slurm mysql user. See http://docs.ansible.com/ansible/playbooks_vault.html
+You also need to add a mysql\_slurm_password: "PASSWORD" string
+somewhere. This will be used to set a password for the slurm mysql
+user. See http://docs.ansible.com/ansible/playbooks_vault.html
 
 To add your own nodes and queues define the slurm_nodelist and slurm_partitionlist lists.
 

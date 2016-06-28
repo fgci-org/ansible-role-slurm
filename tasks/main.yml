@@ -13,7 +13,7 @@
 
 
 - include: build.yml
-  when: slurm_build == True and slurm_type == "service" and ansible_os_family == "RedHat"
+  when: "slurm_build == True and 'slurm_service' in group_names and ansible_os_family == 'RedHat'"
 
 - include: common.yml
   when: ansible_os_family == "RedHat"
@@ -22,10 +22,10 @@
   when: (slurm_accounting_storage_host == ansible_hostname) and ansible_os_family == "RedHat"
 
 - include: service.yml
-  when: slurm_type == "service" and ansible_os_family == "RedHat"
+  when: "'slurm_service' in group_names and ansible_os_family == 'RedHat'"
 
 - include: compute.yml
-  when: slurm_type == "compute" and ansible_os_family == "RedHat"
+  when: "'slurm_compute' in group_names and ansible_os_family == 'RedHat'"
 
 - include: submit.yml
-  when: slurm_type == "submit" and ansible_os_family == "RedHat"
+  when: ansible_os_family == "RedHat"
