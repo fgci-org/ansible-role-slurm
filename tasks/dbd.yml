@@ -18,6 +18,7 @@
       - "mysql-server"
       - "mysql-devel"
       - "MySQL-python"
+      - "slurm-slurmdbd"
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
   - name: start and enable mysql
@@ -33,6 +34,7 @@
       - "mariadb-server"
       - "mariadb-devel"
       - "MySQL-python"
+      - "slurm-slurmdbd"
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
   - name: start and enable mariadb on EL7

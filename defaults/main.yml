@@ -2,37 +2,28 @@
 
 # Defaults for ansible-role-slurm
 #
+
+# Packages installed everywhere
 slurm_packages:
- - slurm-plugins
  - slurm
- - slurm-perlapi
- - slurm-slurmdb-direct
- - slurm-sql
- - slurm-lua
  - slurm-devel
+ - slurm-perlapi
  - slurm-pam_slurm
  - slurm-sjstat
- - slurm-slurmdbd
  - slurm-torque
  - slurm-munge
  - slurm-sjobexit
 # - slurm-spank-x11
 #
 
-slurm_node_packages:
- - slurm
- - slurm-devel
- - slurm-lua
- - slurm-munge
- - slurm-pam_slurm
- - slurm-perlapi
- - slurm-plugins
- - slurm-sjobexit
- - slurm-sjstat
- - slurm-sql
- - slurm-torque
-# - slurm-spank-x11-0.2.5-1.x86_64
-# - slurm-spank-x11-debuginfo-0.2.5-1.x86_64
+# Additional packages installed only on slurmctld node(s)
+slurm_service_packages:
+  - lua-devel
+  - mailx
+  - slurm-lua
+  - slurm-plugins
+  - slurm-slurmdb-direct
+  - slurm-sql
 
 slurm_dep_packages:
  - "xterm"

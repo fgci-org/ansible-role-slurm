@@ -1,17 +1,7 @@
 ---
-  - name: install service specific packages for EL6
-    yum: "name={{item}} state=present"
-    with_items:
-      - "lua-devel"
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
-
-  - name: install service specific packages for EL7
-    yum: "name={{item}} state=present"
-    register: install_slurm_packages
-    with_items:
-      - "lua-devel"
-      - "mailx"
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+  - name: install slurm service specific packages
+    yum: "name={{ item }} state=present"
+    with_items: "{{ slurm_service_packages }}"
 
   - name: print systemctl_slurm_status
     debug: "var=systemctl_slurm_status"
