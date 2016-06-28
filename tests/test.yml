@@ -9,6 +9,7 @@
      - slurm_type: "notype"
      - slurm_accounting_storage_host: "dbdhost.example.com"
      - slurm_TrackWCKey: "no"
+     - slurm_service_node: "install1"
      - slurm_ExtraParamsList:
        - "TrackWCKey={{ slurm_TrackWCKey }}"
        - "TreeWidth=50"
