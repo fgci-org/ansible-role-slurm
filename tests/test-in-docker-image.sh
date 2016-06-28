@@ -96,6 +96,13 @@ function test_install_requirements(){
     ansible-galaxy install -r requirements.yml --force ||(echo "requirements install failed" && exit 2 )
 
 }
+function slurm_create_munge_key(){
+    echo "TEST: creating munge.key"
+
+    mkdir -vp /ansible-role-slurm/tests/files/
+    date > /ansible-role-slurm/tests/files/munge.key
+}
+
 
 function test_playbook_syntax(){
     echo "TEST: ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PLAYBOOk} --syntax-check"
@@ -130,9 +137,11 @@ function main(){
     install_os_deps
 #    install_ansible_devel
     show_version
-#    tree_list
+    tree_list
     test_install_requirements
     test_ansible_setup
+    slurm_create_munge_key
+    tree_list
     test_playbook_syntax
     test_playbook
     test_playbook_check
