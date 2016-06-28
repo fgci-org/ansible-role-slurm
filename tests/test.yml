@@ -13,11 +13,5 @@
        - "TrackWCKey={{ slurm_TrackWCKey }}"
        - "TreeWidth=50"
 
-#   pre_tasks:
-#   - name: create files dir
-#     file: path=files state=directory
-#     delegate_to: localhost
-#
-#   - name: create munge.key
-#     file: path=files/munge.key state=touch
-#     delegate_to: localhost
+   pre_tasks:
+   - debug: var=group_names
