@@ -13,15 +13,10 @@
     when: ansible_distribution_major_version == "7" and fgci_install == True
 
 ##
-  - name: install Slurm on non-compute nodes
+  - name: install common Slurm packages
     yum: name={{ item }} state=present
     with_items: "{{ slurm_packages }}"
-    when: slurm_type != "compute" and slurm_packages.0 != ""
-
-  - name: install Slurm on compute nodes
-    yum: name={{ item }} state=present
-    with_items: "{{ slurm_node_packages }}"
-    when: slurm_type == "compute" and slurm_node_packages.0 != ""
+    when: slurm_packages.0 != ""
 
   - name: install fgci Slurm addons
     yum: name=slurm-fgi-addons state=present
