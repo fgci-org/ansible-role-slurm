@@ -84,7 +84,6 @@ slurm_Epilog: "/usr/local/libexec/slurm/epilog.d/*"
 slurm_TaskEpilog: "/usr/bin/epilog"
 slurm_TaskPlugin: "task/cgroup"
 slurm_version: "15.08.3"
-slurm_type: ""
 slurm_build: False
 slurm_log_dir: "/var/log/slurm"
 slurm_logrotate_rotate_interval: "weekly"
@@ -235,7 +234,6 @@ slurm_AccountingStorageTRES: "gres/gpu:teslak80"
 # - # set slurm_mysql_passwords to something. If this variable is not set the role will fail.
 # - slurm_mysql_password: "CHANGEME"
 # - slurm_version is only used when grabbing the source 
-# - slurm_type (service, compute or submit) should be set with group_vars
 # - slurm_control_addr is the same as controlmachine by default. Define it here to change it.
 # - slurm_control_addr: "{{ slurm_service_node }}"
 # - # If you wish to add accounting for additional TRES types, uncomment and edit the following:

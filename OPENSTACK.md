@@ -24,12 +24,14 @@ Tested with these linux distributions:
 
 All variables should be defined in defaults/main.yml
 
- - if {{ slurm_type }} in group_vars/group/group.yml is set to:
-  - "compute" the group runs slurmd
-  - "submit" the group run munge
-  - "service" the group runs slurmdbd, slurmctld
+All nodes run munge. Nodes which are part of the slurm\_compute host
+group will additionally run slurmd. Nodes which are part of the
+slurm\_service host group will additionally runs slurmctld and
+slurmdbd.
 
-You also need to add a mysql_slurm_password: "PASSWORD" string somewhere. This will be used to set a password for the slurm mysql user.
+You also need to add a mysql\_slurm\_password: "PASSWORD" string
+somewhere. This will be used to set a password for the slurm mysql
+user.
 
 
 ### Below instructions are for running slurm and perhaps multiple slurm instances in openstack
