@@ -32,7 +32,8 @@ All variables should be defined in defaults/main.yml
 All nodes run munge. Nodes which are part of the slurm\_compute host
 group will additionally run slurmd. Nodes which are part of the
 slurm\_service host group will additionally runs slurmctld and
-slurmdbd.
+slurmdbd. Nodes which are in neither of these two host groups are 
+assumed to be submit hosts.
 
 You also need to add a mysql\_slurm_password: "PASSWORD" string
 somewhere. This will be used to set a password for the slurm mysql
