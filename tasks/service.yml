@@ -1,6 +1,6 @@
 ---
   - name: install slurm service specific packages
-    yum: "name={{ item }} state=present"
+    package: "name={{ item }} state=present"
     with_items: "{{ slurm_service_packages }}"
 
   - name: print systemctl_slurm_status
@@ -127,7 +127,7 @@
     when: slurm_manage_sysctl
 
   - name: install Slurm ( state=present - not updating )
-    yum: name={{ item }} state=present
+    package: name={{ item }} state=present
     with_items: "{{ slurm_packages }}"
 
   - name: add slurm log dir

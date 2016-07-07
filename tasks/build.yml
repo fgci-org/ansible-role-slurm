@@ -1,21 +1,21 @@
 ---
     - name: BUILD. update all packages first
-      yum: pkg=* state=latest
+      package: name=* state=latest
 
     - name: Remove duplicate CentOS repos
       file: name=/etc/yum.repos.d/centos6-latest.repo state=absent
-      when: major_relase is "6"
+      when: major_relase is "6" and ansible_os_family == "RedHat"
 
     - name: install EPEL6
-      yum: name='http://www.nic.funet.fi/pub/mirrors/fedora.redhat.com/pub/epel/6/i386/epel-release-6-8.noarch.rpm' state=present
-      when: major_relase is "6"
+      package: name='http://www.nic.funet.fi/pub/mirrors/fedora.redhat.com/pub/epel/6/i386/epel-release-6-8.noarch.rpm' state=present
+      when: major_relase is "6" and ansible_os_family == "RedHat"
 
     - name: install EPEL7
-      yum: name=epel-release state=present
-      when: major_relase is "7"
+      package: name=epel-release state=present
+      when: major_relase is "7" and ansible_os_family == "RedHat"
 
     - name: install software required to build slurm
-      yum: name="{{item}}" state=present
+      package: name="{{item}}" state=present
       with_items: "{{ slurm_dep_packages }}"
 
     - debug: msg="{{groups['all']}}"

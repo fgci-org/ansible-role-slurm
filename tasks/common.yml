@@ -9,17 +9,17 @@
     when: fgci_install == True
 
   - name: Install FGCI repo 
-    yum: pkg=http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
-    when: ansible_distribution_major_version == "7" and fgci_install == True
+    package: pkg=http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
+    when: ansible_distribution_major_version == "7" and fgci_install == True and and ansible_os_family == "RedHat"
 
 ##
   - name: install common Slurm packages
-    yum: name={{ item }} state=present
+    package: name={{ item }} state=present
     with_items: "{{ slurm_packages }}"
     when: slurm_packages.0 != ""
 
   - name: install fgci Slurm addons
-    yum: name=slurm-fgi-addons state=present
+    package: name=slurm-fgi-addons state=present
     when: fgci_install and ansible_distribution_major_version == "7"
 
   - name: pam.d/slurm

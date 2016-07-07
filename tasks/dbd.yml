@@ -12,7 +12,7 @@
     service: name=munge state=started enabled=yes
 
   - name: install slurmdbd specific packages for EL6
-    yum: "name={{item}} state=present"
+    package: "name={{item}} state=present"
     with_items:
       - "mysql"
       - "mysql-server"
@@ -27,7 +27,7 @@
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
   - name: install slurmdbd specific packages for EL7
-    yum: "name={{item}} state=present"
+    package: "name={{item}} state=present"
     register: install_slurm_packages
     with_items:
       - "mariadb"
