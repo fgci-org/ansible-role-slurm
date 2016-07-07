@@ -10,7 +10,7 @@
 
   - name: Install FGCI repo 
     package: pkg=http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
-    when: ansible_distribution_major_version == "7" and fgci_install == True and and ansible_os_family == "RedHat"
+    when: ansible_distribution_major_version == "7" and fgci_install == True and ansible_os_family == "RedHat"
 
 ##
   - name: install common Slurm packages
