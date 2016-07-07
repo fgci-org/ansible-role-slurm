@@ -94,5 +94,8 @@
     notify:
       - restart slurmdbd
 
+  - name: add slurm unix user
+    user: name=slurm shell=/sbin/nologin createhome=no system=no append=yes group=slurm state=present
+
   - name: start and enable slurmdbd
     service: name=slurmdbd state=started enabled=yes
