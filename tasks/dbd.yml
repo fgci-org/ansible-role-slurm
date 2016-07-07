@@ -94,6 +94,9 @@
     notify:
       - restart slurmdbd
 
+  - name: add slurm unix group
+    group: name=slurm system=no state=present
+
   - name: add slurm unix user
     user: name=slurm shell=/sbin/nologin createhome=no system=no append=yes group=slurm state=present
 
