@@ -1,4 +1,10 @@
 ---
+  - name: slurm_mysql_password variable must be set
+    assert:
+      that: "slurm_mysql_password is defined"
+
+####
+
   - name: get munge key for distribution to nodes
     copy: src=files/munge.key
           dest=/etc/munge/munge.key
@@ -70,7 +76,7 @@
   - name: create slurm acct db
     mysql_db: name=slurm_acct_db state=present
 
-  - name: check if slurm db user exists
+  - name: create slurm sql user
     mysql_user: "name=slurm state=present"
     register: mysqlslurmuser
     ignore_errors: yes
@@ -81,15 +87,11 @@
     tags: debug
     changed_when: False
 
-  - name: slurm_mysql_password variable must be set
-    assert:
-      that: "slurm_mysql_password is defined"
+  - name: ensure slurm sql user has a password and privileges if it does not exist or if it was just added
+    mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present update_password=always"
+    when: mysqlslurmuser|failed or mysqlslurmuser|changed
 
-  - name: create slurm db user if it does not exist
-    mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present"
-    when: mysqlslurmuser|failed
-
-  - name: slurmdbd.conf
+  - name: template in slurmdbd.conf
     template: src=slurmdbd.conf.j2 dest=/etc/slurm/slurmdbd.conf owner=root mode=0640 backup=yes
     notify:
       - restart slurmdbd
