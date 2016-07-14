@@ -6,6 +6,7 @@
 	notifempty
 	sharedscripts
 	rotate {{ slurm_logrotate_rotate }}
+	copytruncate
 	compress
 	create 644 slurm slurm
 	postrotate
