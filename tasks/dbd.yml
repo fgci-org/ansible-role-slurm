@@ -95,12 +95,3 @@
     template: src=slurmdbd.conf.j2 dest=/etc/slurm/slurmdbd.conf owner=root mode=0640 backup=yes
     notify:
       - restart slurmdbd
-
-  - name: add slurm unix group
-    group: name=slurm system=no state=present
-
-  - name: add slurm unix user
-    user: name=slurm shell=/sbin/nologin createhome=no system=no append=yes group=slurm state=present
-
-  - name: start and enable slurmdbd
-    service: name=slurmdbd state=started enabled=yes
