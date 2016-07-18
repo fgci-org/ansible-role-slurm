@@ -8,7 +8,7 @@
     rpm_key: key=http://idris.fgi.csc.fi/fgirepo6/RPM-GPG-KEY-CSC-GRID-2 state=present
     when: fgci_install == True
 
-  - name: Install FGCI repo 
+  - name: Install FGCI repo
     package: pkg=http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
     when: ansible_distribution_major_version == "7" and fgci_install == True and ansible_os_family == "RedHat"
 
@@ -22,21 +22,21 @@
     package: name=slurm-fgi-addons state=present
     when: fgci_install and ansible_distribution_major_version == "7"
 
-  - name: pam.d/slurm
+  - name: Copy pam.d/slurm
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
 
-  - name: cgroup.conf
+  - name: Make from template cgroup.conf
     template: src=cgroup.conf.j2 dest=/etc/slurm/cgroup.conf owner=root mode=0644 backup=yes
     notify: restart slurm
 
-  - name: gres.conf
+  - name: Make from template gres.conf
     template: src=gres.conf.j2 dest=/etc/slurm/gres.conf owner=root mode=0644
     notify: restart slurm
- 
-  - name: slurm.conf
+
+  - name: Make from template slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
     notify: restart slurm
-   
+
   - name: write all slurm logs handled by rsyslog to one file
     template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/10_slurm_rsyslog.conf owner=root mode=0644 backup=yes
 
