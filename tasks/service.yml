@@ -20,7 +20,7 @@
     register: mungekeygen
     when: mungekeystat is defined and mungekeystat.stat.exists == False
 
-  - name: get munge key for distribution to nodes
+  - name: Fetch munge key from Service node for distribution to nodes
     fetch: src=/etc/munge/munge.key
            dest=files/munge.key
            fail_on_missing=yes
@@ -130,14 +130,9 @@
     package: name={{ item }} state=present
     with_items: "{{ slurm_packages }}"
 
-  - name: add slurm log dir
-    file: path={{ slurm_log_dir }} state=directory owner=slurm group=slurm mode=0750
-
-  - name: add slurmd tmp dir
-    file: "path={{ slurmd_tmp_dir }} state=directory owner=slurm group=slurm mode=0750"
-
-  - name: add slurmstate tmp dir
-    file: "path={{ slurm_state_dir }} state=directory owner=slurm group=slurm mode=0750"
+  - name: start and enable slurmdbd
+    service: name=slurmdbd state=started enabled=yes
+    delegate_to: slurm_accounting_storage_host
 
   - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
     command: "sacctmgr -n show cluster {{ siteName }}"
