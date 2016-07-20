@@ -130,6 +130,7 @@
     package: name={{ item }} state=present
     with_items: "{{ slurm_packages }}"
 
+    # slurmdbd needs to be started after the slurm user is created
   - name: start and enable slurmdbd
     service: name=slurmdbd state=started enabled=yes
     delegate_to: "{{ slurm_accounting_storage_host }}"

@@ -11,21 +11,47 @@
     - "{{ ansible_os_family }}.yml"
     - default.yml
 
-
+  # build is a way to build slurm from source on the service node
 - include: build.yml
   when: "slurm_build == True and 'slurm_service' in group_names and ansible_os_family == 'RedHat'"
 
+  # common.yml is applied to all nodes
+    # configure pam
+    # template in cgroup.conf, gres.conf and slurm.conf
+    # set up logrotate and rsyslog
 - include: common.yml
   when: ansible_os_family == "RedHat"
 
+  # slurmdbd - only applied on the node which is the slurmdbd host (can be different or the same as the slurmctld)
+    # we want a slurmdbd up before slurmctld
+    # fail if you have not defined slurm_mysql_password
+    # fetche munge.key from files/munge.key in the directory where you run ansible
+    # create slurm sql database and users
+    # template in slurmdbd.conf
+     # If there is a change to slurmdbd.conf it will restart slurmdbd with a handler (end of play)
 - include: dbd.yml
   when: (slurm_accounting_storage_host == ansible_hostname) and ansible_os_family == "RedHat"
 
+  # slurmctld:
+    # munge:
+      # Creates munge.key if /etc/munge/munge.key does not exist
+      # Stores munge.key in files/munge.key in the directory where you run ansible
+      # It can also store it to NFS
+    # ensure there's a slurm unix group and user and optionally update NIS maps
+    # create directories
+    # increase sysctl values
+    # start and enable slurmdbd wherever that runs (after we ensure there's a slurm user/group)
+    # sacctmgr create cluster
 - include: service.yml
   when: "'slurm_service' in group_names and ansible_os_family == 'RedHat'"
 
+  # computes
+    # get munge.key from the directory where you run ansible or NFS
+    # create namespace epilog script
 - include: compute.yml
   when: "'slurm_compute' in group_names and ansible_os_family == 'RedHat'"
 
+  # submit (not on compute or service nodes)
+    # get munge.key from the directory where you run ansible
 - include: submit.yml
   when: "(ansible_os_family == 'RedHat') and ('slurm_compute' not in group_names) and ('slurm_service' not in group_names)"
