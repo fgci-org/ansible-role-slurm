@@ -1,17 +1,18 @@
 ---
 
- - hosts: localhost
+ - hosts: install,compute
    remote_user: root
    roles:
      - ansible-role-pam
      - ansible-role-slurm
    vars:
-     - slurm_accounting_storage_host: "dbdhost.example.com"
      - slurm_TrackWCKey: "no"
-     - slurm_service_node: "install1"
      - slurm_ExtraParamsList:
        - "TrackWCKey={{ slurm_TrackWCKey }}"
        - "TreeWidth=50"
+     - slurm_mysql_password: "changeme"
+     - slurm_munge_key_to_nfs: False
+     - slurm_compute_nodes: "{{ ansible_hostname }}"
 
    pre_tasks:
    - debug: var=group_names
