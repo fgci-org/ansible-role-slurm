@@ -145,5 +145,9 @@
     command: "sacctmgr -i add cluster {{ siteName }}"
     when: slurm_clusterlist.stdout.find("{{siteName}}") == -1
 
+  - name: disable the slurm init script slurm on el7
+    service: name=slurm enabled=no
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
   - name: start and enable slurmctld
     service: name={{ slurmctld_service }} state=started enabled=yes
