@@ -136,7 +136,7 @@ function extra_tests(){
     scontrol show node
 
     echo "TEST: submit a job"
-    srun hostname
+    srun env
     
 }
 
