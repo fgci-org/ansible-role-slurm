@@ -47,6 +47,10 @@ It is possible to ru the slurmdbd on a different host than the slurmctld by chan
 
 A playbook that uses this role: https://github.com/CSC-IT-Center-for-Science/fgci-ansible
 
+### Known Issues
+
+ - This role used to be able to build slurm rpms, distribute them and install them. This is most likely not working anymore.
+
 # Authors / Contributors:
 
  - Marco Passerini (original author)

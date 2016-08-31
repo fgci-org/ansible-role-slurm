@@ -3,12 +3,6 @@
     package: "name={{ item }} state=present"
     with_items: "{{ slurm_service_packages }}"
 
-  - name: print systemctl_slurm_status
-    debug: "var=systemctl_slurm_status"
-    tags: debug
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-    changed_when: False
-
   - name: does the munge.key exist?
     stat: path=/etc/munge/munge.key
     register: mungekeystat
@@ -34,54 +28,9 @@
     copy: src=files/munge.key dest={{ slurm_munge_key_nfs }} mode=0400 owner=munge group=munge
     when: slurm_munge_key_to_nfs
 
-  - name: create build dirs
-    file: path="/root/rpmbuild/{{ item }}" state=directory
-    with_items:
-        - "BUILD"
-        - "RPMS"
-        - "SOURCES"
-        - "SPECS"
-        - "SRPMS"
-    when: slurm_build == True
-
-  - name: download Slurm source
-    get_url: url="http://www.schedmd.com/download/latest/slurm-{{ slurm_version }}.tar.bz2" dest="/root/rpmbuild/SOURCES/slurm-{{ slurm_version }}.tar.bz2"
-    when: slurm_build == True
-
-  - name: Extract Slurm source 2
-    command: "tar -xjf /root/rpmbuild/SOURCES/slurm-{{ slurm_version}}.tar.bz2 -C /root/rpmbuild/SOURCES/ creates=/root/rpmbuild/SOURCES/slurm-{{ slurm_version }}"
-    when: slurm_build == True
-
-  - name: build Slurm
-    command: "{{ item }} chdir=/root/rpmbuild/SOURCES/slurm-{{ slurm_version}}/ creates=/root/rpmbuild/RPMS/x86_64/slurm-{{ slurm_version }}-1.el{{major_release}}.x86_64.rpm"
-    with_items:
-       - "rpmbuild -bb --with lua  slurm.spec"
-       #- ./configure
-       #- "/usr/bin/make"
-       #- "/usr/bin/make install"
-    when: slurm_build == True
-
-  - name: get slurm rpms to then distribute them to the nodes
-    fetch: src={{ item }}
-           dest=roles/slurm_common/files/
-           fail_on_missing=yes
-           flat=yes
-    with_items:
-         - "/root/rpmbuild/RPMS/x86_64/slurm-plugins-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-perlapi-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-slurmdb-direct-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-sql-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-lua-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-devel-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-pam_slurm-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-sjstat-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-slurmdbd-{{ slurm_version }}-1.el6.x86_64.rpm"
-        #- "/root/rpmbuild/RPMS/x86_64/slurm-spank-x11-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-torque-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-munge-{{ slurm_version }}-1.el6.x86_64.rpm"
-         - "/root/rpmbuild/RPMS/x86_64/slurm-sjobexit-{{ slurm_version }}-1.el6.x86_64.rpm"
-    when: slurm_build == True
+# a few remaining slurm_build tasks
+  - include: build_service.yml
+    when: "slurm_build == True and 'slurm_service' in group_names and ansible_os_family == 'RedHat'"
 
   - name: add slurm unix group
     group: name=slurm system=no state=present
