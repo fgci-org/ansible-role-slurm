@@ -13,6 +13,7 @@
      - slurm_mysql_password: "changeme"
      - slurm_munge_key_to_nfs: False
      - slurm_compute_nodes: "{{ ansible_hostname }}"
+     - slurm_manage_sysctl: False
 
    pre_tasks:
    - debug: var=group_names
