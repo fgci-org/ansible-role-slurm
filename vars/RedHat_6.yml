@@ -2,3 +2,10 @@
 
 slurmd_service: "slurm"
 slurmctld_service: "slurm"
+slurm_sql_service: "mysqld"
+slurmdbd_packages:
+ - "mysql"
+ - "mysql-server"
+ - "mysql-devel"
+ - "MySQL-python"
+ - "slurm-slurmdbd"

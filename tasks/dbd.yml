@@ -5,58 +5,19 @@
 
 ####
 
-  - name: install slurmdbd specific packages for EL6
+  - name: install slurmdbd specific packages
     package: "name={{item}} state=present"
-    with_items:
-      - "mysql"
-      - "mysql-server"
-      - "mysql-devel"
-      - "MySQL-python"
-      - "slurm-slurmdbd"
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
+    register: reg_install_slurm_packages
+    with_items: "{{ slurmdbd_packages }}"
+    when: ansible_os_family == "RedHat"
 
-  - name: start and enable mysql
-    service: name=mysqld state=started enabled=yes
-    register: mysql_start
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
+  - name: start and enable mariadb/mysql
+    service: name={{ slurm_sql_service }} state=started enabled=yes
+    when: ansible_os_family == "RedHat"
 
-  - name: install slurmdbd specific packages for EL7
-    package: "name={{item}} state=present"
-    register: install_slurm_packages
-    with_items:
-      - "mariadb"
-      - "mariadb-server"
-      - "mariadb-devel"
-      - "MySQL-python"
-      - "slurm-slurmdbd"
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-
-  - name: start and enable mariadb on EL7
-    service: name=mariadb state=started enabled=yes
-    register: mariadb_start
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-
-  - name: restart mariadb after install
-    service: name=mariadb state=restarted
-    when: install_slurm_packages.changed
-
-  - name: cat /etc/my.cnf
-    command: cat /etc/my.cnf
-    register: slurm_mariadb_cnf
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-    changed_when: False
-
-  - name: print slurm_mariadb_cnf
-    debug: "var=slurm_mariadb_cnf['stdout_lines']"
-    tags: debug
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-    changed_when: False
-
-  - name: systemctl status mariadb
-    command: systemctl status mariadb
-    register: systemctl_slurm_status
-    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
-    changed_when: False
+  - name: restart mariadb/mysql after install
+    service: name={{ slurm_sql_service }} state=restarted
+    when: reg_install_slurm_packages.changed
 
   - name: wait for mysql in port 3306 to start
     wait_for: port=3306 delay=10 timeout=60

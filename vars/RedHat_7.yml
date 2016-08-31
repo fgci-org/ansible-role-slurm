@@ -2,3 +2,10 @@
 
 slurmd_service: "slurmd.service"
 slurmctld_service: "slurmctld.service"
+slurm_sql_service: "mariadb"
+slurmdbd_packages:
+ - "mariadb"
+ - "mariadb-server"
+ - "mariadb-devel"
+ - "MySQL-python"
+ - "slurm-slurmdbd"
