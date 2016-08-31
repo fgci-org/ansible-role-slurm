@@ -125,7 +125,7 @@
     notify:
      - restart munge
 
-  - name: start and enable munge on the slurm_accouting_storage_host too if it is different than the service node
+  - name: start and enable munge on the slurm_accounting_storage_host too if it is different than the service node
     service: name=munge state=started enabled=yes
     delegate_to: "{{ slurm_accounting_storage_host }}"
     when: slurm_accounting_storage_host != ansible_hostname
@@ -146,10 +146,15 @@
     package: name={{ item }} state=present
     with_items: "{{ slurm_packages }}"
 
-    # slurmdbd needs to be started after the slurm user is created
-  - name: start and enable slurmdbd
+    # slurmdbd needs to be started after the slurm unix user is created
+  - name: start and enable slurmdbd on slurm_accounting_storage_host
     service: name=slurmdbd state=started enabled=yes
     delegate_to: "{{ slurm_accounting_storage_host }}"
+    when: slurm_accounting_storage_host != ansible_hostname
+
+  - name: start and enable slurmdbd
+    service: name=slurmdbd state=started enabled=yes
+    when: slurm_accounting_storage_host == ansible_hostname
 
   - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
     command: "sacctmgr -n show cluster {{ siteName }}"
