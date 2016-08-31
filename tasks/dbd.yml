@@ -5,18 +5,6 @@
 
 ####
 
-  - name: get munge key for distribution to nodes
-    copy: src=files/munge.key
-          dest=/etc/munge/munge.key
-          owner=munge
-          group=munge
-          mode=0400
-    notify:
-     - restart munge
-
-  - name: start munge
-    service: name=munge state=started enabled=yes
-
   - name: install slurmdbd specific packages for EL6
     package: "name={{item}} state=present"
     with_items:

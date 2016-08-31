@@ -114,6 +114,22 @@
   - name: start and enable munge
     service: name=munge state=started enabled=yes
 
+  - name: copy in munge key to slurm_accounting_storage_host too if it is different than the service node
+    copy: src=files/munge.key
+          dest=/etc/munge/munge.key
+          owner=munge
+          group=munge
+          mode=0400
+    delegate_to: "{{ slurm_accounting_storage_host }}"
+    when: slurm_accounting_storage_host != ansible_hostname
+    notify:
+     - restart munge
+
+  - name: start and enable munge on the slurm_accouting_storage_host too if it is different than the service node
+    service: name=munge state=started enabled=yes
+    delegate_to: "{{ slurm_accounting_storage_host }}"
+    when: slurm_accounting_storage_host != ansible_hostname
+
   - name: Increase net.core.somaxconn for slurmctld
     sysctl: name=net.core.somaxconn
             value={{ slurm_sysctl_core_somaxconn }}
