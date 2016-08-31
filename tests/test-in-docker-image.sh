@@ -135,7 +135,7 @@ function extra_tests(){
     echo "TEST: scontrol show node"
     scontrol show node
 
-    echo "TEST: submit a job"
+    echo "TEST: srun env"
     srun env
     
 }
