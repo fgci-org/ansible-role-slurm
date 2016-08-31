@@ -133,7 +133,10 @@ function extra_tests(){
     sinfo
 
     echo "TEST: scontrol show node"
-    scontrols how node
+    scontrol show node
+
+    echo "TEST: submit a job"
+    srun hostname
     
 }
 
