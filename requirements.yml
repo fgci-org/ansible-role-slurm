@@ -2,3 +2,5 @@
 
 - src: https://github.com/jabl/ansible-role-pam
   path: ../
+- src: https://github.com/CSC-IT-Center-for-Science/ansible-role-nhc
+  path: ../

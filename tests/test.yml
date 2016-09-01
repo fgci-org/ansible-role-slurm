@@ -4,6 +4,7 @@
    remote_user: root
    roles:
      - ansible-role-pam
+     - ansible-role-nhc
      - ansible-role-slurm
    vars:
      - slurm_TrackWCKey: "no"
@@ -14,6 +15,15 @@
      - slurm_munge_key_to_nfs: False
      - slurm_compute_nodes: "{{ ansible_hostname }}"
      - slurm_manage_sysctl: False
+     - nhc_short_hostname: False
+     - nhc_github: False
+     - nhc_use_default_checks: False
+     - nhc_rm: ""
+     - nhc_checks:
+       - { match: "*", name: "check_reboot_slurm", arguments: "" }
+       - { match: '{gpu[1-19]}', name: "check_hw_ib", arguments: "40" }
+       - { match: "{gpu[2-22]}", name: "check_hw_ib", arguments: "56" }
+       - { match: "*", name: "check_hw_eth", arguments: "eth0" }
 
    pre_tasks:
    - debug: var=group_names
