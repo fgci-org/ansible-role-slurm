@@ -32,7 +32,7 @@
     tags: debug
 
   - name: print mysqlslurmuser
-    debug: "var=mysqlslurmuser"
+    debug: var=mysqlslurmuser verbosity=1
     tags: debug
     changed_when: False
 

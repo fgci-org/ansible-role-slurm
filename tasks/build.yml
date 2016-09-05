@@ -18,5 +18,5 @@
       package: name="{{item}}" state=present
       with_items: "{{ slurm_dep_packages }}"
 
-    - debug: msg="{{groups['all']}}"
+    - debug: msg="{{groups['all']}}" verbosity=1
       tags: debug
