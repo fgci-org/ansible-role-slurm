@@ -33,5 +33,9 @@
   - name: Create namespace epilog script
     template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
 
+  - name: disable the slurm init script slurm on el7
+    service: name=slurm enabled=no
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
   - name: start and enable slurmd
     service: name={{ slurmd_service }} state=started enabled=yes
