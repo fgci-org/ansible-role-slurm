@@ -39,8 +39,10 @@ TaskEpilog={{ slurm_TaskEpilog  }}
 TaskPlugin={{ slurm_TaskPlugin }}
 UsePAM={{ slurm_usepam }}
 RebootProgram={{ slurm_RebootProgram }}
+{% if slurm_healthcheck_program != "" %}
 HealthCheckInterval={{ slurm_healthcheck_interval }}
 HealthCheckProgram={{ slurm_healthcheck_program }}
+{% endif %}
 GresTypes={{ slurm_grestypes }}
 
 # TIMERS
