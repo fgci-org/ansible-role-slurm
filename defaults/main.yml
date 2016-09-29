@@ -107,6 +107,12 @@ slurm_accounting_storage_enforce: "safe,qos"
 # If you wish to use a topology plugins (parameter TopologyPlugin=),
 # uncomment and edit the following:
 #slurm_topology_plugin: "topology/tree"
+# If you use a topology plugin, you also need a topology.conf
+# defined here, one element per line
+#slurm_topologylist:
+#  - "SwitchName=s0 Nodes=c[0-18]"
+#  - "SwitchName=s1 Nodes=c[19-36]"
+#  - "SwitchName=s3 Switches=s[0,1]"
 slurm_clustername: "{{ siteName | default('test_cluster')}}"
 slurm_compute_nodes: "{{ nodeBase }}[1-4]"
 slurm_compute_realmemory: "126000"

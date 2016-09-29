@@ -33,6 +33,11 @@
     template: src=gres.conf.j2 dest=/etc/slurm/gres.conf owner=root mode=0644
     notify: restart slurm
 
+  - name: Make from template topology.conf
+    template: src=topology.conf.j2 dest=/etc/slurm/topology.conf owner=root moder=0644
+    notify: restart slurm
+    when: slurm_topology_plugin is defined
+
   - name: Make from template slurm.conf
     template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
     notify: restart slurm
