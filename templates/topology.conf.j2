@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+{% for topo in slurm_topologylist %}
+{{ topo }}
+{% endfor %}
