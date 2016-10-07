@@ -1,6 +1,6 @@
 ansible-role-slurm
 ------------------
-
+[![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/CSC-IT-Center-for-Science/ansible-role-slurm/master) 
 [![Build Status](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-slurm.svg?branch=master)](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-slurm)
 
 # Creates a slurm cluster
@@ -9,17 +9,21 @@ Tested with slurm versions:
  - 14.11.0
  - 14.11.3
  - 15.08.x
+ - 16.05.x
 
 Tested with these linux distributions:
  - CentOS 6
   - Only 14.11.x
  - CentOS 7
-  - Only 15.08.x
+  - 15.08.x
+  - 16.05.x
 
 ## Dependencies
 
  - https://github.com/jabl/ansible-role-pam
   - Used to configure PAM - limit access to the compute nodes
+ - https://github.com/CSC-IT-Center-for-Science/ansible-role-nhc
+  - Used to configure Node Health Checker
 
 ## How-To
 
