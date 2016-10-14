@@ -13,7 +13,7 @@
     changed_when: False
 
   - name: Set fact with contents of fgci_slurmrepo_version with only the numbers
-    set_fact: slurm_fact_fgci_slurmrepo_version: "{{ fgci_slurmrepo_version | replace('fgcislurm', '')}}"
+    set_fact: slurm_fact_fgci_slurmrepo_version="{{ fgci_slurmrepo_version | replace('fgcislurm', '')}}"
 
   - name: print custom facts in verbose mode
     debug: var=item verbosity=1
