@@ -18,10 +18,10 @@
   - name: print custom facts in verbose mode
     debug: var=item verbosity=1
     with_items:
-     - "{{ reg_slurm_yum_version }}"
+     - "{{ reg_slurm_yum_version['stdout'] }}"
      - "{{ slurm_fact_fgci_slurmrepo_version }}"
-     - "{{ reg_slurm_yum_version_major }}"
+     - "{{ reg_slurm_yum_version_major['stdout'] }}"
 
   - name: Pause if we are upgrading between major slurm versions on the dbd host
     pause: prompt="slurm is set to be upgraded on {{ ansible_hostname }}. This is a manual task. Press ENTER when the manual steps are done."
-    when: (slurm_fact_fgci_slurmrepo_version != reg_slurm_yum_version_major.stdout) and (slurm_accounting_storage_host == ansible_hostname)
+    when: (slurm_fact_fgci_slurmrepo_version != reg_slurm_yum_version_major['stdout']) and (slurm_accounting_storage_host == ansible_hostname)
