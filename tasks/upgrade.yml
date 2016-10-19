@@ -8,7 +8,7 @@
     changed_when: False
 
   - name: Get version of installed slurm RPM major version
-    shell: yum list installed slurm | grep slurm | awk '{print $2}' | cut -d'-' -f1|cut -d "." -f1-2
+    shell: yum list installed slurm | grep slurm | awk '{print $2}' | cut -d'-' -f1|cut -d "." -f1-2|sed -e 's/\.//'
     register: reg_slurm_yum_version_major
     changed_when: False
 
