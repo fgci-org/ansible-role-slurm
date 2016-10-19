@@ -15,15 +15,15 @@
 - include: build.yml
   when: "slurm_build == True and 'slurm_service' in group_names and ansible_os_family == 'RedHat'"
 
+  # check which version of slurm is installed
+- include: version.yml
+  when: ansible_os_family == "RedHat"
+
   # common.yml is applied to all nodes
     # configure pam
     # template in cgroup.conf, gres.conf and slurm.conf
     # set up logrotate and rsyslog
 - include: common.yml
-  when: ansible_os_family == "RedHat"
-
-  # check which version of slurm is installed
-- include: version.yml
   when: ansible_os_family == "RedHat"
 
   # upgrade is used to compare slurm version installed and the one ansible wants to install
