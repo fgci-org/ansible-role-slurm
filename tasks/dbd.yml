@@ -25,7 +25,7 @@
   - name: delete anonymous sql server user for localhost
     mysql_user: user="" state=absent
 
-  - name: set the sql root user
+  - name: set the sql root user passwords
     mysql_user: user="root" password="{{ DB_root_password }}" host="{{ item }}"
     with_items:
       - "::1"
@@ -33,13 +33,13 @@
       - "localhost"
 
   - name: remove the mysql test database
-    mysql_db: db=test state=absent
+    mysql_db: db=test state=absent login_password="{{ DB_root_password }}"
 
   - name: create slurm acct db
-    mysql_db: name=slurm_acct_db state=present
+    mysql_db: name=slurm_acct_db state=present login_password="{{ DB_root_password }}"
 
   - name: create slurm sql user
-    mysql_user: "name=slurm state=present"
+    mysql_user: name=slurm state=present password="{{ DB_root_password }}"
     register: mysqlslurmuser
     ignore_errors: yes
     tags: debug
