@@ -27,6 +27,10 @@ slurm_service_packages:
 
 admingroup: "admin"
 
+# Overwrite DB_root_password in your vars file if you want to 
+# use a different password for root and slurm user
+DB_root_password: "{{ slurm_mysql_password }}"
+
 # If the current node is a nis server, make sure the slurm user and
 # group exist
 nis_server: False
