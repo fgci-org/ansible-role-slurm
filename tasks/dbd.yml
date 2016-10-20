@@ -23,7 +23,7 @@
     wait_for: port=3306 delay=10 timeout=60
 
   - name: delete anonymous sql server user for localhost
-    mysql_user: user="" state=absent
+    mysql_user: user="" state=absent login_password="{{ DB_root_password }}"
 
   - name: set the sql root user passwords
     mysql_user: user="root" password="{{ DB_root_password }}" host="{{ item }}"
