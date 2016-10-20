@@ -45,7 +45,7 @@ user. See http://docs.ansible.com/ansible/playbooks_vault.html
 
 To add your own nodes and queues define the slurm_nodelist and slurm_partitionlist lists.
 
-It is possible to ru the slurmdbd on a different host than the slurmctld by changing the slurm_accounting_storage_host variable.
+It is possible to run the slurmdbd on a different host than the slurmctld by changing the slurm_accounting_storage_host variable.
 
 ### Implementation
 
