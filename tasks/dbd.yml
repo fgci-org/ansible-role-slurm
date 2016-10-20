@@ -39,7 +39,7 @@
     mysql_db: name=slurm_acct_db state=present login_password="{{ DB_root_password }}"
 
   - name: create slurm sql user
-    mysql_user: name=slurm state=present password="{{ DB_root_password }}"
+    mysql_user: name=slurm state=present password="{{ slurm_mysql_password }}" login_password="{{ DB_root_password }}"
     register: mysqlslurmuser
     ignore_errors: yes
     tags: debug
@@ -50,7 +50,7 @@
     changed_when: False
 
   - name: ensure slurm sql user has a password and privileges if it does not exist or if it was just added
-    mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present update_password=always"
+    mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present update_password=always login_password={{ DB_root_password }}"
     when: mysqlslurmuser|failed or mysqlslurmuser|changed
 
   - name: template in slurmdbd.conf
