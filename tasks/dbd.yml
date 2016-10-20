@@ -11,30 +11,6 @@
     with_items: "{{ slurmdbd_packages }}"
     when: ansible_os_family == "RedHat"
 
-  - name: set the sql root password
-    mysql_user: user=root password={{ DB_root_password }} host=localhost
-    when: ansible_os_family == "RedHat"
-
-  - name: delete anonymous sql server user for localhost
-    mysql_user: user="" state=absent
-    when: ansible_os_family == "RedHat"
-
-  - name: secure the sql root user for ipv6 localhost (::1)
-    mysql_user: user="root" password="{{ DB_root_password }}" host="::1"
-    when: ansible_os_family == "RedHat"
-
-  - name: secure the sql root user for ipv4 localhost (127.0.0.1)
-    mysql_user: user="root" password="{{ DB_root_password }}" host="127.0.0.1"
-    when: ansible_os_family == "RedHat"
-
-  - name: secure the sql root user for localhost domain (localhost)
-    mysql_user: user="root" password="{{ DB_root_password }}" host="localhost"
-    when: ansible_os_family == "RedHat"
-
-  - name: remove the mysql test database
-    mysql_db: db=test state=absent
-    when: ansible_os_family == "RedHat"
-
   - name: start and enable mariadb/mysql
     service: name={{ slurm_sql_service }} state=started enabled=yes
     when: ansible_os_family == "RedHat"
@@ -45,6 +21,19 @@
 
   - name: wait for mysql in port 3306 to start
     wait_for: port=3306 delay=10 timeout=60
+
+  - name: delete anonymous sql server user for localhost
+    mysql_user: user="" state=absent
+
+  - name: set the sql root user
+    mysql_user: user="root" password="{{ DB_root_password }}" host="{{ item }}"
+    with_items:
+      - "::1"
+      - "127.0.0.1"
+      - "localhost"
+
+  - name: remove the mysql test database
+    mysql_db: db=test state=absent
 
   - name: create slurm acct db
     mysql_db: name=slurm_acct_db state=present
