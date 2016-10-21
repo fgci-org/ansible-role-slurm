@@ -22,24 +22,41 @@
   - name: wait for mysql in port 3306 to start
     wait_for: port=3306 delay=10 timeout=60
 
-  - name: delete anonymous sql server user for localhost
-    mysql_user: user="" state=absent login_password="{{ DB_root_password }}"
-
-  - name: set the sql root user passwords
-    mysql_user: user="root" password="{{ DB_root_password }}" host="{{ item }}"
-    with_items:
+  - name: Set root sql user password
+    # If .my.cnf already exists, this will cause an mysql-root-password update.
+    # check_implicit_admin means it tries without password first
+    mysql_user:
+      name: root
+      password: "{{ DB_root_password}}"
+      check_implicit_admin: true
+      host="{{ item }}"
+   with_items:
       - "::1"
       - "127.0.0.1"
       - "localhost"
+    
+  - name: template .my.cnf
+    template:
+     src: "client.my.cnf.j2"
+     dest: "/root/.my.cnf"
+     owner: root
+     group: root
+     mode: 0600
+
+  - name: delete anonymous sql server user for localhost
+    mysql_user: user="" state=absent
 
   - name: remove the mysql test database
-    mysql_db: db=test state=absent login_password="{{ DB_root_password }}"
+    mysql_db: db=test state=absent
 
   - name: create slurm acct db
-    mysql_db: name=slurm_acct_db state=present login_password="{{ DB_root_password }}"
+    mysql_db: name=slurm_acct_db state=present
 
   - name: create slurm sql user
-    mysql_user: name=slurm state=present password="{{ slurm_mysql_password }}" login_password="{{ DB_root_password }}"
+    mysql_user: 
+     name: slurm 
+     state: present 
+     password: "{{ slurm_mysql_password }}"
     register: mysqlslurmuser
     ignore_errors: yes
     tags: debug
@@ -50,11 +67,21 @@
     changed_when: False
 
   - name: ensure slurm sql user has a password and privileges if it does not exist or if it was just added
-    mysql_user: "name=slurm password={{ slurm_mysql_password }} priv=slurm_acct_db.*:ALL state=present update_password=always login_password={{ DB_root_password }}"
+    mysql_user: 
+     name: slurm
+     password: "{{ slurm_mysql_password }}"
+     priv: "slurm_acct_db.*:ALL"
+     state: present 
+     update_password: always
     when: mysqlslurmuser|failed or mysqlslurmuser|changed
 
   - name: template in slurmdbd.conf
-    template: src=slurmdbd.conf.j2 dest=/etc/slurm/slurmdbd.conf owner=root mode=0640 backup=yes
+    template: 
+     src: slurmdbd.conf.j2 
+     dest: /etc/slurm/slurmdbd.conf 
+     owner: root 
+     mode: 0640 
+     backup: yes
     notify:
       - restart slurmdbd
 
