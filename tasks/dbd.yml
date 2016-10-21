@@ -30,10 +30,11 @@
       password: "{{ DB_root_password}}"
       check_implicit_admin: true
       host="{{ item }}"
-   with_items:
-      - "::1"
-      - "127.0.0.1"
-      - "localhost"
+    with_items:
+       - "::1"
+       - "127.0.0.1"
+       - "localhost"
+    when: slurm_manage_mysql_security
     
   - name: template .my.cnf
     template:
@@ -42,15 +43,19 @@
      owner: root
      group: root
      mode: 0600
+    when: slurm_manage_mysql_security
 
   - name: delete anonymous sql server user for localhost
     mysql_user: user="" state=absent
+    when: slurm_manage_mysql_security
 
   - name: remove the mysql test database
     mysql_db: db=test state=absent
+    when: slurm_manage_mysql_security
 
   - name: create slurm acct db
     mysql_db: name=slurm_acct_db state=present
+    when: slurm_manage_mysql_security
 
   - name: create slurm sql user
     mysql_user: 
