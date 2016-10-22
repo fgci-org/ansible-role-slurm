@@ -29,7 +29,7 @@
       name: root
       password: "{{ DB_root_password}}"
       check_implicit_admin: true
-      host="{{ item }}"
+      host: "{{ item }}"
     with_items:
        - "::1"
        - "127.0.0.1"
