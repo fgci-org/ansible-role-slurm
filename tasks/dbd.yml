@@ -38,7 +38,7 @@
     
   - name: template .my.cnf
     template:
-     src: "client.my.cnf.j2"
+     src: ".my.cnf.j2"
      dest: "/root/.my.cnf"
      owner: root
      group: root
