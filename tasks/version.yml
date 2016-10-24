@@ -1,0 +1,25 @@
+---
+
+#### Version
+
+  - name: Get version of installed slurm RPM
+    shell: yum list installed slurm | grep slurm | awk '{print $2}' | cut -d'-' -f1
+    register: reg_slurm_yum_version
+    always_run: True
+    changed_when: False
+
+  - name: Get version of installed slurm RPM major version
+    shell: yum list installed slurm | grep slurm | awk '{print $2}' | cut -d'-' -f1|cut -d "." -f1-2|sed -e 's/\.//'
+    register: reg_slurm_yum_version_major
+    always_run: True
+    changed_when: False
+
+  - name: Set fact with contents of fgci_slurmrepo_version with only the numbers
+    set_fact: slurm_fact_fgci_slurmrepo_version="{{ fgci_slurmrepo_version | replace('fgcislurm', '')}}"
+
+  - name: print custom facts in verbose mode
+    debug: var=item verbosity=1
+    with_items:
+     - "{{ reg_slurm_yum_version['stdout'] }}"
+     - "{{ slurm_fact_fgci_slurmrepo_version }}"
+     - "{{ reg_slurm_yum_version_major['stdout'] }}"
