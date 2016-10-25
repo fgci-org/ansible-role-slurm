@@ -36,7 +36,7 @@ All variables should be defined in defaults/main.yml
 All nodes run munge. Nodes which are part of the slurm\_compute host
 group will additionally run slurmd. Nodes which are part of the
 slurm\_service host group will additionally runs slurmctld and
-slurmdbd. Nodes which are in neither of these two host groups are 
+slurmdbd (unless {{ slurm_accounting_storage_host }} is not the same as {{ slurm_service_node }}). Nodes which are in neither of these two host groups are 
 assumed to be submit hosts.
 
 You also need to add a mysql\_slurm_password: "PASSWORD" string
@@ -46,6 +46,11 @@ user. See http://docs.ansible.com/ansible/playbooks_vault.html
 To add your own nodes and queues define the slurm_nodelist and slurm_partitionlist lists.
 
 It is possible to run the slurmdbd on a different host than the slurmctld by changing the slurm_accounting_storage_host variable.
+
+SLURM 16.05 can be gotten from the FGCI yum repo by setting:
+<pre>
+fgci_slurmrepo_version: "fgcislurm1605"
+</pre>
 
 ### Implementation
 
