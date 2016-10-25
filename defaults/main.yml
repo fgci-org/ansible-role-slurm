@@ -25,31 +25,6 @@ slurm_service_packages:
   - slurm-slurmdb-direct
   - slurm-sql
 
-slurm_dep_packages:
- - "xterm"
- - "sssd"
- - "gcc" 
- - "make"
- - "gcc-c++"
- - "wget"
- - "vim"
- - "man"
- - "rpm-build"
- - "pam"
- - "pam-devel"
- - "hwloc"
- - "hwloc-devel"
- - "munge"
- - "munge-devel"
- - "munge-libs"
- - "readline-devel"
- - "openssl-devel"
- - "perl-ExtUtils-MakeMaker"
- - "lua"
- - "lua-devel"
- - "lua-posix"
- - "lua-filesystem"
-
 admingroup: "admin"
 
 # If the current node is a nis server, make sure the slurm user and
@@ -83,8 +58,6 @@ slurm_Prolog: "/etc/slurm/prolog"
 slurm_Epilog: "/usr/local/libexec/slurm/epilog.d/*"
 slurm_TaskEpilog: "/usr/bin/epilog"
 slurm_TaskPlugin: "task/cgroup"
-slurm_version: "15.08.3"
-slurm_build: False
 slurm_log_dir: "/var/log/slurm"
 slurm_logrotate_rotate_interval: "weekly"
 slurm_logrotate_rotate: "8"

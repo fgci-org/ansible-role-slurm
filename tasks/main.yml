@@ -11,10 +11,6 @@
     - "{{ ansible_os_family }}.yml"
     - default.yml
 
-  # build is a way to build slurm from source on the service node
-- include: build.yml
-  when: "slurm_build == True and 'slurm_service' in group_names and ansible_os_family == 'RedHat'"
-
   # check which version of slurm is installed
 - include: version.yml
   when: ansible_os_family == "RedHat"

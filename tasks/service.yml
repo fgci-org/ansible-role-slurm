@@ -28,10 +28,6 @@
     copy: src=files/munge.key dest={{ slurm_munge_key_nfs }} mode=0400 owner=munge group=munge
     when: slurm_munge_key_to_nfs
 
-# a few remaining slurm_build tasks
-  - include: build_service.yml
-    when: "slurm_build == True and 'slurm_service' in group_names and ansible_os_family == 'RedHat'"
-
   - name: add slurm unix group
     group: name=slurm system=no state=present
     register: reg_slurm_unixgroup

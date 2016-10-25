@@ -53,7 +53,7 @@ A playbook that uses this role: https://github.com/CSC-IT-Center-for-Science/fgc
 
 ### Known Issues
 
- - This role used to be able to build slurm rpms, distribute them and install them. This is most likely not working anymore.
+ - This role used to be able to build slurm rpms, distribute them and install them. The last tag/release that had this feature was v1.5.0
 
 # Authors / Contributors:
 
