@@ -22,7 +22,3 @@
   - name: restart slurmdbd
     service: name=slurmdbd state=restarted
     when: slurm_accounting_storage_host == ansible_hostname
-
-  - name: Restart rsyslog
-    service: name=rsyslog state=restarted
-
