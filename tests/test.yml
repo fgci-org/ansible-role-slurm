@@ -28,3 +28,4 @@
 
    pre_tasks:
    - debug: var=group_names
+   - package: name=rsyslog state=present
