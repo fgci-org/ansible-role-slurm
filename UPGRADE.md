@@ -19,12 +19,12 @@ It assumes you are using the https://github.com/CSC-IT-Center-for-Science/fgci-a
  1. answer Y on the setup task and "Add FGI slurm repo" tasks only, rest N. ctrl+C quit after the "FGI slurm repo" task is done
  1. yum update
  1. schema upgrade, slurmdbd -D
- 1. ctrl C when it says started
+ 1. ctrl+C when it says started
  1. systemctl daemon-reload
  1. systemctl start slurmdbd
  1. systemctl restart slurmctld
  1. start slurmdbd 
- 1. update variables to www - bash tools/pullReqs.sh
+ 1. bash tools/pullReqs.sh (to rsync group_vars to the internal web server for ansible-pull)
  1. ansible-playbook compute.yml -t slurm
  1. run yum update to update slurm
  1. pdsh -g compute -l root yum -y update
