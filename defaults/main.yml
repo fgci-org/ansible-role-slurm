@@ -180,6 +180,8 @@ pam_use_namespace: False
 pam_tmp_inst_dir: /l/tmp-inst/
 pam_var_tmp_inst_dir: /l/vartmp_inst/
 
+# template in a file to manage slurm logs via rsyslog
+slurm_manage_rsyslog_conf: True
 # sysctl settings from slurm htc guide.
 slurm_manage_sysctl: True
 slurm_sysctl_core_somaxconn: 4096 # 128 is the default in el7
