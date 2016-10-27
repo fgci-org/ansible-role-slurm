@@ -233,3 +233,11 @@ slurm_AccountingStorageTRES: "gres/gpu:teslak80"
 # - slurm_JobAcctGatherFrequency: "task=30"
 # - slurm_AccountingStoragePass: ""
 
+
+# plugstack and X11
+slurm_plugstack: False
+slurm_x11_spank: False
+
+slurm_spank_x11_packages:
+  - xauth
+  - slurm-spank-x11

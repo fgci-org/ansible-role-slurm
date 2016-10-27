@@ -50,3 +50,20 @@
   - name: configure logrotate to rotate slurm_logs in slurm_log_dir
     template: src=slurm_logrotate.j2 dest=/etc/logrotate.d/slurm owner=root mode=0644 backup=no
     when: slurm_log_dir is defined
+
+  - name: template in plugstack.conf
+    template: src=plugstack.conf.j2 dest=/etc/slurm/plugstack.conf owner=root mode=0644 backup=yes
+    when: slurm_plugstack
+
+  - name: create slurm/plugstack.conf.d
+    path=/etc/slurm/plugstack.conf.d state=directory owner=root group=root mode=0755
+    when: slurm_plugstack
+
+  - name: template in plugstack.conf.d/x11.conf
+    template: src=x11.conf.j2 dest=/etc/slurm/plugstack.conf.d/x11.conf owner=root mode=0644 backup=no
+    when: slurm_plugstack and slurm_x11_spank
+
+  - name: install slurm-spank-x11 and xauth
+    package: name={{ item }} state=present
+    with_items: "{{ slurm_spank_x11_packages }}"
+    when: slurm_plugstack and slurm_x11_spank

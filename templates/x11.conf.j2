@@ -1,0 +1,37 @@
+################################################################################
+# {{ ansible_managed }}
+# X11 SLURM spank plugin configuration file
+#
+# this plugin can be used to add X11 support in slurm jobs using ssh X11
+# tunneling capabilities
+#
+# The following configuration parameters are available (the character | 
+# replaces the space in compound options) :
+#
+# ssh_cmd	: can be used to modify the ssh binary to use.
+# 		  default corresponds to ssh_cmd=ssh
+# ssh_args	: can be used to modify the ssh arguments to use.
+# 		  default corresponds to ssh_cmd=
+# helpertask_cmd: can be used to add a trailing argument to the helper task 
+# 		  responsible for setting up the ssh tunnel
+# 		  default corresponds to helpertask_cmd=
+#		  an interesting value can be helpertask_cmd=2>/tmp/log to
+#		  capture the stderr of the helper task
+#
+# Users can ask for X11 support for both interactive (srun) and batch (sbatch)
+# jobs using parameter --x11=[batch|first|last|all] or the SLURM_SPANK_X11 
+# environment variable set to the required value.
+#
+# In interactive mode (srun), values can be first to establish a tunnel with
+# the first allocated node, last for the last one and all for all nodes.
+#
+# In batch mode (sbatch), only "batch" mode can be used but batch script can
+# be used first|last|all values with srun. In batch mode, the first allocated 
+# node will contact the submission node using ssh to establish the tunnel
+# from the submission node to itself. As a result, the user must kept its 
+# initial connection to the submission host as long as it wants to be able to 
+# forward its X11 display to batch execution node.
+#
+#-------------------------------------------------------------------------------
+optional          x11.so
+#-------------------------------------------------------------------------------
