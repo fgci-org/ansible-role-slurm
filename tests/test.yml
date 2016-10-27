@@ -25,6 +25,8 @@
        - { match: '{gpu[1-19]}', name: "check_hw_ib", arguments: "40" }
        - { match: "{gpu[2-22]}", name: "check_hw_ib", arguments: "56" }
        - { match: "*", name: "check_hw_eth", arguments: "eth0" }
+     - slurm_plugstack: True
+     - slurm_x11_spank: True
 
    pre_tasks:
    - debug: var=group_names
