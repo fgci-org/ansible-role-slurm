@@ -56,7 +56,7 @@
     when: slurm_plugstack
 
   - name: create slurm/plugstack.conf.d
-    path=/etc/slurm/plugstack.conf.d state=directory owner=root group=root mode=0755
+    file: path=/etc/slurm/plugstack.conf.d state=directory owner=root group=root mode=0755
     when: slurm_plugstack
 
   - name: template in plugstack.conf.d/x11.conf
