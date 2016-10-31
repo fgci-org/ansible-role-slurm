@@ -237,6 +237,7 @@ slurm_AccountingStorageTRES: "gres/gpu:teslak80"
 # plugstack and X11
 slurm_plugstack: False
 slurm_x11_spank: False
+slurm_x11_setting: "optional          x11.so"
 
 slurm_spank_x11_packages:
   - xauth
