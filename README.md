@@ -56,6 +56,21 @@ fgci_slurmrepo_version: "fgcislurm1605"
 
 A playbook that uses this role: https://github.com/CSC-IT-Center-for-Science/fgci-ansible
 
+Or you can check out the [tests/test.yml](tests/test.yml) in this repo.
+
+Example Playbook
+----------------
+
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+
+<pre>
+    - hosts: servers
+      roles:
+         - { role: ansible-role-pam }
+         - { role: ansible-role-nhc }
+         - { role: ansible-role-slurm }
+</pre>
+
 ### Known Issues
 
  - This role used to be able to build slurm rpms, distribute them and install them. The last tag/release that had this feature was v1.5.0
