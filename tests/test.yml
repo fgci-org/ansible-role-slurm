@@ -28,7 +28,11 @@
      - slurm_plugstack: True
      - fgci_slurmrepo_version: "fgcislurm1605"
      - slurm_x11_spank: True
-     - slurm_topology_plugin: True
+     - slurm_topology_plugin: "topology/tree"
+     - slurm_topologylist: 
+       - "SwitchName=s0 Nodes=c[0-18]"
+       - "SwitchName=s1 Nodes=c[19-36]"
+       - "SwitchName=s3 Switches=s[0,1]"
 
    pre_tasks:
    - debug: var=group_names
