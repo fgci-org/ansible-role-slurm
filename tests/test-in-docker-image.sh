@@ -13,19 +13,11 @@ ANSIBLE_VAR=""
 ANSIBLE_INVENTORY="tests/inventory"
 ANSIBLE_PLAYBOOk="tests/test.yml"
 #ANSIBLE_LOG_LEVEL=""
-ANSIBLE_LOG_LEVEL="-vvv"
-APACHE_CTL="apache2ctl"
+ANSIBLE_LOG_LEVEL="-v"
 
 # if there wasn't sudo then ansible couldn't use it
 if [ "x$SUDO" == "x" ];then
     SUDO_OPTION=""
-fi
-
-if [ "${OS_TYPE}" == "centos" ];then
-    APACHE_CTL="apachectl"
-    if [ "${OS_VERSION}" == "7" ];then
-        ANSIBLE_VAR="apache_use_service=False"
-    fi
 fi
 
 ANSIBLE_EXTRA_VARS=""
