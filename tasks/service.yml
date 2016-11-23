@@ -6,7 +6,7 @@
   - name: does the munge.key exist?
     stat: path=/etc/munge/munge.key
     register: mungekeystat
-    always_run: True
+    check_mode: no
     ignore_errors: True
 
   - name: create munge key
@@ -104,7 +104,7 @@
   - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
     command: "sacctmgr -n show cluster {{ siteName }}"
     register: slurm_clusterlist
-    always_run: yes
+    check_mode: no
     changed_when: False
 
   - name: add cluster to accounting

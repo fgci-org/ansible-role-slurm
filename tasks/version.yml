@@ -5,13 +5,13 @@
   - name: Get version of installed slurm RPM
     shell: yum list installed slurm | grep slurm | awk '{print $2}' | cut -d'-' -f1
     register: reg_slurm_yum_version
-    always_run: True
+    check_mode: no
     changed_when: False
 
   - name: Get version of installed slurm RPM major version
     shell: yum list installed slurm | grep slurm | awk '{print $2}' | cut -d'-' -f1|cut -d "." -f1-2|sed -e 's/\.//'
     register: reg_slurm_yum_version_major
-    always_run: True
+    check_mode: no
     changed_when: False
 
   - name: Set fact with contents of fgci_slurmrepo_version with only the numbers
