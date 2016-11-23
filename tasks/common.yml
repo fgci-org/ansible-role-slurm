@@ -34,7 +34,7 @@
     notify: restart slurm
 
   - name: Make from template topology.conf
-    template: src=topology.conf.j2 dest=/etc/slurm/topology.conf owner=root moder=0644
+    template: src=topology.conf.j2 dest=/etc/slurm/topology.conf owner=root mode=0644
     notify: restart slurm
     when: slurm_topology_plugin is defined
 

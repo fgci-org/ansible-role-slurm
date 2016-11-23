@@ -28,6 +28,7 @@
      - slurm_plugstack: True
      - fgci_slurmrepo_version: "fgcislurm1605"
      - slurm_x11_spank: True
+     - slurm_topology_plugin: True
 
    pre_tasks:
    - debug: var=group_names
