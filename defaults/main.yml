@@ -43,6 +43,13 @@ siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"
 
+# Have systemd restart slurm daemons if they fail to start
+slurm_systemd_override_slurmd: True
+slurm_systemd_override_slurmdbd: False
+slurm_systemd_override_slurmctld: False
+slurm_systemd_override_restart: "on-failure"
+slurm_systemd_override_sec: "20"
+
 # By setting slurm_munge_key_from_nfs to True we copy the munge.key from slurm_munge_key_nfs
 # If it's False then we copy it from files/ where ansible runs
 # This is the default. So with ansible-pull we set slurm_munge_key_nfs to True

@@ -92,3 +92,12 @@
 
   - name: template in dump-all-databases.sh
     template: src=dump-all-databases.sh.j2 dest=/usr/local/sbin/dump-all-databases.sh owner=root mode=0750 backup=no
+
+  - name: create systemd override directories for slurmdbd
+    file: path="/etc/systemd/system/slurmdbd.service.d" state=directory owner=root mode=0755
+    when: slurm_systemd_override_slurmdbd and ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+    
+  - name: template in systemd override file for slurmdbd
+    template: src=systemd_override.conf.j2 dest=/etc/systemd/system/slurmdbd.service.d/slurmdbd_override.conf backup=no owner=root mode=0644
+    when: slurm_systemd_override_slurmdbd and ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
