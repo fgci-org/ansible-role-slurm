@@ -33,6 +33,9 @@
        - "SwitchName=s0 Nodes=c[0-18]"
        - "SwitchName=s1 Nodes=c[19-36]"
        - "SwitchName=s3 Switches=s[0,1]"
+     - slurm_systemd_override_slurmdbd: True
+     - slurm_systemd_override_slurmctld: True
+
 
    pre_tasks:
    - debug: var=group_names
