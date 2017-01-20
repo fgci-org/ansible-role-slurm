@@ -45,8 +45,8 @@ nodeGpuBase: "gpu"
 
 # Have systemd restart slurm daemons if they fail to start
 slurm_systemd_override_slurmd: True
-slurm_systemd_override_slurmdbd: False
-slurm_systemd_override_slurmctld: False
+slurm_systemd_override_slurmdbd: True
+slurm_systemd_override_slurmctld: True
 slurm_systemd_override_restart: "on-failure"
 slurm_systemd_override_sec: "20"
 
