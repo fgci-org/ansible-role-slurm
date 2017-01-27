@@ -3,15 +3,15 @@ ansible-role-slurm
 [![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/CSC-IT-Center-for-Science/ansible-role-slurm/master) 
 [![Build Status](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-slurm.svg?branch=master)](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-slurm)
 
-# Creates a slurm cluster
+# Creates a SLURM cluster
 
-Tested with slurm versions:
+Tested with SLURM versions:
  - 14.11.0
  - 14.11.3
  - 15.08.x
  - 16.05.x
 
-Tested with these linux distributions:
+Tested with these Linux distributions:
  - CentOS 6
   - Only 14.11.x
  - CentOS 7
@@ -21,9 +21,9 @@ Tested with these linux distributions:
 ## Dependencies
 
  - https://github.com/jabl/ansible-role-pam
-  - Used to configure PAM - limit access to the compute nodes
+  - configure PAM - limit access to the compute nodes
  - https://github.com/CSC-IT-Center-for-Science/ansible-role-nhc
-  - Used to configure Node Health Checker
+  - Configure Node Health Checker
 
 ## How-To
 
@@ -61,13 +61,16 @@ Or you can check out the [tests/test.yml](tests/test.yml) in this repo.
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
 <pre>
-    - hosts: servers
+    - hosts: compute
+      strategy: free
       roles:
          - { role: ansible-role-pam }
          - { role: ansible-role-nhc }
+         - { role: ansible-role-slurm }
+
+    - hosts: install
+      roles:
          - { role: ansible-role-slurm }
 </pre>
 
