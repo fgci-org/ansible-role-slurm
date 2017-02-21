@@ -33,6 +33,7 @@ before_script:
   - docker run --privileged -d -ti -e "container=docker"  -v `pwd`:/$ROLETOTEST -v /sys/fs/cgroup:/sys/fs/cgroup  ${REPO}:${IMAGE_BUILD_PLATFORM}  /usr/sbin/init
   - DOCKER_CONTAINER_ID=$(docker ps | grep ${IMAGE_BUILD_PLATFORM} | awk '{print $1}')
   - docker logs $DOCKER_CONTAINER_ID
+
 script:
   # Testing of this ansible-role:
   - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c "/$ROLETOTEST/tests/test-in-docker-image.sh"
@@ -50,5 +51,5 @@ after_script:
 notifications:
   email: false
   flowdock:
-    secure: "lxqZTTUCUYy19JzwXnH/kRcndYwNasUYpa0AK0vcRqTRSoULRzwE2jcJUk2YBz0qTBcTgAkinj1VQbImdrl68NTPDTmOZM4+hPZ8RQNTGR7VJwy4Ynjl/RtvxmwvoW/kSZJI3twDvPpAl2yEKfiPwSE4kYNFs84w43WieNhX3qO0LN9EdFykV6M0xeZgGc71v6oGof3n9HhBMfMUYU6YZJKvirHJNwAxHsWiFSq+dfDA5hqDyilwuQM0toNgjsFi6F7b40vOVJPGJKdSNekrFgp2Gm/Fzd83sO/Sp1ord9v73UflshejKuK2/iMRddPW5JDl05FNrJ7x6xcCfK9sxOj5KDELotagHCDdCTqX4USelBpI7DeO9yV8NAIxyL2KAFi5b3uwvF5reitGhRfdeqA0B9eK+k6vdRQ/xKryYc48hVX46wraL2ibZv2gbic7vpYdxiWFUirKB9NBoQu7JHkTT/LT3LjbC9/uL9c4qRyakAnQwhgi4/sEk7f9euvtZA6MJfZpCzfiYVt3rGe6H9HqcCflnxW5F1ZjLBSkHk02rNn6hcfFxGHSS5x1362F9JCwVkAWgJ43JvQLRxobW4htbx56+niX0zS+vs2kK5K3NxUCJzInUb4UV5/9lwcCBZQJL0fD4u2Gy8/TC7MrhhOVxkSSPmjjoonaRPY497c="
+    secure: "lslFw8kG2GmnBoI2SfpvBqqJm9MJOi9XwgJDnIMOd7mWCaw0SUngUGPyfGHsZzK4pnzZhGMWPkXAtcvHCCIxfJYl+J91dxHVXhGz17HuQnZhmspcZD2dIW2wUVDdlCg7GXTHt/k8sgjLZOKWF4kjGDCqspU2u/wFaRBFM7ekkUjwTr9OLn/afZa7hgH7rTtj6Eg5gcC94aolEisnVv1FAQrOrIL+vxnYD+f9LTNu83NwP8eifrKoNdnYBZPRrs9hxmTrGrvgtDzu3p6YWYxxJFFxqQtSuUbgCsuZWUn/24vbnAShoRATeboGZzFgknU8zwFHkPB53Yd9wyLulV3PvTHYi9oVkg6ZjmUhPxvLYyYoRzAIcEx64m3MquUtnvKN0031vwicSLXjeu5DzemL5/ZbXiN6zRHclsuPFYE4xedHfvbpgzhsZjTDnZc59EZn1M8YbiOKzET32Q5JNVFhsH8j4VcftWjOx/hRFpqmbJHii2CpbctK1WiiGsKN5emoe/bqSucadtSZNUeTbFct7x5S2G6vOlWCMREB1DW9A/BzxOy7j255/1mcBips2i5H677+CVRQ8fPMspLwDcuO4HQBHvWz44gQN+bYI51+kdX4pkTT6dx+OyRlLqVrg6h1eSnu4rJKzbhNk7iaZPJ9izn6TsGneI3hhlUU2+b0mO0="
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
