@@ -17,8 +17,7 @@ env:
 
 install:
   - npm install -g validate-dockerfile
-
-script:
+before_script:
   # TESTDIR = Where the stable-centos/Dockerfile is located
   - export TESTDIR=tests
   # ROLETOTEST = The name of this repo
@@ -34,8 +33,10 @@ script:
   - docker run --privileged -d -ti -e "container=docker"  -v `pwd`:/$ROLETOTEST -v /sys/fs/cgroup:/sys/fs/cgroup  ${REPO}:${IMAGE_BUILD_PLATFORM}  /usr/sbin/init
   - DOCKER_CONTAINER_ID=$(docker ps | grep ${IMAGE_BUILD_PLATFORM} | awk '{print $1}')
   - docker logs $DOCKER_CONTAINER_ID
+script:
   # Testing of this ansible-role:
   - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c "/$ROLETOTEST/tests/test-in-docker-image.sh"
+after_script:
   - >
     docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'echo -ne "------\nEND ANSIBLE TESTS\n------\nSystemD Units:\n------\n";
        systemctl --no-pager --all --full status ;
