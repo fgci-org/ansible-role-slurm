@@ -13,6 +13,12 @@ ControlMachine={{ slurm_service_node }}
 {% if slurm_control_addr is defined %}
 ControlAddr={{ slurm_control_addr }}
 {% endif %}
+{% if slurm_backup_controller is defined %}
+BackupController={{ slurm_backup_controller }}
+{% endif %}
+{% if slurm_backup_addr is defined %}
+BackupAddr={{ slurm_backup_addr }}
+{% endif %}
 SlurmUser={{ slurm_SlurmUser }}
 SlurmctldPort={{ slurm_SlurmctldPort }}
 SlurmdPort={{ slurm_SlurmdPort }}
