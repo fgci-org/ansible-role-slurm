@@ -42,3 +42,14 @@
   - name: start and enable slurmctld
     service: name={{ slurmctld_service }} state=started enabled=yes
     when: slurm_service_node == ansible_hostname or slurm_backup_controller == ansible_hostname
+
+  - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
+    command: "sacctmgr -n show cluster {{ siteName }}"
+    register: slurm_clusterlist
+    check_mode: no
+    changed_when: False
+
+  - name: add cluster to accounting
+    command: "sacctmgr -i add cluster {{ siteName }}"
+    when: slurm_clusterlist.stdout.find("{{siteName}}") == -1
+
