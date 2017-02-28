@@ -1,5 +1,5 @@
 ---
-  - name: install slurm servce specific packages for slurmctlds
+  - name: install specific slurm service_packages for slurmctlds
     package: "name={{ item }} state=present"
     with_items: "{{ slurm_service_packages }}"
 
@@ -41,7 +41,7 @@
 
   - name: start and enable slurmctld
     service: name={{ slurmctld_service }} state=started enabled=yes
-    when: slurm_service_node == ansible_hostname or slurm_backup_controller == ansible_hostname
+    when: slurm_service_node == ansible_hostname or (slurm_backup_controller is defined and slurm_backup_controller == ansible_hostname)
 
   - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
     command: "sacctmgr -n show cluster {{ siteName }}"

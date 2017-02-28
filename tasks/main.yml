@@ -54,7 +54,7 @@
 
   # slurmctld hosts, primary and potentially backup
 - include: slurmctld.yml
-  when: slurm_service_node == ansible_hostname or slurm_backup_controller == ansible_hostname
+  when: slurm_service_node == ansible_hostname or (slurm_backup_controller is defined and slurm_backup_controller == ansible_hostname)
 
   # computes
     # get munge.key from the directory where you run ansible or NFS
