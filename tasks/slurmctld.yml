@@ -1,0 +1,55 @@
+---
+  - name: install slurm service specific packages
+    package: "name={{ item }} state=present"
+    with_items: "{{ slurm_service_packages }}"
+
+  - name: Install munge key for slurmctld
+    copy:
+      src=files/munge.key
+      dest=/etc/munge/munge.key
+      owner=munge
+      group=munge
+      mode=0400
+    notify: restart munge
+
+  - name: start and enable munge
+    service: name=munge state=started enabled=yes
+
+  - name: Increase net.core.somaxconn for slurmctld
+    sysctl: name=net.core.somaxconn
+            value={{ slurm_sysctl_core_somaxconn }}
+            sysctl_file=/etc/sysctl.d/50-slurm.conf
+    when: slurm_manage_sysctl
+
+  - name: Increase net.ipv4.tcp_max_syn_backlog for slurmctld
+    sysctl: name=net.ipv4.tcp_max_syn_backlog
+            value={{ slurm_sysctl_tcp_max_syn_backlog }}
+            sysctl_file=/etc/sysctl.d/50-slurm.conf
+    when: slurm_manage_sysctl
+
+  - name: disable the slurm init script slurm on el7
+    service: name=slurm enabled=no
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
+  - name: create systemd override directories for slurmctld
+    file: path="/etc/systemd/system/slurmctld.service.d" state=directory owner=root mode=0755
+    when: slurm_systemd_override_slurmctld and ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
+  - name: template in systemd override file for slurmctld
+    template: src=systemd_override.conf.j2 dest=/etc/systemd/system/slurmctld.service.d/slurmctld_override.conf backup=no owner=root mode=0644
+    when: slurm_systemd_override_slurmctld and ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+
+  - name: start and enable slurmctld
+    service: name={{ slurmctld_service }} state=started enabled=yes
+    when: slurm_service_node == ansible_hostname or slurm_backup_controller == ansible_hostname
+
+  - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
+    command: "sacctmgr -n show cluster {{ siteName }}"
+    register: slurm_clusterlist
+    check_mode: no
+    changed_when: False
+
+  - name: add cluster to accounting
+    command: "sacctmgr -i add cluster {{ siteName }}"
+    when: slurm_clusterlist.stdout.find("{{siteName}}") == -1
+

@@ -82,6 +82,10 @@ slurm_mpi_default: "none"
 slurm_mpi_params: "ports=12000-12999"
 slurm_proctrack_type: "proctrack/cgroup"
 slurm_service_node: "{{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}"
+# If you want a backup slurmctld, set this variable.
+#slurm_backup_controller: "{{ hostvars[groups['slurm_service'][1]]['ansible_hostname']  }}"
+# The addr of the backup controller, if necessary
+#slurm_backup_addr: "foo.example.com"
 slurm_accounting_storage_host: "{{ slurm_service_node }}"
 slurm_accounting_storage_type: "accounting_storage/slurmdbd"
 slurm_accounting_storage_loc: "slurm_acct_db"
