@@ -13,6 +13,7 @@ slurm_packages:
  - slurm-torque
  - slurm-munge
  - slurm-sjobexit
+ - slurm-seff
 # - slurm-spank-x11
 #
 
