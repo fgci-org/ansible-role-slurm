@@ -1,6 +1,6 @@
 ---
 
-  - name: get munge key for distribution to nodes
+  - name: copy munge key to compute nodes when slurm_munge_key_from_nfs is False
     copy: src=files/munge.key
           dest=/etc/munge/munge.key
           owner=munge
@@ -10,7 +10,7 @@
     notify:
      - restart munge
 
-  - name: copy the munge key from NFS
+  - name: copy the munge key from NFS when slurm_munge_key_from_nfs is True
     command: cp -v {{ slurm_munge_key_nfs }} /etc/munge/munge.key creates=/etc/munge/munge.key
     when: slurm_munge_key_from_nfs == True
     notify:
@@ -22,7 +22,7 @@
     notify:
      - restart munge
 
-  - name: start and enable munge
+  - name: start and enable munge on compute nodes
     service: name=munge state=started enabled=yes
     notify:
      - restart munge
@@ -33,7 +33,7 @@
   - name: Create namespace epilog script
     template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
 
-  - name: disable the slurm init script slurm on el7
+  - name: disable the slurm init script slurm on el7 compute nodes
     service: name=slurm enabled=no
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 

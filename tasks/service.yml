@@ -53,7 +53,7 @@
     service: name=munge state=restarted
     when: mungekeygen.changed and mungekeygen is defined
 
-  - name: start and enable munge
+  - name: start and enable munge on service nodes
     service: name=munge state=started enabled=yes
 
   - name: copy in munge key to slurm_accounting_storage_host too if it is different than the service node

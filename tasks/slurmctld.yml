@@ -1,5 +1,5 @@
 ---
-  - name: install slurm service specific packages
+  - name: install slurm servce specific packages for slurmctlds
     package: "name={{ item }} state=present"
     with_items: "{{ slurm_service_packages }}"
 
@@ -12,7 +12,7 @@
       mode=0400
     notify: restart munge
 
-  - name: start and enable munge
+  - name: start and enable munge on slurmctlds
     service: name=munge state=started enabled=yes
 
   - name: Increase net.core.somaxconn for slurmctld
@@ -27,7 +27,7 @@
             sysctl_file=/etc/sysctl.d/50-slurm.conf
     when: slurm_manage_sysctl
 
-  - name: disable the slurm init script slurm on el7
+  - name: disable the slurm init script slurm on el7 on slurmctlds
     service: name=slurm enabled=no
     when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 

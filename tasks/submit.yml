@@ -1,6 +1,6 @@
 ---
 
-  - name: get munge key for distribution to nodes
+  - name: copy munge key to submit node
     copy: src=files/munge.key
           dest=/etc/munge/munge.key
           owner=munge
