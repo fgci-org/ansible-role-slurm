@@ -35,6 +35,7 @@
        - "SwitchName=s3 Switches=s[0,1]"
      - slurm_systemd_override_slurmdbd: True
      - slurm_systemd_override_slurmctld: True
+     - slurm_SlurmctldTimeout: 10
 
 
    pre_tasks:
