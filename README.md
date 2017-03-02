@@ -47,7 +47,7 @@ To add your own nodes and queues define the slurm_nodelist and slurm_partitionli
 
 It is possible to run the slurmdbd on a different host than the slurmctld by changing the slurm_accounting_storage_host variable.
 
-It is also possible to setup a backup slurm controller by defining slurm_backup_controller variable.
+It is also possible to setup a backup slurm controller by defining slurm_backup_controller variable. Please read the [https://slurm.schedmd.com/quickstart_admin.html#HA](SLURM HA documentation). For example you'll need a shared directory (for example NFS) available on both the slurm_service_node and slurm_backup_controller.
 
 SLURM 16.05 can be gotten from the FGCI yum repo by setting:
 <pre>
@@ -79,6 +79,7 @@ Example Playbook
 ### Known Issues
 
  - This role used to be able to build slurm rpms, distribute them and install them. The last tag/release that had this feature was v1.5.0
+ - Setting up a shared directory á la NFS for running a SLURM in HA is out of scope for this role. There are many [https://github.com/CSC-IT-Center-for-Science/ansible-role-nfs](NFS server roles) and [https://github.com/CSC-IT-Center-for-Science/ansible-role-nfs](Mount Filesystem roles) roles out there.
 
 # Authors / Contributors:
 
