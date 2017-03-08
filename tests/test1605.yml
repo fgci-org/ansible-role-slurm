@@ -1,6 +1,7 @@
 ---
 
- - hosts: install,compute
+ - name: install a SLURM 1605 cluster
+   hosts: install,compute
    remote_user: root
    roles:
      - ansible-role-pam
@@ -26,7 +27,7 @@
        - { match: "{gpu[2-22]}", name: "check_hw_ib", arguments: "56" }
        - { match: "*", name: "check_hw_eth", arguments: "eth0" }
      - slurm_plugstack: True
-     - fgci_slurmrepo_version: "fgcislurm1702"
+     - fgci_slurmrepo_version: "fgcislurm1605"
      - slurm_x11_spank: True
      - slurm_topology_plugin: "topology/tree"
      - slurm_topologylist: 

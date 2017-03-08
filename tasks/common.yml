@@ -13,10 +13,19 @@
     when: ansible_distribution_major_version == "7" and fgci_install == True and ansible_os_family == "RedHat"
 
 ##
-  - name: install common Slurm packages
+  - name: install common Slurm packages after 1605
     package: name={{ item }} state=present
     with_items: "{{ slurm_packages }}"
-    when: slurm_packages.0 != ""
+    when:
+     - slurm_packages.0 != ""
+     - slurm_fact_fgci_slurmrepo_version|int > 1605
+
+  - name: install common Slurm packages before 1702
+    package: name={{ item }} state=present
+    with_items: "{{ slurm_packages_before_1702 }}"
+    when:
+     - slurm_packages_before_1702.0 != ""
+     - slurm_fact_fgci_slurmrepo_version|int < 1702
 
   - name: install fgci Slurm addons
     package: name=slurm-fgi-addons state=present

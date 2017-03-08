@@ -6,17 +6,18 @@ ansible-role-slurm
 # Creates a SLURM cluster
 
 Tested with SLURM versions:
- - 14.11.0
- - 14.11.3
+ - 14.11.x
  - 15.08.x
  - 16.05.x
+ - 17.02.x
 
 Tested with these Linux distributions:
  - CentOS 6
   - Only 14.11.x
  - CentOS 7
-  - 15.08.x
-  - 16.05.x
+  - 15.08.x (travis ci automatic testing)
+  - 16.05.x (travis ci automatic testing)
+  - 17.02.x (travis ci automatic testing)
 
 ## Dependencies
 
@@ -80,6 +81,14 @@ Example Playbook
 
  - This role used to be able to build slurm rpms, distribute them and install them. The last tag/release that had this feature was v1.5.0
  - Setting up a shared directory á la NFS for running a SLURM in HA is out of scope for this role. There are many [NFS server roles](https://github.com/CSCfi/ansible-role-nfs) and [Mount Filesystem roles](https://github.com/CSCfi/ansible-role-nfs_mount) roles out there.
+
+### Testing and contributions
+
+Testing is done with [Travis](.travis.yml). New SLURM release can be tested after the RPMs are built and available in the FGCI repo. After that one needs to add a new tests/test1702.yml and a new IMAGE_BUILD_PLATFORM env in .travis.yml.
+
+ - PRs to master
+ - if possible make sure that the new feature is also tested
+ - strive for backwards compatibility
 
 # Authors / Contributors:
 
