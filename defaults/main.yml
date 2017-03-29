@@ -82,15 +82,27 @@ slurm_mpi_default: "none"
 slurm_mpi_params: "ports=12000-12999"
 slurm_proctrack_type: "proctrack/cgroup"
 slurm_service_node: "{{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}"
+
+#slurm_control_addr is the same as ControlMachine ( slurm_service_node ) by default. 
+#Define it here to change it.
+#slurm_control_addr="{{ slurm_service_node }}"
 # If you want a backup slurmctld, set this variable.
 #slurm_backup_controller: "{{ hostvars[groups['slurm_service'][1]]['ansible_hostname']  }}"
 # The addr of the backup controller, if necessary
 #slurm_backup_addr: "foo.example.com"
+
 slurm_accounting_storage_host: "{{ slurm_service_node }}"
 slurm_accounting_storage_type: "accounting_storage/slurmdbd"
 slurm_accounting_storage_loc: "slurm_acct_db"
 slurm_accounting_storage_user: "slurm"
 slurm_accounting_storage_enforce: "safe,qos"
+# If you wish to add accounting for additional TRES types, uncomment and edit the following:
+#slurm_accounting_storage_tres: "gres/gpu:teslak80,gres/gpu:teslak40"
+
+# slurm_AccountingStorageTRES is used if slurm_with_gpu is True
+slurm_AccountingStorageTRES: "gres/gpu:teslak80"
+
+
 ##
 
 # If you wish to use a topology plugins (parameter TopologyPlugin=),
@@ -203,8 +215,6 @@ slurm_manage_sysctl: True
 slurm_sysctl_core_somaxconn: 4096 # 128 is the default in el7
 slurm_sysctl_tcp_max_syn_backlog: 4096 # 512 is the default in el7
 
-slurm_AccountingStorageTRES: "gres/gpu:teslak80"
-
 #slurm_nodelist:
 # - "NodeName=cn[1-1234] RealMemory=128000 Feature=haswell"
 # - "NodeName=gpu[1-1234] RealMemory=128000 Feature=haswell"
@@ -213,42 +223,34 @@ slurm_AccountingStorageTRES: "gres/gpu:teslak80"
 # - "PartitionName=batch Nodes={{ slurm_compute_nodes }} Default=NO MaxTime=INFINITE State=UP DefaultTime=2:00:00"
 # - "PartitionName=grid Nodes=gpu[1-1234] Default=NO MaxTime={{ slurm_max_job_time }} State=UP DefaultTime=2:00:00"
 
-# To add extra parameters, uncomment the following line and the desired parameter's lines. Add any other absent but needed parameter to the list
+# To add extra parameters, uncomment the following line and the desired parameter's lines. Add any other absent but needed parameter to the list slurm_ExtraParamsList. Entries in the list needs to be in Setting=value like below.
 #slurm_ExtraParamsList:
-# - slurm_JobCredentialPrivateKey: ""
-# - slurm_JobCredentialPublicCertificate: ""
-# - slurm_PluginDir: ""
-# - slurm_PlugStackConfig: ""
-# - slurm_PropagatePrioProcess: ""
-# - slurm_PropagateResourceLimits: ""
-# - slurm_PrologSlurmctld: "/etc/slurm/slurmctld_prolog"
-# - slurm_EpilogSlurmctld: "/etc/slurm/slurmctld_epilog"
-# - slurm_SrunProlog: ""
-# - slurm_SrunEpilog: ""
-# - slurm_TaskProlog: ""
-# - slurm_TrackWCKey: "no"
-# - slurm_TreeWidth: "50"
-# - slurm_TmpFs: ""
-# - # set slurm_mysql_passwords to something. If this variable is not set the role will fail.
-# - slurm_mysql_password: "CHANGEME"
-# - slurm_version is only used when grabbing the source 
-# - slurm_control_addr is the same as controlmachine by default. Define it here to change it.
-# - slurm_control_addr: "{{ slurm_service_node }}"
-# - # If you wish to add accounting for additional TRES types, uncomment and edit the following:
-# - slurm_accounting_storage_tres: "gres/gpu:teslak80,gres/gpu:teslak40"
-# - slurm_SchedulerAuth: ""
-# - slurm_SchedulerRootFilter: ""
-# - slurm_DefMemPerCPU: "512"
-# - slurm_PriorityUsageResetPeriod: "14-0"
-# - slurm_HealthCheckNodeState: "IDLE"
-# - slurm_Licenses: "mdcs:256"
-# - slurm_MaxSubmitJobs: "2000"
-# - slurm_SlurmctldLogFile: {{ slurm_log_dir }}"/slurmctld.log"
-# - slurm_DebugFlags: "backfill"
-# - slurm_SlurmdLogFile: {{ slurm_log_dir }}"/slurmd.log"
-# - slurm_JobAcctGatherFrequency: "task=30"
-# - slurm_AccountingStoragePass: ""
-
+# - JobCredentialPrivateKey=""
+# - JobCredentialPublicCertificate=""
+# - PluginDir=""
+# - PlugStackConfig=""
+# - PropagatePrioProcess=""
+# - PropagateResourceLimits=""
+# - PrologSlurmctld="/etc/slurm/slurmctld_prolog"
+# - EpilogSlurmctld="/etc/slurm/slurmctld_epilog"
+# - SrunProlog=""
+# - SrunEpilog=""
+# - TaskProlog=""
+# - TrackWCKey="no"
+# - TreeWidth="50"
+# - TmpFs=""
+# - SchedulerAuth=""
+# - SchedulerRootFilter=""
+# - DefMemPerCPU="512"
+# - PriorityUsageResetPeriod="14-0"
+# - HealthCheckNodeState="IDLE"
+# - Licenses="mdcs:256"
+# - MaxSubmitJobs="2000"
+# - SlurmctldLogFile={{ slurm_log_dir }}"/slurmctld.log"
+# - DebugFlags="backfill"
+# - SlurmdLogFile={{ slurm_log_dir }}"/slurmd.log"
+# - JobAcctGatherFrequency="task=30"
+# - AccountingStoragePass=""
 
 # plugstack and X11
 slurm_plugstack: False
