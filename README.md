@@ -1,7 +1,7 @@
 ansible-role-slurm
 ------------------
 [![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/CSCfi/ansible-role-slurm/master) 
-[![Build Status](https://travis-ci.org/CSCfi/ansible-role-slurm.svg?branch=master)](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-slurm)
+[![Build Status](https://travis-ci.org/CSCfi/ansible-role-slurm.svg?branch=master)](https://travis-ci.org/CSCfi/ansible-role-slurm)
 
 # Creates a SLURM cluster
 
@@ -79,7 +79,7 @@ Example Playbook
 ### Known Issues
 
  - This role used to be able to build slurm rpms, distribute them and install them. The last tag/release that had this feature was v1.5.0
- - Setting up a shared directory á la NFS for running a SLURM in HA is out of scope for this role. There are many [NFS server roles](https://github.com/CSCfi/ansible-role-nfs) and [Mount Filesystem roles](https://github.com/CSC-IT-Center-for-Science/ansible-role-nfs_mount) roles out there.
+ - Setting up a shared directory á la NFS for running a SLURM in HA is out of scope for this role. There are many [NFS server roles](https://github.com/CSCfi/ansible-role-nfs) and [Mount Filesystem roles](https://github.com/CSCfi/ansible-role-nfs_mount) roles out there.
 
 # Authors / Contributors:
 

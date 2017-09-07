@@ -163,9 +163,9 @@ ControlMachine={{ slurm_service_node }}
 #If the node has hostname "slurm-ansible" configure your ssh/config so you can ssh+sudo to that
 sudo yum install ansible
 mkdir -p slurm_workdir/{files,roles,group_vars/all}; cd slurm_workdir
-git clone https://github.com/CSC-IT-Center-for-Science/ansible-role-slurm roles/ansible-role-slurm
+git clone https://github.com/CSCfi/ansible-role-slurm roles/ansible-role-slurm
 git clone https://github.com/jabl/ansible-role-pam roles/ansible-role-pam
-git clone https://github.com/CSC-IT-Center-for-Science/ansible-role-nhc roles/ansible-role-nhc
+git clone https://github.com/CSCfi/ansible-role-nhc roles/ansible-role-nhc
 cp roles/ansible-role-slurm/tests/inventory .
 cp roles/ansible-role-slurm/tests/test.yml .
 $EDITOR inventory # put "slurm-ansible" under [install] and [compute]
@@ -214,7 +214,7 @@ If you want 16.05 set this variable (for example in test.yml):
 
 **how we work / release management:**
 
-~8 clusters in Finland (the ones part of FGCI) are using https://github.com/CSC-IT-Center-for-Science/fgci-ansible which uses this ansible-role-slurm role. 
+~8 clusters in Finland (the ones part of FGCI) are using https://github.com/CSCfi/fgci-ansible which uses this ansible-role-slurm role.
 Triton is the largest cluster with ~613 nodes
 
 **ansible-galaxy** and **requirements.yml** to restrict which version/commit of an ansible role is used
@@ -238,6 +238,6 @@ Triton is the largest cluster with ~613 nodes
 
 #Fin
 
-[https://gitpitch.com/CSC-IT-Center-for-Science/ansible-role-slurm/gitpitch](https://gitpitch.com/CSC-IT-Center-for-Science/ansible-role-slurm/gitpitch)
+[https://gitpitch.com/CSCfi/ansible-role-slurm/gitpitch](https://gitpitch.com/CSCfi/ansible-role-slurm/gitpitch)
 
 @martbhell
