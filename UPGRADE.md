@@ -9,7 +9,7 @@ Official upgrade documentation: http://slurm.schedmd.com/quickstart_admin.html#u
 
 This guide is not a replacement for the official instructions.
 
-It assumes you are using the https://github.com/CSC-IT-Center-for-Science/fgci-ansible playbooks where install.yml is to the service node and compute.yml to the compute nodes. It also assumes you are using the FGCI yum repo to fetch slurm packages.
+It assumes you are using the https://github.com/CSCfi/fgci-ansible playbooks where install.yml is to the service node and compute.yml to the compute nodes. It also assumes you are using the FGCI yum repo to fetch slurm packages.
 
  1. stop slurmdbd
  1. take backup with something like: /usr/local/sbin/dump-all-databases.sh -o /outdir -z

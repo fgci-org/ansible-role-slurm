@@ -1,7 +1,7 @@
 ansible-role-slurm
 ------------------
 
-[![Build Status](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-slurm.svg?branch=master)](https://travis-ci.org/CSC-IT-Center-for-Science/ansible-role-slurm)
+[![Build Status](https://travis-ci.org/CSCfi/ansible-role-slurm.svg?branch=master)](https://travis-ci.org/CSCfi/ansible-role-slurm)
 
 # Creates a slurm cluster
 
@@ -36,7 +36,7 @@ user.
 
 ### Below instructions are for running slurm and perhaps multiple slurm instances in openstack
 
-These instructions no longer work, files have been removed. A playbook that uses this role: https://github.com/CSC-IT-Center-for-Science/fgci-ansible
+These instructions no longer work, files have been removed. A playbook that uses this role: https://github.com/CSCfi/fgci-ansible
 
 #### Initial configuration of the instances and your workstation:
 
