@@ -44,12 +44,15 @@
     when: slurm_service_node == ansible_hostname or (slurm_backup_controller is defined and slurm_backup_controller == ansible_hostname)
 
   - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
-    command: "sacctmgr -n show cluster {{ siteName }}"
+    #command: "sacctmgr -n show cluster {{ siteName }}"
+    # Ansible 2.3+ does not like having jinja2 expansions in the where: clauses, so to get the next task to run it's 
+    # better to do the processing here, not in the where of the next task.
+    command: "sacctmgr -n show cluster {{ siteName }}  |grep {{ siteName }} | sed -e 's/.* {{ siteName }} .*/FOUND/'"
     register: slurm_clusterlist
     check_mode: no
     changed_when: False
 
   - name: sacctmgr add cluster to accounting if it is not added already
-    command: "sacctmgr -i add cluster {{ siteName }}"
-    when: slurm_clusterlist.stdout.find("{{siteName}}") == -1
+    command: "sacctmgr -i add cluster {{ siteName }} "
+    when: slurm_clusterlist.stdout.find("FOUND") == -1
 
