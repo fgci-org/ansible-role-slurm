@@ -1,0 +1,46 @@
+---
+
+  - name: copy munge key to compute nodes when slurm_munge_key_from_nfs is False
+    copy: src=files/munge.key
+          dest=/etc/munge/munge.key
+          owner=munge
+          group=munge
+          mode=0400
+    when: slurm_munge_key_from_nfs == False
+    notify:
+     - restart munge
+
+  - name: copy the munge key from NFS when slurm_munge_key_from_nfs is True
+    command: cp -v {{ slurm_munge_key_nfs }} /etc/munge/munge.key creates=/etc/munge/munge.key
+    when: slurm_munge_key_from_nfs == True
+    notify:
+     - restart munge
+
+  - name: set permissions on the munge key from NFS
+    file: path=/etc/munge/munge.key mode=0400 owner=munge group=munge
+    when: slurm_munge_key_from_nfs == True
+    notify:
+     - restart munge
+
+  - name: start and enable munge on compute nodes
+    service: name=munge state=started enabled=yes
+    notify:
+     - restart munge
+
+  - name: Make sure /usr/local/libexec/slurm/epilog.d exists
+    file: path=/usr/local/libexec/slurm/epilog.d state=directory owner=root group=root mode=0755 recurse=yes
+
+  - name: Create namespace epilog script
+    template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
+
+  - name: disable the slurm init script on compute nodes
+    service: name=slurm enabled=no
+
+  - name: create systemd override directories for slurmd
+    file: path="/etc/systemd/system/slurmd.service.d" state=directory owner=root mode=0755
+
+  - name: template in systemd override file for slurmd
+    template: src=systemd_override.conf.j2 dest=/etc/systemd/system/slurmd.service.d/slurmd_override.conf backup=no owner=root mode=0644
+
+  - name: start and enable slurmd
+    service: name={{ slurmd_service }} state=started enabled=yes

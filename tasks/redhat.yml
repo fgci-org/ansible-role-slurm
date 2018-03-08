@@ -1,0 +1,67 @@
+---
+
+# tasks file for ansible-role-slurm
+# Order matters.
+#
+
+- name: Slurm OS dependent variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family }}_{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - default.yml
+
+  # check which version of slurm is installed
+- include_tasks: version.yml
+
+  # common.yml is applied to all nodes
+    # configure pam
+    # template in cgroup.conf, gres.conf and slurm.conf
+    # set up logrotate and rsyslog
+- include_tasks: common.yml
+
+  # upgrade is used to compare slurm version installed and the one ansible wants to install
+    # pauses the play on the dbd host
+    # static: no to make this role work with strategy: free
+- include_tasks: upgrade.yml
+  when: (slurm_accounting_storage_host == ansible_hostname)
+  static: no
+
+  # slurmdbd - only applied on the node which is the slurmdbd host (can be different or the same as the slurmctld)
+    # we want a slurmdbd up before slurmctld
+    # fail if you have not defined slurm_mysql_password
+    # fetche munge.key from files/munge.key in the directory where you run ansible
+    # create slurm sql database and users
+    # template in slurmdbd.conf
+     # If there is a change to slurmdbd.conf it will restart slurmdbd with a handler (end of play)
+- include_tasks: dbd.yml
+  when: (slurm_accounting_storage_host == ansible_hostname)
+
+  # General service tasks:
+    # munge:
+      # Creates munge.key if /etc/munge/munge.key does not exist
+      # Stores munge.key in files/munge.key in the directory where you run ansible
+      # It can also store it to NFS
+    # ensure there's a slurm unix group and user and optionally update NIS maps
+    # create directories
+    # increase sysctl values
+    # start and enable slurmdbd wherever that runs (after we ensure there's a slurm user/group)
+    # sacctmgr create cluster
+- include_tasks: service.yml
+  when: slurm_service_node == ansible_hostname
+
+  # slurmctld hosts, primary and potentially backup
+- include_tasks: slurmctld.yml
+  when: slurm_service_node == ansible_hostname or (slurm_backup_controller is defined and slurm_backup_controller == ansible_hostname)
+
+  # computes
+    # get munge.key from the directory where you run ansible or NFS
+    # create namespace epilog script
+- include_tasks: compute.yml
+  when: "'slurm_compute' in group_names and ansible_os_family == 'RedHat'"
+
+  # submit (not on compute or service nodes)
+    # get munge.key from the directory where you run ansible
+- include_tasks: submit.yml
+  when: "(ansible_os_family == 'RedHat') and ('slurm_compute' not in group_names) and ('slurm_service' not in group_names)"
+

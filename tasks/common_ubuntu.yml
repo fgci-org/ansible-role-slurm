@@ -1,0 +1,63 @@
+---
+# This sh/could be put in a separate role..
+# define where we get .debs for slurm. 
+  - name: Add local apt-repo
+    template: src=apt.repo.j2 dest=/etc/apt/sources.list.d/fgislurm.list owner=root group=root mode=0644 backup=yes
+    when: fgci_install == True and slurm_apt_repo == True
+
+
+##
+  - name: install common Slurm packages
+    apt: name={{ item }} state=present update_cache=yes allow_unauthenticated=yes
+    with_items: "{{ slurm_packages }}"
+    when: slurm_packages.0 != ""
+
+  - name: install fgci Slurm addons
+    package: name=slurm-fgi-addons state=present
+    when: fgci_install
+
+  - name: Copy pam.d/slurm
+    copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
+
+  - name: Make from template cgroup.conf
+    template: src=cgroup.conf.j2 dest=/etc/slurm/cgroup.conf owner=root mode=0644 backup=yes
+    notify: restart slurm
+
+  - name: Make from template gres.conf
+    template: src=gres.conf.j2 dest=/etc/slurm/gres.conf owner=root mode=0644
+    notify: restart slurm
+
+  - name: Make from template topology.conf
+    template: src=topology.conf.j2 dest=/etc/slurm/topology.conf owner=root mode=0644
+    notify: restart slurm
+    when: slurm_topology_plugin is defined
+
+  - name: Make from template slurm.conf
+    template: src=slurm.conf.j2 dest=/etc/slurm/slurm.conf owner=root mode=0644 backup=yes
+    notify: restart slurm
+
+  - name: write all slurm logs handled by rsyslog to one file
+    template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/10_slurm_rsyslog.conf owner=root mode=0644 backup=yes
+    notify: Restart rsyslog
+    when: slurm_manage_rsyslog_conf
+
+  - name: configure logrotate to rotate slurm_logs in slurm_log_dir
+    template: src=slurm_logrotate.j2 dest=/etc/logrotate.d/slurm owner=root mode=0644 backup=no
+    when: slurm_log_dir is defined
+
+  - name: template in plugstack.conf
+    template: src=plugstack.conf.j2 dest=/etc/slurm/plugstack.conf owner=root mode=0644 backup=yes
+    when: slurm_plugstack
+
+  - name: create slurm/plugstack.conf.d
+    file: path=/etc/slurm/plugstack.conf.d state=directory owner=root group=root mode=0755
+    when: slurm_plugstack
+
+  - name: template in plugstack.conf.d/x11.conf
+    template: src=x11.conf.j2 dest=/etc/slurm/plugstack.conf.d/x11.conf owner=root mode=0644 backup=no
+    when: slurm_plugstack and slurm_x11_spank
+
+  - name: install slurm-spank-x11 and xauth
+    package: name={{ item }} state=present
+    with_items: "{{ slurm_spank_x11_packages }}"
+    when: slurm_plugstack and slurm_x11_spank
