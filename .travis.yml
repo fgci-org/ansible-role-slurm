@@ -13,6 +13,7 @@ matrix:
 env:
   - IMAGE_BUILD_PLATFORM=stable-centos7
   - IMAGE_BUILD_PLATFORM=devel-centos7
+  - IMAGE_BUILD_PLATFORM=fgcislurm1711
   - IMAGE_BUILD_PLATFORM=fgcislurm1702
   - IMAGE_BUILD_PLATFORM=fgcislurm1605
   - IMAGE_BUILD_PLATFORM=fgcislurm1508

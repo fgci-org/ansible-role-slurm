@@ -10,6 +10,7 @@ Tested with SLURM versions:
  - 15.08.x
  - 16.05.x
  - 17.02.x
+ - 17.11.x
 
 Tested with these Linux distributions:
  - CentOS 6
@@ -18,6 +19,7 @@ Tested with these Linux distributions:
   - 15.08.x (travis ci automatic testing)
   - 16.05.x (travis ci automatic testing)
   - 17.02.x (travis ci automatic testing)
+  - 17.11.x (travis ci automatic testing)
 
 ## Dependencies
 

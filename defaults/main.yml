@@ -48,7 +48,7 @@ slurm_manage_mysql_security: True
 nis_server: False
 
 fgci_install: True
-fgci_slurmrepo_version: "fgcislurm1702"
+fgci_slurmrepo_version: "fgcislurm1711"
 siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"
