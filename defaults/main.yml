@@ -84,6 +84,7 @@ slurm_TaskPlugin: "task/cgroup"
 slurm_log_dir: "/var/log/slurm"
 slurm_logrotate_rotate_interval: "weekly"
 slurm_logrotate_rotate: "8"
+slurm_logrotate_signal: "-SIGUSR2"
 slurm_state_dir: "/opt/slurmdb/tmp"
 
 slurm_switch_type: "switch/none"

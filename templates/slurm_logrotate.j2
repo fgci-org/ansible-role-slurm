@@ -9,7 +9,7 @@
 	compress
 	create 644 slurm slurm
 	postrotate
-		/bin/kill -SIGUSR2 $(cat /var/run/slurmdbd.pid) 2>/dev/null 2> /dev/null || true
+		/bin/kill {{ slurm_logrotate_signal }} $(cat /var/run/slurmdbd.pid) 2>/dev/null 2> /dev/null || true
 	endscript
 }
 {{ slurm_log_dir }}/slurm.log {
@@ -22,8 +22,8 @@
 	compress
 	create 644 slurm slurm
 	postrotate
-		/bin/kill -SIGUSR2 $(cat /var/run/slurmctld.pid) 2>/dev/null 2> /dev/null || true
-		/bin/kill -SIGUSR2 $(cat /var/run/syslogd.pid) 2> /dev/null 2> /dev/null || true
+		/bin/kill {{ slurm_logrotate_signal }} $(cat /var/run/slurmctld.pid) 2>/dev/null 2> /dev/null || true
+		/bin/kill {{ slurm_logrotate_signal }} $(cat /var/run/syslogd.pid) 2> /dev/null 2> /dev/null || true
 	endscript
 }
 {{ slurm_log_dir }}/slurm_jobcomp.log {
@@ -36,7 +36,7 @@
 	compress
 	create 644 slurm slurm
 	postrotate
-		/bin/kill -SIGUSR2 $(cat /var/run/slurmctld.pid) 2>/dev/null 2> /dev/null || true
+		/bin/kill {{ slurm_logrotate_signal }} $(cat /var/run/slurmctld.pid) 2>/dev/null 2> /dev/null || true
 	endscript
 }
 {% endif %}
