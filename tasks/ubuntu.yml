@@ -1,0 +1,28 @@
+---
+
+# tasks file for ansible-role-slurm
+# Support only for Ubuntu slurm clients 
+# Order matters.
+#
+
+- name: Slurm OS dependent variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_os_family }}.yml"
+    - default.yml
+
+  # check which version of slurm is installed
+- include_tasks: version_ubuntu.yml
+
+  # common.yml is applied to all nodes
+    # configure pam
+    # template in cgroup.conf, gres.conf and slurm.conf
+    # set up logrotate and rsyslog
+- include_tasks: common_ubuntu.yml
+
+
+  # computes
+    # get munge.key from the directory where you run ansible or NFS
+    # create namespace epilog script
+- include_tasks: compute_ubuntu.yml
+  when: "'slurm_compute' in group_names"

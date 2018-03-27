@@ -269,3 +269,7 @@ slurm_x11_setting: "optional          x11.so"
 slurm_spank_x11_packages:
   - xauth
   - slurm-spank-x11
+
+# default for apt repository if using this for ubuntu clients
+slurm_apt_repo: False
+slurm_apt_url: "http://localhost/apt"
