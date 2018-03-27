@@ -4,7 +4,8 @@
 #
 
 # Packages installed everywhere
-slurm_packages:
+
+slurm_packages_before_1702:
  - slurm
  - slurm-devel
  - slurm-perlapi
@@ -14,6 +15,15 @@ slurm_packages:
  - slurm-munge
  - slurm-sjobexit
  - slurm-seff
+
+slurm_packages:
+ - slurm
+ - slurm-devel
+ - slurm-perlapi
+ - slurm-pam_slurm
+ - slurm-torque
+ - slurm-munge
+ - slurm-contribs
 # - slurm-spank-x11
 #
 
@@ -23,7 +33,6 @@ slurm_service_packages:
   - mailx
   - slurm-lua
   - slurm-plugins
-  - slurm-slurmdb-direct
   - slurm-sql
 
 admingroup: "admin"
@@ -39,7 +48,7 @@ slurm_manage_mysql_security: True
 nis_server: False
 
 fgci_install: True
-fgci_slurmrepo_version: "fgcislurm1508"
+fgci_slurmrepo_version: "fgcislurm1702"
 siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"

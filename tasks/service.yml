@@ -3,6 +3,11 @@
     package: "name={{ item }} state=present"
     with_items: "{{ slurm_service_packages }}"
 
+  - name: install slurm-slurmdb-direct if before 1702
+    package: "name=slurm-slurmdb-direct state=present"
+    when:
+     - slurm_fact_fgci_slurmrepo_version|int < 1702
+
   - name: does the munge.key exist?
     stat: path=/etc/munge/munge.key
     register: mungekeystat

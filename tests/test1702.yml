@@ -1,6 +1,7 @@
 ---
 
- - hosts: install,compute
+ - name: install a SLURM 1702 cluster
+   hosts: install,compute
    remote_user: root
    roles:
      - ansible-role-pam

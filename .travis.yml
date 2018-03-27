@@ -13,7 +13,9 @@ matrix:
 env:
   - IMAGE_BUILD_PLATFORM=stable-centos7
   - IMAGE_BUILD_PLATFORM=devel-centos7
-#  - IMAGE_BUILD_PLATFORM=epel-centos7
+  - IMAGE_BUILD_PLATFORM=fgcislurm1702
+  - IMAGE_BUILD_PLATFORM=fgcislurm1605
+  - IMAGE_BUILD_PLATFORM=fgcislurm1508
 
 install:
   - npm install -g validate-dockerfile
@@ -36,7 +38,7 @@ before_script:
 
 script:
   # Testing of this ansible-role:
-  - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c "/$ROLETOTEST/tests/test-in-docker-image.sh"
+  - docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c "/$ROLETOTEST/tests/test-in-docker-image.sh $IMAGE_BUILD_PLATFORM"
 after_script:
   - >
     docker exec -ti $DOCKER_CONTAINER_ID /bin/sh -c 'echo -ne "------\nEND ANSIBLE TESTS\n------\nSystemD Units:\n------\n";
