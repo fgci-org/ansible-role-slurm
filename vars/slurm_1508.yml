@@ -9,12 +9,11 @@ slurm_packages:
  - slurm-torque
  - slurm-munge
  - slurm-sjobexit
- - slurm-seff
 
 slurm_service_packages:
   - lua-devel
   - mailx
   - slurm-lua
   - slurm-plugins
+  - slurm-slurmdb-direct
   - slurm-sql
-

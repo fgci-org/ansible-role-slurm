@@ -16,5 +16,5 @@ slurm_service_packages:
   - mailx
   - slurm-lua
   - slurm-plugins
+  - slurm-slurmdb-direct
   - slurm-sql
-
