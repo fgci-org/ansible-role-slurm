@@ -1,0 +1,40 @@
+---
+
+     - slurm_TrackWCKey: "no"
+     - slurm_ExtraParamsList:
+       - "TrackWCKey={{ slurm_TrackWCKey }}"
+       - "TreeWidth=50"
+     - slurm_mysql_password: "changeme"
+     - slurm_munge_key_to_nfs: False
+     - slurm_compute_nodes: "{{ ansible_hostname }}"
+     - slurm_manage_sysctl: False
+#     - slurm_healthcheck_program: ""
+     - nhc_short_hostname: False
+     - nhc_github: False
+     - nhc_use_default_checks: False
+     - nhc_rm: ""
+     - nhc_checks:
+       - { match: "*", name: "check_reboot_slurm", arguments: "" }
+       - { match: '{gpu[1-19]}', name: "check_hw_ib", arguments: "40" }
+       - { match: "{gpu[2-22]}", name: "check_hw_ib", arguments: "56" }
+       - { match: "*", name: "check_hw_eth", arguments: "eth0" }
+     - slurm_plugstack: True
+     - fgci_slurmrepo_version: "fgcislurm1508"
+     - slurm_x11_spank: True
+     - slurm_topology_plugin: "topology/tree"
+     - slurm_topologylist:
+       - "SwitchName=s0 Nodes=c[0-18]"
+       - "SwitchName=s1 Nodes=c[19-36]"
+       - "SwitchName=s3 Switches=s[0,1]"
+     - slurm_systemd_override_slurmdbd: True
+     - slurm_systemd_override_slurmctld: True
+     - slurm_SlurmctldTimeout: 10
+     - slurm_packages_before_1702:
+       - slurm
+       - slurm-devel
+       - slurm-perlapi
+       - slurm-pam_slurm
+       - slurm-sjstat
+
+
+...

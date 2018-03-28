@@ -27,6 +27,11 @@
     notify:
      - restart munge
 
+  - name: install slurmd packages
+    package: name="{{ item }}" state=present
+    when: slurm_compute_packages is defined
+    with_items: "{{ slurm_compute_packages }}"
+
   - name: Make sure /usr/local/libexec/slurm/epilog.d exists
     file: path=/usr/local/libexec/slurm/epilog.d state=directory owner=root group=root mode=0755 recurse=yes
 

@@ -3,37 +3,7 @@
 # Defaults for ansible-role-slurm
 #
 
-# Packages installed everywhere
-
-slurm_packages_before_1702:
- - slurm
- - slurm-devel
- - slurm-perlapi
- - slurm-pam_slurm
- - slurm-sjstat
- - slurm-torque
- - slurm-munge
- - slurm-sjobexit
- - slurm-seff
-
-slurm_packages:
- - slurm
- - slurm-devel
- - slurm-perlapi
- - slurm-pam_slurm
- - slurm-torque
- - slurm-munge
- - slurm-contribs
-# - slurm-spank-x11
-#
-
-# Additional packages installed only on slurmctld node(s)
-slurm_service_packages:
-  - lua-devel
-  - mailx
-  - slurm-lua
-  - slurm-plugins
-  - slurm-sql
+# Packages installed are defined in vars/slurm_*
 
 admingroup: "admin"
 

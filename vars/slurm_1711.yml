@@ -1,0 +1,17 @@
+---
+
+slurm_packages:
+ - slurm
+ - slurm-contribs
+ - slurm-devel
+ - slurm-pam_slurm
+ - slurm-perlapi
+ - slurm-torque
+
+slurm_service_packages:
+ - lua-devel
+ - mailx
+ - slurm-slurmctld
+
+slurm_compute_packages:
+ - slurm-slurmd
