@@ -19,7 +19,6 @@
        - { match: "{gpu[2-22]}", name: "check_hw_ib", arguments: "56" }
        - { match: "*", name: "check_hw_eth", arguments: "eth0" }
      - slurm_plugstack: True
-     - fgci_slurmrepo_version: "fgcislurm1508"
      - slurm_x11_spank: True
      - slurm_topology_plugin: "topology/tree"
      - slurm_topologylist:
@@ -29,12 +28,6 @@
      - slurm_systemd_override_slurmdbd: True
      - slurm_systemd_override_slurmctld: True
      - slurm_SlurmctldTimeout: 10
-     - slurm_packages_before_1702:
-       - slurm
-       - slurm-devel
-       - slurm-perlapi
-       - slurm-pam_slurm
-       - slurm-sjstat
 
 
 ...
