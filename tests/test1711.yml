@@ -1,6 +1,6 @@
 ---
 
- - name: install a SLURM 1508 cluster
+ - name: install a SLURM 1711 cluster
    hosts: install,compute
    remote_user: root
    roles:
@@ -10,7 +10,7 @@
    vars_files:
      - testvars.yml
    vars:
-     - fgci_slurmrepo_version: "fgcislurm1508"
+     - fgci_slurmrepo_version: "fgcislurm1711"
 
    pre_tasks:
    - debug: var=group_names

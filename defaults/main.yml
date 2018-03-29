@@ -3,37 +3,7 @@
 # Defaults for ansible-role-slurm
 #
 
-# Packages installed everywhere
-
-slurm_packages_before_1702:
- - slurm
- - slurm-devel
- - slurm-perlapi
- - slurm-pam_slurm
- - slurm-sjstat
- - slurm-torque
- - slurm-munge
- - slurm-sjobexit
- - slurm-seff
-
-slurm_packages:
- - slurm
- - slurm-devel
- - slurm-perlapi
- - slurm-pam_slurm
- - slurm-torque
- - slurm-munge
- - slurm-contribs
-# - slurm-spank-x11
-#
-
-# Additional packages installed only on slurmctld node(s)
-slurm_service_packages:
-  - lua-devel
-  - mailx
-  - slurm-lua
-  - slurm-plugins
-  - slurm-sql
+# Packages installed are defined in vars/slurm_*
 
 admingroup: "admin"
 
@@ -48,7 +18,7 @@ slurm_manage_mysql_security: True
 nis_server: False
 
 fgci_install: True
-fgci_slurmrepo_version: "fgcislurm1702"
+fgci_slurmrepo_version: "fgcislurm1711"
 siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"
@@ -170,7 +140,6 @@ slurm_RebootProgram: "/sbin/reboot"
 slurm_SchedulerType: "sched/backfill"
 slurm_scheduler_parameters: "bf_max_job_test=300,bf_max_job_part=200,bf_max_job_user=30,defer,bf_continue,bf_window=7200,bf_resolution=1800,pack_serial_at_end"
 
-slurm_SchedulerPort: "7321"
 slurm_select_type: "select/cons_res"
 slurm_select_type_parameters: "CR_Core_Memory"
 slurm_fast_schedule: "2"

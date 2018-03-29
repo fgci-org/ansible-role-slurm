@@ -10,6 +10,7 @@ Tested with SLURM versions:
  - 15.08.x
  - 16.05.x
  - 17.02.x
+ - 17.11.x
 
 Tested with these Linux distributions:
  - CentOS 6
@@ -18,6 +19,7 @@ Tested with these Linux distributions:
   - 15.08.x (travis ci automatic testing)
   - 16.05.x (travis ci automatic testing)
   - 17.02.x (travis ci automatic testing)
+  - 17.11.x (travis ci automatic testing)
 
 ## Dependencies
 
@@ -90,6 +92,17 @@ Testing is done with [Travis](.travis.yml). New SLURM release can be tested afte
  - if possible make sure that the new feature is also tested
  - strive for backwards compatibility
 
+**Adding testing of a new SLURM release**
+
+Using 17.11 as an example
+
+ - Get CSC to build new rpms and put them in a new yum repo
+ - New branch in ansible-role-slurm with the following changes/additions:
+   - IMAGE_BUILD_PLATFORM=fgcislurm1711 in .travis.yml env:
+   - tests/test1711.yml with fgci_slurmrepo_version: "fgcislurm1711"
+   - tests/fgcislurm1711 directory a symlink of tests/fgcislurm1508
+ - Then make changes if needed to the role that does not break older SLURM versions
+
 # Authors / Contributors:
 
  - Marco Passerini (original author)
@@ -97,3 +110,4 @@ Testing is done with [Travis](.travis.yml). New SLURM release can be tested afte
  - https://github.com/tiggi
  - https://github.com/A1ve5
  - https://github.com/jabl
+ - https://github.com/mhakala
