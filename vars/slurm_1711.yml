@@ -7,6 +7,7 @@ slurm_packages:
  - slurm-pam_slurm
  - slurm-perlapi
  - slurm-torque
+ - slurm-libpmi
 
 slurm_service_packages:
  - lua-devel
