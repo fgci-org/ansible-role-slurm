@@ -18,4 +18,5 @@ slurm_compute_packages:
  - slurm-slurmd
 
 slurm_conf_version_specific_params:
- - "# 17.11"
+ - "SlurmctldSyslogDebug={{ slurm_slurmctld_syslog_debug }}"
+ - "SlurmdSyslogDebug={{ slurm_slurmd_syslog_debug }}"
