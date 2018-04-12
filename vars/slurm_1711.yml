@@ -17,6 +17,9 @@ slurm_service_packages:
 slurm_compute_packages:
  - slurm-slurmd
 
-slurm_conf_version_specific_params:
+slurm_conf_version_specific_params_list:
  - "SlurmctldSyslogDebug={{ slurm_slurmctld_syslog_debug }}"
  - "SlurmdSyslogDebug={{ slurm_slurmd_syslog_debug }}"
+
+slurm_slurmdbd_conf_version_specific_params_list:
+ - "DebugLevelSyslog={{ slurm_slurmdbd_syslog_debug }}"

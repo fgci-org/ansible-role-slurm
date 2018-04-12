@@ -11,11 +11,14 @@ slurm_packages:
  - slurm-sjobexit
 
 slurm_service_packages:
-  - lua-devel
-  - mailx
-  - slurm-lua
-  - slurm-plugins
-  - slurm-slurmdb-direct
-  - slurm-sql
+ - lua-devel
+ - mailx
+ - slurm-lua
+ - slurm-plugins
+ - slurm-slurmdb-direct
+ - slurm-sql
 
-slurm_conf_version_specific_params: ""
+slurm_conf_version_specific_params_list:
+ - ""
+slurm_slurmdbd_conf_version_specific_params_list:
+ - ""
