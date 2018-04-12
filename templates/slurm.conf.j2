@@ -89,10 +89,6 @@ SlurmctldDebug={{ slurm_SlurmctldDebug }}
 SlurmdDebug={{ slurm_SlurmdDebug }}
 JobCompLoc={{ slurm_JobCompLoc }}
 JobCompType={{ slurm_JobCompType }}
-{% if slurm_fact_fgci_slurmrepo_version > 1702 %}
-SlurmdSyslogDebug={{ slurmd_syslog_debug }}
-SlurmctldSyslogDebug={{ slurmctld_syslog_debug }}
-{% endif %}
 
 # ACCOUNTING
 JobAcctGatherType={{ slurm_JobAcctGatherType }}
