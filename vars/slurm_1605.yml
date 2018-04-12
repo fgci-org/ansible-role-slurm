@@ -19,4 +19,4 @@ slurm_service_packages:
   - slurm-slurmdb-direct
   - slurm-sql
 
-slurm_conf_version_specific_settings: ""
+slurm_conf_version_specific_params: ""

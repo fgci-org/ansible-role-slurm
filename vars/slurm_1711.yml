@@ -17,5 +17,5 @@ slurm_service_packages:
 slurm_compute_packages:
  - slurm-slurmd
 
-slurm_conf_version_specific_settings:
+slurm_conf_version_specific_params:
  - "# 17.11"
