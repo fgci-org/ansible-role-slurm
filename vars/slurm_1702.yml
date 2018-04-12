@@ -15,3 +15,5 @@ slurm_service_packages:
  - slurm-lua
  - slurm-plugins
  - slurm-sql
+
+slurm_conf_version_specific_settings: ""

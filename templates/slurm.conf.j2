@@ -86,11 +86,13 @@ PriorityMaxAge={{ slurm_priority_maxage }}
 
 # LOGGING
 SlurmctldDebug={{ slurm_SlurmctldDebug }}
-SlurmctldSyslogDebug={{ slurmctld_syslog_debug }}
 SlurmdDebug={{ slurm_SlurmdDebug }}
-SlurmdSyslogDebug={{ slurmd_syslog_debug }}
 JobCompLoc={{ slurm_JobCompLoc }}
 JobCompType={{ slurm_JobCompType }}
+{% if slurm_fact_fgci_slurmrepo_version > 1702 %}
+SlurmdSyslogDebug={{ slurmd_syslog_debug }}
+SlurmctldSyslogDebug={{ slurmctld_syslog_debug }}
+{% endif %}
 
 # ACCOUNTING
 JobAcctGatherType={{ slurm_JobAcctGatherType }}
@@ -148,4 +150,13 @@ PartitionName=grid Nodes={{ slurm_compute_nodes }} Default=NO MaxTime={{ slurm_m
 {% for slurm_Param in slurm_ExtraParamsList %}
 {{ slurm_Param }}
 {% endfor %}
+{% endif %}
+
+{% if slurm_conf_version_specific_params is defined %}
+{% if slurm_conf_version_specific_params[0] %}
+# Slurm Version Specific Parameters
+{% for slurm_v_param in slurm_conf_version_specific_params %}
+{{ slurm_v_param }}
+{% endfor %}
+{% endif %}
 {% endif %}
