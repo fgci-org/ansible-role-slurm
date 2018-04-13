@@ -78,10 +78,8 @@ StorageUser=slurm
 StorageLoc=slurm_acct_db
 
 {% if slurm_slurmdbd_conf_version_specific_params_list is defined %}
-{% if slurm_slurmdbd_conf_version_specific_params_list[0] %}
 # Slurm Version Specific Parameters
 {% for slurm_v_param in slurm_slurmdbd_conf_version_specific_params_list %}
 {{ slurm_v_param }}
 {% endfor %}
-{% endif %}
 {% endif %}

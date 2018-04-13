@@ -5,13 +5,6 @@ ansible-role-slurm
 
 # Creates a SLURM cluster
 
-Tested with SLURM versions:
- - 14.11.x
- - 15.08.x
- - 16.05.x
- - 17.02.x
- - 17.11.x
-
 Tested with these Linux distributions:
  - CentOS 6
   - Only 14.11.x
@@ -20,6 +13,10 @@ Tested with these Linux distributions:
   - 16.05.x (travis ci automatic testing)
   - 17.02.x (travis ci automatic testing)
   - 17.11.x (travis ci automatic testing)
+
+The role goes to some lengths to be backwards compatible.
+
+For example in case we want to add default settings to slurm.conf in only some slurm versions we can do that by adding slurm_conf_version_specific_params_list to the version in vars/slurm\_version.yml
 
 ## Dependencies
 
@@ -48,14 +45,17 @@ user. See http://docs.ansible.com/ansible/playbooks_vault.html
 
 To add your own nodes and queues define the slurm_nodelist and slurm_partitionlist lists.
 
+You don't have to setup a SQL server with this role, it's here for convenience and if you want to run the SQL on the same node as the slurmctld and slurmdbd.
 It is possible to run the slurmdbd on a different host than the slurmctld by changing the slurm_accounting_storage_host variable.
 
 It is also possible to setup a backup slurm controller by defining slurm_backup_controller variable. Please read the [SLURM HA documentation](https://slurm.schedmd.com/quickstart_admin.html#HA). For example you'll need a shared directory (for example NFS) available on both the slurm_service_node and slurm_backup_controller.
 
-SLURM 16.05 can be gotten from the FGCI yum repo by setting:
+Specific versions of SLURM can be gotten from the FGCI yum repo by setting:
 <pre>
 fgci_slurmrepo_version: "fgcislurm1605"
 </pre>
+
+We have 1508,1605 and 1711 RPMs there.
 
 ### Implementation
 
