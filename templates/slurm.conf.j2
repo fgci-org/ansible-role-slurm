@@ -86,7 +86,13 @@ PriorityMaxAge={{ slurm_priority_maxage }}
 
 # LOGGING
 SlurmctldDebug={{ slurm_SlurmctldDebug }}
+{% if slurm_SlurmctldSyslogDebug is defined %}
+SlurmctldSyslogDebug={{ slurm_SlurmctldSyslogDebug }}
+{% endif %}
 SlurmdDebug={{ slurm_SlurmdDebug }}
+{% if slurm_SlurmdSyslogDebug is defined %}
+SlurmdSyslogDebug={{ slurm_SlurmdSyslogDebug }}
+{% endif %}
 JobCompLoc={{ slurm_JobCompLoc }}
 JobCompType={{ slurm_JobCompType }}
 
