@@ -171,9 +171,12 @@ slurm_cgroup_release_agent_dir: "/etc/slurm/cgroup"
 
 # LOGGING
 slurm_SlurmctldDebug: "3"
+slurm_slurmctld_syslog_debug: "info"
 slurm_SlurmdDebug: "3"
+slurm_slurmd_syslog_debug: "info"
 slurm_JobCompLoc: "{{ slurm_log_dir }}/slurm_jobcomp.log"
 slurm_JobCompType: "jobcomp/filetxt"
+slurm_slurmdbd_syslog_debug: "info"
 
 # ACCOUNTING
 slurm_JobAcctGatherType: "jobacct_gather/linux"

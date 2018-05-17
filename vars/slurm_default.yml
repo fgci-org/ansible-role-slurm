@@ -10,8 +10,8 @@ slurm_packages:
  - slurm-contribs
 
 slurm_service_packages:
-  - lua-devel
-  - mailx
-  - slurm-lua
-  - slurm-plugins
-  - slurm-sql
+ - lua-devel
+ - mailx
+ - slurm-lua
+ - slurm-plugins
+ - slurm-sql

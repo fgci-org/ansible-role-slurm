@@ -147,3 +147,10 @@ PartitionName=grid Nodes={{ slurm_compute_nodes }} Default=NO MaxTime={{ slurm_m
 {{ slurm_Param }}
 {% endfor %}
 {% endif %}
+
+{% if slurm_conf_version_specific_params_list is defined %}
+# Slurm Version Specific Parameters
+{% for slurm_v_param in slurm_conf_version_specific_params_list %}
+{{ slurm_v_param }}
+{% endfor %}
+{% endif %}

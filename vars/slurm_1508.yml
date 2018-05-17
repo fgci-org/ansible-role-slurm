@@ -11,9 +11,9 @@ slurm_packages:
  - slurm-sjobexit
 
 slurm_service_packages:
-  - lua-devel
-  - mailx
-  - slurm-lua
-  - slurm-plugins
-  - slurm-slurmdb-direct
-  - slurm-sql
+ - lua-devel
+ - mailx
+ - slurm-lua
+ - slurm-plugins
+ - slurm-slurmdb-direct
+ - slurm-sql
