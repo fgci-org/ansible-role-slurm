@@ -62,6 +62,9 @@ DbdHost={{ slurm_accounting_storage_host }}
 #DbdPort=7031
 SlurmUser=slurm
 #MessageTimeout=300
+{% if slurmdbd_DebugLevelSyslog is defined %}
+DebugLevelSyslog={{ slurmdbd_DebugLevelSyslog }}
+{% endif %}
 DebugLevel=4
 #DefaultQOS=normal,standby
 PidFile=/var/run/slurmdbd.pid
