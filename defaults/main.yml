@@ -160,6 +160,7 @@ slurm_healthcheck_interval: "300"
 slurm_cgroup_mountpoint: "/sys/fs/cgroup"
 slurm_cgroup_automount : "no"
 slurm_cgroup_constrain_cores: "yes"
+slurm_cgroup_constrain_kmem_space: "no" # Workaround for Linux kernel bug, see slurm bug #5082
 slurm_cgroup_constrain_ram: "no" # Use the very strict cgroup-based memory tracker?
 slurm_cgroup_allowedramspace: "100.1" # At which % of requested memory should the process get killed?
 slurm_cgroup_constrain_swap: "no"
