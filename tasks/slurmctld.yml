@@ -44,7 +44,7 @@
 
   - name: start and enable slurmctld
     service: name={{ slurmctld_service }} state=started enabled=yes
-    when: slurm_service_node == ansible_hostname or (slurm_backup_controller is defined and slurm_backup_controller == ansible_hostname)
+    when: slurm_service_node == inventory_hostname or (slurm_backup_controller is defined and slurm_backup_controller == inventory_hostname)
 
   - name: sacctmgr show cluster siteName and store in slurm_clusterlist variable
     # Ansible 2.3+ does not like having jinja2 expansions in the where: clauses, so to get the next task to run it's 

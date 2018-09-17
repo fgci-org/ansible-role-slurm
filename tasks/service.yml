@@ -63,22 +63,22 @@
           group=munge
           mode=0400
     delegate_to: "{{ slurm_accounting_storage_host }}"
-    when: slurm_accounting_storage_host != ansible_hostname
+    when: slurm_accounting_storage_host != inventory_hostname
     notify:
      - restart munge
 
   - name: start and enable munge on the slurm_accounting_storage_host too if it is different than the service node
     service: name=munge state=started enabled=yes
     delegate_to: "{{ slurm_accounting_storage_host }}"
-    when: slurm_accounting_storage_host != ansible_hostname
+    when: slurm_accounting_storage_host != inventory_hostname
 
 
     # slurmdbd needs to be started after the slurm unix user is created
   - name: start and enable slurmdbd on slurm_accounting_storage_host
     service: name=slurmdbd state=started enabled=yes
     delegate_to: "{{ slurm_accounting_storage_host }}"
-    when: slurm_accounting_storage_host != ansible_hostname
+    when: slurm_accounting_storage_host != inventory_hostname
 
   - name: start and enable slurmdbd
     service: name=slurmdbd state=started enabled=yes
-    when: slurm_accounting_storage_host == ansible_hostname
+    when: slurm_accounting_storage_host == inventory_hostname
