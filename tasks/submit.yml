@@ -9,6 +9,10 @@
     notify:
      - restart munge
           
-  - name: start munge
+  - name: start and enable munge
     service: name=munge state=started enabled=yes
+    when: ansible_connection != 'chroot'
 
+  - name: Enable munge in chroot
+    command: systemctl enable munge
+    when: ansible_connection == 'chroot'
