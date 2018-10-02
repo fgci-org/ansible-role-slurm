@@ -167,7 +167,6 @@ slurm_cgroup_taskaffinity: "no"
 slurm_cgroup_allowedswapspace: "120" # % of memory allocation that can be phys mem+swap
 slurm_cgroup_constrain_devices: "no" 
 slurm_cgroup_min_ram: "500" # always allocate this much memory to each job
-slurm_cgroup_release_agent_dir: "/etc/slurm/cgroup"
 
 # LOGGING
 slurm_SlurmctldDebug: "3"
