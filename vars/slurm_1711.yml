@@ -23,3 +23,5 @@ slurm_conf_version_specific_params_list:
 
 slurm_slurmdbd_conf_version_specific_params_list:
  - "DebugLevelSyslog={{ slurm_slurmdbd_syslog_debug }}"
+
+slurm_cgroup_constrain_kmem_space: "no" # Workaround for Linux kernel bug, see slurm bug #5082

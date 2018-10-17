@@ -15,3 +15,5 @@ slurm_service_packages:
  - slurm-lua
  - slurm-plugins
  - slurm-sql
+
+slurm_cgroup_constrain_kmem_space: "no" # Workaround for Linux kernel bug, see slurm bug #5082
