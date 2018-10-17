@@ -13,7 +13,9 @@ CgroupReleaseAgentDir={{ slurm_cgroup_release_agent_dir }}
 
 ConstrainCores={{ slurm_cgroup_constrain_cores }}
 TaskAffinity={{ slurm_cgroup_taskaffinity }}
+{% if slurm_cgroup_constrain_kmem_space is defined %}
 ConstrainKmemSpace={{ slurm_cgroup_constrain_kmem_space }}
+{% endif ‰}
 ConstrainRAMSpace={{ slurm_cgroup_constrain_ram }}
 ConstrainSwapSpace={{ slurm_cgroup_constrain_swap }}
 AllowedRAMSpace={{ slurm_cgroup_allowedramspace }}
