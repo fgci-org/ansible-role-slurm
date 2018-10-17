@@ -130,6 +130,9 @@ function extra_tests(){
     echo "TEST: cat /etc/slurm/slurm.conf"
     cat /etc/slurm/slurm.conf
 
+    echo "TEST: cat /etc/slurm/cgroup.conf"
+    cat /etc/slurm/cgroup.conf
+
     echo "TEST: sinfo"
     sinfo
 
