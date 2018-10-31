@@ -1,26 +1,38 @@
 ---
 # This sh/could be put in a separate role..
   - name: Add FGI slurm repo
-    template: src=fgislurm.repo dest=/etc/yum.repos.d/fgislurm.repo owner=root group=root mode=0644 backup=yes
+    template:
+      src: fgislurm.repo
+      dest: /etc/yum.repos.d/fgislurm.repo
+      owner: root
+      group: root
+      mode: 0644
+      backup: yes
     when: fgci_install == True
 
   - name: Import FGI slurm repo key
-    rpm_key: key=http://idris.fgi.csc.fi/fgirepo6/RPM-GPG-KEY-CSC-GRID-2 state=present
+    rpm_key:
+      key: http://idris.fgi.csc.fi/fgirepo6/RPM-GPG-KEY-CSC-GRID-2
+      state: present
     when: fgci_install == True
 
   - name: Install FGCI repo
-    package: pkg=http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
+    package:
+      pkg: http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
     when: ansible_distribution_major_version == "7" and fgci_install == True and ansible_os_family == "RedHat"
 
 ##
   - name: install common Slurm packages
-    package: name={{ item }} state=present
-    with_items: "{{ slurm_packages }}"
+    package:
+       name:  "{{ slurm_packages }}"
+       state: present
     when:
      - slurm_packages.0 != ""
 
   - name: install fgci Slurm addons
-    package: name=slurm-fgi-addons state=present
+    package:
+      name: slurm-fgi-addons
+      state: present
     when: fgci_install and ansible_distribution_major_version == "7"
 
   - name: Copy pam.d/slurm
