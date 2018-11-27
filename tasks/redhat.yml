@@ -28,10 +28,8 @@
 
   # upgrade is used to compare slurm version installed and the one ansible wants to install
     # pauses the play on the dbd host
-    # static: no to make this role work with strategy: free
 - include_tasks: upgrade.yml
   when: (slurm_accounting_storage_host == ansible_hostname)
-  static: no
 
   # slurmdbd - only applied on the node which is the slurmdbd host (can be different or the same as the slurmctld)
     # we want a slurmdbd up before slurmctld
