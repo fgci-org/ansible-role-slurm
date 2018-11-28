@@ -30,7 +30,7 @@
     # pauses the play on the dbd host
     # static: no to make this role work with strategy: free
 - include_tasks: upgrade.yml
-  when: (slurm_accounting_storage_host == ansible_hostname)
+  when: (slurm_accounting_storage_host == inventory_hostname)
   static: no
 
   # slurmdbd - only applied on the node which is the slurmdbd host (can be different or the same as the slurmctld)
@@ -41,7 +41,7 @@
     # template in slurmdbd.conf
      # If there is a change to slurmdbd.conf it will restart slurmdbd with a handler (end of play)
 - include_tasks: dbd.yml
-  when: (slurm_accounting_storage_host == ansible_hostname)
+  when: (slurm_accounting_storage_host == inventory_hostname)
 
   # General service tasks:
     # munge:
@@ -54,11 +54,11 @@
     # start and enable slurmdbd wherever that runs (after we ensure there's a slurm user/group)
     # sacctmgr create cluster
 - include_tasks: service.yml
-  when: slurm_service_node == ansible_hostname
+  when: slurm_service_node == inventory_hostname
 
   # slurmctld hosts, primary and potentially backup
 - include_tasks: slurmctld.yml
-  when: slurm_service_node == ansible_hostname or (slurm_backup_controller is defined and slurm_backup_controller == ansible_hostname)
+  when: slurm_service_node == inventory_hostname or (slurm_backup_controller is defined and slurm_backup_controller == inventory_hostname)
 
   # computes
     # get munge.key from the directory where you run ansible or NFS

@@ -26,6 +26,11 @@
     service: name=munge state=started enabled=yes
     notify:
      - restart munge
+    when: ansible_connection != 'chroot'
+
+  - name: enable munge on compute nodes
+    command: systemctl enable munge
+    when: ansible_connection == 'chroot'
 
   - name: install slurmd packages
     package: name="{{ item }}" state=present
@@ -44,6 +49,7 @@
       - ansible_os_family == "RedHat"
       - ansible_distribution_major_version == "7"
       - slurm_fact_fgci_slurmrepo_version|int < 1702
+      - ansible_connection != 'chroot'
 
   - name: create systemd override directories for slurmd
     file: path="/etc/systemd/system/slurmd.service.d" state=directory owner=root mode=0755
@@ -55,3 +61,8 @@
 
   - name: start and enable slurmd
     service: name={{ slurmd_service }} state=started enabled=yes
+    when: ansible_connection != 'chroot'
+
+  - name: enable slurmd on chroot
+    command: systemctl enable {{ slurmd_service }}
+    when: ansible_connection == 'chroot'

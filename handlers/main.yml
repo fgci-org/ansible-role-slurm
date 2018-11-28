@@ -2,6 +2,7 @@
 
   - name: restart munge
     service: name=munge state=restarted
+    when: ansible_connection != 'chroot'
 
   - name: restart slurm
     command: /bin/true
@@ -10,6 +11,7 @@
       - restart slurmctld
       - restart slurmdbd
     changed_when: True
+    when: ansible_connection != 'chroot'
 
   - name: restart slurmd
     service: name={{ slurmd_service }} state=restarted
@@ -21,8 +23,8 @@
 
   - name: restart slurmdbd
     service: name=slurmdbd state=restarted
-    when: slurm_accounting_storage_host == ansible_hostname
+    when: slurm_accounting_storage_host == inventory_hostname
 
   - name: Restart rsyslog
     service: name=rsyslog state=restarted
-
+    when: ansible_connection != 'chroot'

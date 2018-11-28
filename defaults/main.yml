@@ -61,13 +61,13 @@ slurm_switch_type: "switch/none"
 slurm_mpi_default: "none"
 slurm_mpi_params: "ports=12000-12999"
 slurm_proctrack_type: "proctrack/cgroup"
-slurm_service_node: "{{ hostvars[groups['slurm_service'][0]]['ansible_hostname']  }}"
+slurm_service_node: "{{ groups['slurm_service'][0] }}"
 
 #slurm_control_addr is the same as ControlMachine ( slurm_service_node ) by default. 
 #Define it here to change it.
 #slurm_control_addr="{{ slurm_service_node }}"
 # If you want a backup slurmctld, set this variable.
-#slurm_backup_controller: "{{ hostvars[groups['slurm_service'][1]]['ansible_hostname']  }}"
+#slurm_backup_controller: "{{ groups['slurm_service'][1] }}"
 # The addr of the backup controller, if necessary
 #slurm_backup_addr: "foo.example.com"
 
