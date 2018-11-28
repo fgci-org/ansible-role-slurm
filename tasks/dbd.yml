@@ -78,7 +78,7 @@
      priv: "slurm_acct_db.*:ALL"
      state: present 
      update_password: always
-    when: mysqlslurmuser|failed or mysqlslurmuser|changed
+    when: mysqlslurmuser is failed or mysqlslurmuser is changed
 
   - name: template in slurmdbd.conf
     template: 
