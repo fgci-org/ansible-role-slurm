@@ -15,8 +15,6 @@ env:
   - IMAGE_BUILD_PLATFORM=ansible-master-github-centos7
   - IMAGE_BUILD_PLATFORM=fgcislurm1711
   - IMAGE_BUILD_PLATFORM=fgcislurm1702
-  - IMAGE_BUILD_PLATFORM=fgcislurm1605
-  - IMAGE_BUILD_PLATFORM=fgcislurm1508
 
 install:
   - npm install -g validate-dockerfile
