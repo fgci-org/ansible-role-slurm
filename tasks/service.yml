@@ -22,11 +22,11 @@
 
   - name: create slurm_munge_key_nfs_dir
     file: path={{ slurm_munge_key_nfs_dir }} state=directory owner=root group={{ admingroup }} mode=0750
-    when: slurm_munge_key_to_nfs
+    when: slurm_munge_key_to_nfs|bool
 
   - name: copy munge.key to slurm_munge_key_nfs_dir too
     copy: src=files/munge.key dest={{ slurm_munge_key_nfs }} mode=0400 owner=munge group=munge
-    when: slurm_munge_key_to_nfs
+    when: slurm_munge_key_to_nfs|bool
 
   - name: add slurm unix group
     group: name=slurm system=no state=present

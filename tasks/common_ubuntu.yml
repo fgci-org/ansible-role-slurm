@@ -39,7 +39,7 @@
   - name: write all slurm logs handled by rsyslog to one file
     template: src=slurm_rsyslog.conf dest=/etc/rsyslog.d/10_slurm_rsyslog.conf owner=root mode=0644 backup=yes
     notify: Restart rsyslog
-    when: slurm_manage_rsyslog_conf
+    when: slurm_manage_rsyslog_conf|bool
 
   - name: configure logrotate to rotate slurm_logs in slurm_log_dir
     template: src=slurm_logrotate.j2 dest=/etc/logrotate.d/slurm owner=root mode=0644 backup=no
@@ -47,17 +47,17 @@
 
   - name: template in plugstack.conf
     template: src=plugstack.conf.j2 dest=/etc/slurm/plugstack.conf owner=root mode=0644 backup=yes
-    when: slurm_plugstack
+    when: slurm_plugstack|bool
 
   - name: create slurm/plugstack.conf.d
     file: path=/etc/slurm/plugstack.conf.d state=directory owner=root group=root mode=0755
-    when: slurm_plugstack
+    when: slurm_plugstack|bool
 
   - name: template in plugstack.conf.d/x11.conf
     template: src=x11.conf.j2 dest=/etc/slurm/plugstack.conf.d/x11.conf owner=root mode=0644 backup=no
-    when: slurm_plugstack and slurm_x11_spank
+    when: slurm_plugstack|bool and slurm_x11_spank|bool
 
   - name: install slurm-spank-x11 and xauth
     package: name={{ item }} state=present
     with_items: "{{ slurm_spank_x11_packages }}"
-    when: slurm_plugstack and slurm_x11_spank
+    when: slurm_plugstack|bool and slurm_x11_spank|bool

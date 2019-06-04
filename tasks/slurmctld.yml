@@ -26,13 +26,13 @@
     sysctl: name=net.core.somaxconn
             value={{ slurm_sysctl_core_somaxconn }}
             sysctl_file=/etc/sysctl.d/50-slurm.conf
-    when: slurm_manage_sysctl
+    when: slurm_manage_sysctl|bool
 
   - name: Increase net.ipv4.tcp_max_syn_backlog for slurmctld
     sysctl: name=net.ipv4.tcp_max_syn_backlog
             value={{ slurm_sysctl_tcp_max_syn_backlog }}
             sysctl_file=/etc/sysctl.d/50-slurm.conf
-    when: slurm_manage_sysctl
+    when: slurm_manage_sysctl|bool
 
   - name: create systemd override directories for slurmctld
     file: path="/etc/systemd/system/slurmctld.service.d" state=directory owner=root mode=0755
