@@ -9,8 +9,6 @@ Tested with these Linux distributions:
  - CentOS 6
   - Only 14.11.x
  - CentOS 7
-  - 15.08.x (travis ci automatic testing)
-  - 16.05.x (travis ci automatic testing)
   - 17.02.x (travis ci automatic testing)
   - 17.11.x (travis ci automatic testing)
 
@@ -52,10 +50,10 @@ It is also possible to setup a backup slurm controller by defining slurm_backup_
 
 Specific versions of SLURM can be gotten from the FGCI yum repo by setting:
 <pre>
-fgci_slurmrepo_version: "fgcislurm1605"
+fgci_slurmrepo_version: "fgcislurm1711"
 </pre>
 
-We have 1508,1605 and 1711 RPMs there.
+We have 1702 and 1711 RPMs there.
 
 ### Implementation
 
@@ -100,7 +98,7 @@ Using 17.11 as an example
  - New branch in ansible-role-slurm with the following changes/additions:
    - IMAGE_BUILD_PLATFORM=fgcislurm1711 in .travis.yml env:
    - tests/test1711.yml with fgci_slurmrepo_version: "fgcislurm1711"
-   - tests/fgcislurm1711 directory a symlink of tests/fgcislurm1508
+   - tests/fgcislurm1711 directory symlink to tests/epel-centos7 
  - Then make changes if needed to the role that does not break older SLURM versions
 
 # Authors / Contributors:
