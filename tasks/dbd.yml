@@ -21,6 +21,7 @@
 
   - name: wait for mysql in port 3306 to start
     wait_for: port=3306 delay=10 timeout=60
+    check_mode: no
 
   - name: Set root sql user password
     # If .my.cnf already exists, this will cause an mysql-root-password update.
