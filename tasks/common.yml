@@ -77,6 +77,5 @@
     when: slurm_plugstack|bool and slurm_x11_spank|bool
 
   - name: install slurm-spank-x11 and xauth
-    package: name={{ item }} state=present
-    with_items: "{{ slurm_spank_x11_packages }}"
+    package: name={{ slurm_spank_x11_packages }} state=present
     when: slurm_plugstack|bool and slurm_x11_spank|bool

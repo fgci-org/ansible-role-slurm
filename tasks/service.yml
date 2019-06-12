@@ -1,7 +1,6 @@
 ---
   - name: install slurm service specific packages
-    package: "name={{ item }} state=present"
-    with_items: "{{ slurm_service_packages }}"
+    package: name="{{ slurm_service_packages }}" state=present
 
   - name: does the munge.key exist?
     stat: path=/etc/munge/munge.key

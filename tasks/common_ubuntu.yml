@@ -8,8 +8,7 @@
 
 ##
   - name: install common Slurm packages
-    apt: name={{ item }} state=present update_cache=yes allow_unauthenticated=yes
-    with_items: "{{ slurm_packages }}"
+    apt: name="{{ slurm_packages }}" state=present update_cache=yes allow_unauthenticated=yes
     when: slurm_packages.0 != ""
 
   - name: install fgci Slurm addons
@@ -58,6 +57,5 @@
     when: slurm_plugstack|bool and slurm_x11_spank|bool
 
   - name: install slurm-spank-x11 and xauth
-    package: name={{ item }} state=present
-    with_items: "{{ slurm_spank_x11_packages }}"
+    package: name="{{ slurm_spank_x11_packages }}" state=present
     when: slurm_plugstack|bool and slurm_x11_spank|bool
