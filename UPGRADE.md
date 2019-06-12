@@ -1,3 +1,35 @@
+Switch from FGCI to OHPC slurm packages
+---------------------------------------
+
+In general, need to be careful with slurmdbd, probably running it in
+the foreground during upgrade to monitor progress. See
+http://slurm.schedmd.com/quickstart_admin.html#upgrade
+
+0. Service break, making sure no jobs are running
+1. Stop slurmdbd
+2. Remove all slurm and munge packages from the slurmdbd node: yum remove '*slurm*' 'munge*'
+3. Install slurm server packages: yum install ohpc-slurm-server
+4. Start slurmdbd in the foreground: /sbin/slurmdbd -D -v
+5. Wait until the DB upgrade is completed (can take up to 45 mins)
+6. Stop the slurmdbd running in the foreground: Ctrl-C
+7. Start slurmdbd via systemd: systemctl start slurmdbd
+8. In group_vars, set slurm_ohpc to "ohpc"
+
+
+Upgrading OHPC slurm packages
+-----------------------------
+
+To upgrade to a newer slurm OHPC version:
+
+1. Do steps 0-1 from previous list above
+2. Delete all the slurm and munge versionlock stuff from /etc/yum/pluginconf.d/versionlock.list
+3. In group_vars set slurm_ohpc_versionlock to False
+4. yum update
+5. Do steps 4-7 from the above list.
+6. Upgrade all the nodes.
+7. In group_vars set slurm_ohpc_versionlock to True and run this role to lock the version again 
+
+
 From 15.08 to 16.05
 -------------------
 

@@ -17,8 +17,9 @@ slurm_manage_mysql_security: True
 # group exist
 nis_server: False
 
-fgci_install: True
 fgci_slurmrepo_version: "fgcislurm1711"
+slurm_repo: "fgci"  # Or "ohpc" to use OHPC slurm packages
+slurm_ohpc_versionlock: True
 siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"

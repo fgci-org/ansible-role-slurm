@@ -3,7 +3,7 @@
 # define where we get .debs for slurm. 
   - name: Add local apt-repo
     template: src=apt.repo.j2 dest=/etc/apt/sources.list.d/fgislurm.list owner=root group=root mode=0644 backup=yes
-    when: fgci_install == True and slurm_apt_repo == True
+    when: slurm_repo == 'fgci' and slurm_apt_repo == True
 
 
 ##
@@ -14,7 +14,7 @@
 
   - name: install fgci Slurm addons
     package: name=slurm-fgi-addons state=present
-    when: fgci_install
+    when: slurm_repo == 'fgci'
 
   - name: Copy pam.d/slurm
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
