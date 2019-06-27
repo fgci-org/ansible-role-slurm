@@ -1,7 +1,6 @@
 ---
   - name: install specific slurm service_packages for slurmctlds
-    package: "name={{ item }} state=present"
-    with_items: "{{ slurm_service_packages }}"
+    package: name="{{ slurm_service_packages }}" state=present
 
   - name: Install munge key for slurmctld
     copy:

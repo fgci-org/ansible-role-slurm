@@ -6,9 +6,8 @@
 ####
 
   - name: install slurmdbd specific packages
-    package: "name={{item}} state=present"
+    package: name="{{ slurmdbd_packages }}" state=present
     register: reg_install_slurm_packages
-    with_items: "{{ slurmdbd_packages }}"
     when: ansible_os_family == "RedHat"
 
   - name: start and enable mariadb/mysql
