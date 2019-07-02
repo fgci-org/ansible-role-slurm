@@ -46,5 +46,8 @@
   - name: template in systemd override file for slurmd
     template: src=systemd_override.conf.j2 dest=/etc/systemd/system/slurmd.service.d/slurmd_override.conf backup=no owner=root mode=0644
 
+  - name: template in cgroup_allowed_devices for slurm
+    template: src=cgroup_allowed_devices_file.j2 dest=/etc/slurm/cgroup_allowed_devices_file.conf owner=root mode=0644
+
   - name: start and enable slurmd
     service: name={{ slurmd_service }} state=started enabled=yes
