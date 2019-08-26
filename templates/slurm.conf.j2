@@ -122,7 +122,7 @@ TopologyPlugin={{ slurm_topology_plugin }}
 NodeName={{ slurm_compute_nodes }} RealMemory={{ slurm_compute_realmemory }} Sockets={{ slurm_compute_sockets }} CoresPerSocket={{ slurm_compute_corespersocket }} ThreadsPerCore={{ slurm_compute_threadspercore }} State={{ slurm_node_state }}
 {% if slurm_with_gpu %}
 # If slurm_with_gpu is True then add some nodes and a partition for them.
-NodeName={{ slurm_gpu_nodes }} Gres=gpu:teslak80:8 RealMemory={{ slurm_compute_realmemory }} Sockets={{ slurm_compute_sockets }} CoresPerSocket={{ slurm_compute_corespersocket }} ThreadsPerCore={{ slurm_compute_threadspercore }} State={{ slurm_node_state }}
+NodeName={{ slurm_gpu_nodes }} Gres=gpu:{{ slurm_gpu_type }}:{{ slurm_gpu_count }} RealMemory={{ slurm_compute_realmemory }} Sockets={{ slurm_compute_sockets }} CoresPerSocket={{ slurm_compute_corespersocket }} ThreadsPerCore={{ slurm_compute_threadspercore }} State={{ slurm_node_state }}
 {% endif %}
 {% endif %}
 

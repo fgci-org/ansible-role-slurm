@@ -82,7 +82,7 @@ slurm_accounting_storage_enforce: "safe,qos"
 #slurm_accounting_storage_tres: "gres/gpu:teslak80,gres/gpu:teslak40"
 
 # slurm_AccountingStorageTRES is used if slurm_with_gpu is True
-slurm_AccountingStorageTRES: "gres/gpu:teslak80"
+slurm_AccountingStorageTRES: "gres/gpu"
 
 
 ##
@@ -106,8 +106,10 @@ slurm_node_state: "UNKNOWN"
 slurm_with_gpu: True
 slurm_gpu_nodes: "{{ nodeGpuBase }}"
 slurm_grestypes: "gpu"
+slurm_gpu_type: "teslak80"
+slurm_gpu_count: "8"
 slurm_greslist:
-  - "NodeName={{ nodeGpuBase }} Name=gpu Type=teslak80 File=/dev/nvidia[0-7]"
+  - "NodeName={{ nodeGpuBase }} Name=gpu Type={{ slurm_gpu_type }} File=/dev/nvidia[0-{{ slurm_gpu_count|int - 1 }}]"
 
 # TIMERS
 slurm_SlurmctldTimeout: "300"
