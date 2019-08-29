@@ -10,6 +10,13 @@
       backup: yes
     when: slurm_repo == 'fgci'
 
+  - name: Remove FGI slurm repo if using ohpc slurm
+    file:
+      path: "/etc/yum.repos.d/"
+      state: absent
+    with_items: "fgislurm.repo"
+    when: slurm_repo == 'ohpc'
+
   - name: Import FGI slurm repo key
     rpm_key:
       key: http://idris.fgi.csc.fi/fgirepo6/RPM-GPG-KEY-CSC-GRID-2
