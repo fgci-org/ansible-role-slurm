@@ -44,6 +44,11 @@
   - name: Copy pam.d/slurm
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
 
+  - name: Make sure /etc/slurm/ exists
+    directory:
+      path: "/etc/slurm"
+      state: present
+
   - name: Make from template cgroup.conf
     template: src=cgroup.conf.j2 dest=/etc/slurm/cgroup.conf owner=root mode=0644 backup=yes
     notify: restart slurm
