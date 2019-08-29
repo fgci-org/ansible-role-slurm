@@ -28,7 +28,7 @@ http://slurm.schedmd.com/quickstart_admin.html#upgrade
 9. systemctl stop slurmctld
 10. Remove all slurm and munge packages: yum remove '*slurm*' 'munge*'
 11. Install slurm server packages: yum install ohpc-slurm-server
-12. systemctl start munge; systemctl start slurmctld
+12. systemctl start slurmdbd; sleep 3; systemctl start munge; sleep 3; systemctl start slurmctld
 
 ### On all other slurm nodes (clients, submit nodes)
 
