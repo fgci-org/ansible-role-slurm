@@ -42,6 +42,7 @@ http://slurm.schedmd.com/quickstart_admin.html#upgrade
 ### On grid node
 1. Remove all slurm and munge packages: yum remove '*slurm*' 'munge*'
 1. Run: ansible-playbook compute.yml -t slurm
+
 Upgrading OHPC slurm packages
 -----------------------------
 
