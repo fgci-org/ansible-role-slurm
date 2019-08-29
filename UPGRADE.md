@@ -36,6 +36,8 @@ http://slurm.schedmd.com/quickstart_admin.html#upgrade
 14. Remove all slurm and munge packages: yum -y remove '*slurm*' 'munge*'
 15. Install slurm client packages: yum -y install ohpc-slurm-client
 16. On compute nodes: systemctl start munge; systemctl start slurmd
+17. Run to lock slurm version: ansible-playbook install.yml -t slurm
+18. Run to lock slurm version: ansible-playbook compute.yml -t slurm
 
 
 Upgrading OHPC slurm packages
