@@ -12,9 +12,8 @@
 
   - name: Remove FGI slurm repo if using ohpc slurm
     file:
-      path: "/etc/yum.repos.d/"
+      path: "/etc/yum.repos.d/fgislurm.repo"
       state: absent
-    with_items: "fgislurm.repo"
     when: slurm_repo == 'ohpc'
 
   - name: Import FGI slurm repo key
