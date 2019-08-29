@@ -20,7 +20,7 @@ http://slurm.schedmd.com/quickstart_admin.html#upgrade
 
 ### On the nodes with ansible (admin)
 
-8. In ansible group_vars, set slurm_ohpc to "ohpc", run
+8. In ansible group_vars, set slurm_repo to "ohpc", run
    ansible-playbook install.yml --tags=fgci-install
 
 ### On the slurm controller node(s)
