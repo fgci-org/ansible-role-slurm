@@ -39,9 +39,13 @@ http://slurm.schedmd.com/quickstart_admin.html#upgrade
 17. Run to lock slurm version: ansible-playbook install.yml -t slurm
 18. Run to lock slurm version: ansible-playbook compute.yml -t slurm
 
-### On grid node
-1. Remove all slurm and munge packages: yum remove '*slurm*' 'munge*'
-1. Run: ansible-playbook grid.yml -t slurm
+### Grid node
+1. Remove all slurm and munge packages from grid node: yum remove '*slurm*' 'munge*'
+1. Run ansible: ansible-playbook grid.yml -t slurm
+
+### Login node
+1. Remove all slurm and munge packages from login node: yum remove '*slurm*' 'munge*'
+1. Run ansible: ansible-playbook login.yml -t slurm
 
 Upgrading OHPC slurm packages
 -----------------------------
