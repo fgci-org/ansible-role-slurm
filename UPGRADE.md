@@ -49,6 +49,7 @@ http://slurm.schedmd.com/quickstart_admin.html#upgrade
 - yum -y remove '*slurm*' 'munge*'
 - yum -y install ohpc-slurm-client
 - Run ansible: ansible-playbook login.yml -t slurm
+- Switching from FGCI to OHPC slurm packages is complete
 
 Upgrading OHPC slurm packages
 -----------------------------
