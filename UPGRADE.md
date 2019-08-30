@@ -5,46 +5,49 @@ In general, need to be careful with slurmdbd, probably running it in
 the foreground during upgrade to monitor progress. See
 http://slurm.schedmd.com/quickstart_admin.html#upgrade
 
-0. Service break, making sure no jobs are running
+- Service break is required. Make sure no jobs are running.
 
-### On the node running slurmdbd
+### On the node running slurmdbd, install node
 
-1. Stop slurmdbd
-2. Remove all slurm and munge packages: yum remove '*slurm*' 'munge*'
-3. Install slurm server packages: yum install ohpc-slurm-server
-4. Start slurmdbd in the foreground: /sbin/slurmdbd -D -v
-5. Wait until the DB upgrade is completed (can take up to 45 mins)
-6. Stop the slurmdbd running in the foreground: Ctrl-C
-7. Start slurmdbd via systemd: systemctl start slurmdbd
+- Stop slurmdbd
+- Remove all slurm and munge packages: yum remove '*slurm*' 'munge*'
+- Install slurm server packages: yum install ohpc-slurm-server
+- Start slurmdbd in the foreground: /sbin/slurmdbd -D -v
+- Wait until the DB upgrade is completed (can take up to 45 mins)
+- Stop the slurmdbd running in the foreground: Ctrl-C
+- Start slurmdbd via systemd: systemctl start slurmdbd
 
 
-### On the nodes with ansible (admin)
+### On the node with ansible
 
-8. In ansible group_vars, set slurm_repo to "ohpc", run
-   ansible-playbook install.yml --tags=fgci-install
+- In ansible group_vars/all/all.yml, set slurm_repo: "ohpc"
+- Run: ansible-playbook install.yml --tags=fgci-install
 
-### On the slurm controller node(s)
+### On the slurm controller node(s), install node
 
-9. systemctl stop slurmctld
-10. Remove all slurm and munge packages: yum remove '*slurm*' 'munge*'
-11. Install slurm server packages: yum install ohpc-slurm-server
-12. systemctl start slurmdbd; sleep 3; systemctl start munge; sleep 3; systemctl start slurmctld
+- systemctl stop slurmctld
+- Remove slurm and munge packages if not done already: yum -y remove '*slurm*' 'munge*'
+- Install slurm server packages if not done already: yum -y install ohpc-slurm-server
+- If install node: systemctl restart slurmdbd; sleep 3; systemctl restart munge; sleep 3; systemctl start slurmctld
+- If only controller node: systemctl restart munge; sleep 3; systemctl restart slurmctld
 
-### On all other slurm nodes (clients, submit nodes)
 
-13. On compute nodes: systemctl stop slurmd
-14. Remove all slurm and munge packages: yum -y remove '*slurm*' 'munge*'
-15. Install slurm client packages: yum -y install ohpc-slurm-client
-16. On compute nodes: systemctl start munge; systemctl start slurmd
-17. Run to lock slurm version: ansible-playbook install.yml -t slurm
-18. Run to lock slurm version: ansible-playbook compute.yml -t slurm
+### On compute nodes
+
+- systemctl stop slurmd
+- yum -y remove '*slurm*' 'munge*'
+- yum -y install ohpc-slurm-client
+- systemctl start munge; sleep 3; systemctl start slurmd
+- Run to lock slurm version: ansible-playbook install.yml -t slurm
+- Run to lock slurm version: ansible-playbook compute.yml -t slurm
 
 ### Grid node
-1. Remove all slurm and munge packages from grid node: yum remove '*slurm*' 'munge*'
-1. Run ansible: ansible-playbook grid.yml -t slurm
+- yum remove '*slurm*' 'munge*'
+- Run ansible: ansible-playbook grid.yml -t slurm
 
 ### Login node
-- Remove all slurm and munge packages from login node: yum remove '*slurm*' 'munge*'
+- yum -y remove '*slurm*' 'munge*'
+- yum -y install ohpc-slurm-client
 - Run ansible: ansible-playbook login.yml -t slurm
 
 Upgrading OHPC slurm packages
