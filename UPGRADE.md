@@ -1,7 +1,7 @@
 Switch from FGCI to OHPC slurm packages
 ---------------------------------------
 
-In general, need to be careful with slurmdbd, probably running it in
+In general one needs to be careful with slurmdbd and run it in
 the foreground during upgrade to monitor progress. See
 http://slurm.schedmd.com/quickstart_admin.html#upgrade
 
