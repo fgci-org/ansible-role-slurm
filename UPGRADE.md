@@ -44,8 +44,8 @@ http://slurm.schedmd.com/quickstart_admin.html#upgrade
 1. Run ansible: ansible-playbook grid.yml -t slurm
 
 ### Login node
-1. Remove all slurm and munge packages from login node: yum remove '*slurm*' 'munge*'
-1. Run ansible: ansible-playbook login.yml -t slurm
+- Remove all slurm and munge packages from login node: yum remove '*slurm*' 'munge*'
+- Run ansible: ansible-playbook login.yml -t slurm
 
 Upgrading OHPC slurm packages
 -----------------------------
