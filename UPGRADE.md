@@ -9,7 +9,7 @@ http://slurm.schedmd.com/quickstart_admin.html#upgrade
 
 ### On the node running slurmdbd, install node
 
-- Stop slurmdbd
+- Stop slurmdbd: systemctl stop slurmdbd
 - Remove all slurm and munge packages: yum remove '*slurm*' 'munge*'
 - Install slurm server packages: yum install ohpc-slurm-server
 - Start slurmdbd in the foreground: /sbin/slurmdbd -D -v
