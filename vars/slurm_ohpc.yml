@@ -3,6 +3,7 @@
 slurm_packages:
   - yum-plugin-versionlock
   - slurm-ohpc
+  - xorg-x11-xauth
 
 slurm_service_packages:
  - lua-devel
