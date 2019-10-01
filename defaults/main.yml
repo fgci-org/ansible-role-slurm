@@ -239,7 +239,7 @@ slurm_sysctl_tcp_max_syn_backlog: "4096" # 512 is the default in el7
 # plugstack and X11
 slurm_plugstack: False
 slurm_x11_spank: False
-slurm_x11_setting: "optional          x11.so"
+slurm_x11_setting: "#optional          x11.so"
 
 slurm_spank_x11_packages:
   - xauth
