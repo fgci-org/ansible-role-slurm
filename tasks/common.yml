@@ -87,6 +87,12 @@
     template: src=x11.conf.j2 dest=/etc/slurm/plugstack.conf.d/x11.conf owner=root mode=0644 backup=no
     when: slurm_plugstack|bool and slurm_x11_spank|bool
 
+  - name: remove plugstack.conf.d/x11.conf if it is not being used
+    file:
+      path: /etc/slurm/plugstack.conf.d/x11.conf
+      state: absent
+    when: slurm_plugstack|bool == false and slurm_x11_spank|bool == false
+
   - name: install slurm-spank-x11 and xauth
     package: name={{ slurm_spank_x11_packages }} state=present
     when: slurm_plugstack|bool and slurm_x11_spank|bool
