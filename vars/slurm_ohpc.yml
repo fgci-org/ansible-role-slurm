@@ -11,13 +11,9 @@ slurm_service_packages:
  - lua-devel
  - mailx
  - ohpc-slurm-server
- - slurm-libpmi-ohpc
- - slurm-ohpc-fgci-addons
 
 slurm_compute_packages:
  - ohpc-slurm-client
- - slurm-libpmi-ohpc
- - slurm-ohpc-fgci-addons
 
 slurm_conf_version_specific_params_list:
  - "SlurmctldSyslogDebug={{ slurm_slurmctld_syslog_debug }}"
