@@ -6,6 +6,7 @@ slurm_packages:
   - slurm-libpmi-ohpc
   - xorg-x11-xauth
   - slurm-ohpc-fgci-addons
+  - slurm-contribs-ohpc
 
 slurm_service_packages:
  - lua-devel
