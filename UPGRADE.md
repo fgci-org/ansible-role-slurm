@@ -12,6 +12,7 @@ http://slurm.schedmd.com/quickstart_admin.html#upgrade
 - Stop slurmdbd: systemctl stop slurmdbd
 - Remove all slurm and munge packages: yum remove '*slurm*' 'munge*'
 - Install slurm server packages: yum install ohpc-slurm-server
+- Start munge: systemctl restart munge
 - Start slurmdbd in the foreground: /sbin/slurmdbd -D -v
 - Wait until the DB upgrade is completed "slurmdbd version XX.XX.X started" (can take 45 mins)
 - Stop the slurmdbd running in the foreground: Ctrl-C
