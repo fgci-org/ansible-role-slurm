@@ -36,7 +36,7 @@ user.
 
 ### Below instructions are for running slurm and perhaps multiple slurm instances in openstack
 
-These instructions no longer work, files have been removed. A playbook that uses this role: https://github.com/CSCfi/fgci-ansible
+These instructions no longer work, files have been removed. A playbook that uses this role: https://github.com/fgci-org/fgci-ansible
 
 #### Initial configuration of the instances and your workstation:
 
