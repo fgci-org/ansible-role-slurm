@@ -57,7 +57,7 @@ We have 1702 and 1711 RPMs there.
 
 ### Implementation
 
-A playbook that uses this role: https://github.com/CSCfi/fgci-ansible
+A playbook that uses this role: https://github.com/fgci-org/fgci-ansible
 
 Or you can check out the [tests/test.yml](tests/test.yml) in this repo.
 
