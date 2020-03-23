@@ -28,6 +28,17 @@
     when: ansible_distribution_major_version == "7" and slurm_repo == 'fgci' and ansible_os_family == "RedHat"
 
 ##
+    # Set slurm user and group locally on every host if uid/gid given
+  - name: add slurm unix group
+    group: name=slurm system=no state=present gid={{ slurm_user_gid|default(slurm_user_uid) }}                                                                                 
+    register: reg_slurm_unixgroup
+    when: slurm_user_uid is defined
+
+  - name: add slurm unix user
+    user: name=slurm shell=/sbin/nologin createhome=no system=no append=yes group=slurm state=present uid={{ slurm_user_uid }}                                                 
+    register: reg_slurm_unixuser
+    when: slurm_user_uid is defined
+
   - name: install common Slurm packages
     package:
        name:  "{{ slurm_packages }}"

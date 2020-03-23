@@ -7,10 +7,12 @@ ansible-role-slurm
 
 Tested with these Linux distributions:
  - CentOS 6
-  - Only 14.11.x
+   - Only 14.11.x
  - CentOS 7
-  - 17.02.x (travis ci automatic testing)
-  - 17.11.x (travis ci automatic testing)
+   - 17.02.x (travis ci automatic testing)
+   - 17.11.x (travis ci automatic testing)
+ - Ubuntu
+   - 18.04 (client only)
 
 The role goes to some lengths to be backwards compatible.
 
