@@ -14,7 +14,7 @@
     when: slurm_user_uid is defined
 
   - name: add slurm unix user
-    user: name=slurm shell=/sbin/nologin createhome=no system=no append=yes group=slurm state=present uid={{ slurm_user_uid }}                                                 $
+    user: name=slurm shell=/sbin/nologin createhome=no system=no append=yes group=slurm state=present uid={{ slurm_user_uid }}
     register: reg_slurm_unixuser
     when: slurm_user_uid is defined
 

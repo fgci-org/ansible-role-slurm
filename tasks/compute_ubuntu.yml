@@ -37,8 +37,9 @@
   - name: Create namespace epilog script
     template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
 
-  - name: disable the slurm init script on compute nodes
-    service: name=slurm enabled=no
+# no longer relevant for ubuntu 18.04+. 
+#  - name: disable the slurm init script on compute nodes
+#    service: name=slurm enabled=no
 
   - name: create systemd override directories for slurmd
     file: path="/etc/systemd/system/slurmd.service.d" state=directory owner=root mode=0755
