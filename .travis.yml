@@ -9,8 +9,6 @@ matrix:
 env:
   - IMAGE_BUILD_PLATFORM=ansible-pip-centos7
   - IMAGE_BUILD_PLATFORM=ansible-master-github-centos7
-  - IMAGE_BUILD_PLATFORM=fgcislurm1711
-  - IMAGE_BUILD_PLATFORM=fgcislurm1702
 
 install:
   - npm install -g validate-dockerfile
