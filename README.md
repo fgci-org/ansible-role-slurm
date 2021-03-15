@@ -1,6 +1,5 @@
 ansible-role-slurm
 ------------------
-[![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/CSCfi/ansible-role-slurm/master) 
 [![Build Status](https://travis-ci.org/CSCfi/ansible-role-slurm.svg?branch=master)](https://travis-ci.org/CSCfi/ansible-role-slurm)
 
 # Creates a SLURM cluster
