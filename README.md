@@ -1,13 +1,10 @@
 ansible-role-slurm
 ------------------
-[![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/CSCfi/ansible-role-slurm/master) 
 [![Build Status](https://travis-ci.org/CSCfi/ansible-role-slurm.svg?branch=master)](https://travis-ci.org/CSCfi/ansible-role-slurm)
 
 # Creates a SLURM cluster
 
 Tested with these Linux distributions:
- - CentOS 6
-   - Only 14.11.x
  - CentOS 7
    - 17.02.x (travis ci automatic testing)
    - 17.11.x (travis ci automatic testing)
