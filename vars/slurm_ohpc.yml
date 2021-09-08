@@ -11,7 +11,10 @@ slurm_packages:
 slurm_service_packages:
  - lua-devel
  - mailx
- - ohpc-slurm-server
+ - slurm-devel-ohpc
+ - slurm-ohpc
+ - slurm-perlapi-ohpc
+ - slurm-slurmctld-ohpc
 
 slurm_compute_packages:
  - ohpc-slurm-client
