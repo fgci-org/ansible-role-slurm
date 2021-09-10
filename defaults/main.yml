@@ -28,6 +28,9 @@ siteName: "io"
 nodeBase: "{{ siteName }}"
 nodeGpuBase: "gpu"
 
+# this role has been written to support slurm >=18.08. Some conf parameters have been deprecated from newer Slurm versions so this is for backward compatibility
+slurm_major_version: 18
+
 # Have systemd restart slurm daemons if they fail to start
 slurm_systemd_override_slurmd: True
 slurm_systemd_override_slurmdbd: True

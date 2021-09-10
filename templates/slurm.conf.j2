@@ -30,7 +30,9 @@ MpiParams={{ slurm_mpi_params }}
 SlurmctldPidFile={{ slurm_SlurmctldPidFile }}
 SlurmdPidFile={{ slurm_SlurmdPidFile }}
 ProctrackType={{ slurm_proctrack_type }}
+{% if slurm_major_version|int < 21 %}
 CacheGroups={{ slurm_CacheGroups }}
+{% endif %}
 FirstJobId={{ slurm_first_job_id }}
 ReturnToService={{ slurm_return_to_service }}
 MaxJobCount={{ slurm_max_job_count }}
@@ -70,7 +72,9 @@ SchedulerType={{ slurm_SchedulerType }}
 SchedulerParameters={{ slurm_scheduler_parameters }}
 SelectType={{ slurm_select_type }}
 SelectTypeParameters={{ slurm_select_type_parameters }}
+{% if slurm_major_version|int < 21 %}
 FastSchedule={{ slurm_fast_schedule }}
+{% endif %}
 PriorityType={{ slurm_priority_type }}
 {% if slurm_priority_type == "priority/multifactor" %}
 PriorityFlags={{ slurm_priority_flags }}
@@ -97,7 +101,9 @@ AcctGatherEnergyType={{ slurm_AcctGatherEnergyType }}
 AcctGatherNodeFreq={{ slurm_AcctGatherNodeFreq }}
 AccountingStorageType={{ slurm_accounting_storage_type }}
 AccountingStorageHost={{ slurm_accounting_storage_host }}
+{% if slurm_major_version|int < 21 %}
 AccountingStorageLoc={{ slurm_accounting_storage_loc }}
+{% endif %}
 AccountingStorageUser={{ slurm_accounting_storage_user }}
 AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
 {% if slurm_accounting_storage_tres is defined %}
