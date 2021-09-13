@@ -101,8 +101,8 @@
     template: 
      src: slurmdbd.conf.j2 
      dest: /etc/slurm/slurmdbd.conf 
-     owner: root 
-     mode: 0640 
+     owner: slurm 
+     mode: 0600 
      backup: yes
     notify:
       - restart slurmdbd
