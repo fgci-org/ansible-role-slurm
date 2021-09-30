@@ -42,14 +42,6 @@
   - name: Create namespace epilog script
     template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
 
-  - name: disable the slurm init script slurm on el7 on compute nodes before 1702
-    service: name=slurm enabled=no
-    when:
-      - ansible_os_family == "RedHat"
-      - ansible_distribution_major_version == "7"
-      - slurm_fact_fgci_slurmrepo_version|int < 1702
-      - ansible_connection != 'chroot'
-
   - name: create systemd override directories for slurmd
     file: path="/etc/systemd/system/slurmd.service.d" state=directory owner=root mode=0755
     when: slurm_systemd_override_slurmd and ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
