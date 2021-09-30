@@ -1,12 +1,4 @@
 ---
-# This sh/could be put in a separate role..
-# define where we get .debs for slurm. 
-  - name: Add local apt-repo
-    template: src=apt.repo.j2 dest=/etc/apt/sources.list.d/fgislurm.list owner=root group=root mode=0644 backup=yes
-    when: slurm_repo == 'fgci' and slurm_apt_repo == True
-
-
-##
     # Set slurm user and group locally on every host if uid/gid given
   - name: add slurm unix group
     group: name=slurm system=no state=present gid={{ slurm_user_gid|default(slurm_user_uid) }}

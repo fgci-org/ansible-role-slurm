@@ -6,8 +6,6 @@ ansible-role-slurm
 
 Tested with these Linux distributions:
  - CentOS 7
-   - 17.02.x (travis ci automatic testing)
-   - 17.11.x (travis ci automatic testing)
  - Ubuntu
    - 18.04 (client only)
 
@@ -47,13 +45,6 @@ It is possible to run the slurmdbd on a different host than the slurmctld by cha
 
 It is also possible to setup a backup slurm controller by defining slurm_backup_controller variable. Please read the [SLURM HA documentation](https://slurm.schedmd.com/quickstart_admin.html#HA). For example you'll need a shared directory (for example NFS) available on both the slurm_service_node and slurm_backup_controller.
 
-Specific versions of SLURM can be gotten from the FGCI yum repo by setting:
-<pre>
-fgci_slurmrepo_version: "fgcislurm1711"
-</pre>
-
-We have 1702 and 1711 RPMs there.
-
 ### Implementation
 
 A playbook that uses this role: https://github.com/fgci-org/fgci-ansible
@@ -78,27 +69,15 @@ Example Playbook
 
 ### Known Issues
 
- - This role used to be able to build slurm rpms, distribute them and install them. The last tag/release that had this feature was v1.5.0
  - Setting up a shared directory á la NFS for running a SLURM in HA is out of scope for this role. There are many [NFS server roles](https://github.com/CSCfi/ansible-role-nfs) and [Mount Filesystem roles](https://github.com/CSCfi/ansible-role-nfs_mount) roles out there.
 
 ### Testing and contributions
 
-Testing is done with [Travis](.travis.yml). New SLURM release can be tested after the RPMs are built and available in the FGCI repo. After that one needs to add a new tests/test1702.yml and a new IMAGE_BUILD_PLATFORM env in .travis.yml.
+Testing is done with [Travis](.travis.yml).
 
  - PRs to master
  - if possible make sure that the new feature is also tested
  - strive for backwards compatibility
-
-**Adding testing of a new SLURM release**
-
-Using 17.11 as an example
-
- - Get CSC to build new rpms and put them in a new yum repo
- - New branch in ansible-role-slurm with the following changes/additions:
-   - IMAGE_BUILD_PLATFORM=fgcislurm1711 in .travis.yml env:
-   - tests/test1711.yml with fgci_slurmrepo_version: "fgcislurm1711"
-   - tests/fgcislurm1711 directory symlink to tests/epel-centos7 
- - Then make changes if needed to the role that does not break older SLURM versions
 
 # Authors / Contributors:
 

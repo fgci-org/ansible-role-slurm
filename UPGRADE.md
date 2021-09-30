@@ -1,6 +1,10 @@
 Switch from FGCI to OHPC slurm packages
 ---------------------------------------
 
+NOTE 2021-09-30:
+Changes has been made to slurm role after writing this doc.
+It may not be relevant anymore. Now by default the slurm is coming from ohpc.
+
 In general one needs to be careful with slurmdbd and run it in
 the foreground during upgrade to monitor progress. See
 http://slurm.schedmd.com/quickstart_admin.html#upgrade

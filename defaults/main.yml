@@ -21,8 +21,7 @@ nis_server: False
 #slurm_user_uid: 5004
 #slurm_user_gid: 5004
 
-fgci_slurmrepo_version: "fgcislurm1711"
-slurm_repo: "fgci"  # Or "ohpc" to use OHPC slurm packages
+slurm_repo: "ohpc"  # Or "ohpc" to use OHPC slurm packages
 slurm_ohpc_versionlock: True
 siteName: "io"
 nodeBase: "{{ siteName }}"

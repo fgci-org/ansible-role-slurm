@@ -1,6 +1,0 @@
-[fgislurm]
-name=fgislurm
-baseurl=http://idris.fgi.csc.fi/fgci7/x86_64/{{ fgci_slurmrepo_version }}
-enabled=1
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CSC-GRID-2

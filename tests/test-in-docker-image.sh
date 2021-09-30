@@ -9,17 +9,9 @@ OS_TYPE=${1:-}
 OS_VERSION=${2:-}
 ANSIBLE_VERSION=${3:-}
 
-# So if we get fgcislurm as the first bash argument to this script we
-#  change playbook to a slurm specific version.
-# This means to test a new SLURM version we need to add a new playbook.
-if [[ $OS_TYPE = *"fgcislurm"* ]]; then
-  ANSIBLE_VAR=""
-  SLURMVERSION=$(echo $OS_TYPE|tr -d 'fgcislurm')
-  ANSIBLE_PLAYBOOk="tests/test$SLURMVERSION.yml"
-else
-  ANSIBLE_VAR=""
-  ANSIBLE_PLAYBOOk="tests/test.yml"
-fi
+ANSIBLE_VAR=""
+ANSIBLE_PLAYBOOk="tests/test.yml"
+
 ANSIBLE_INVENTORY="tests/inventory"
 #ANSIBLE_LOG_LEVEL=""
 ANSIBLE_LOG_LEVEL="-v"

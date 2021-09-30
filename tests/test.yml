@@ -26,7 +26,6 @@
        - { match: "{gpu[2-22]}", name: "check_hw_ib", arguments: "56" }
        - { match: "*", name: "check_hw_eth", arguments: "eth0" }
      - slurm_plugstack: True
-     - fgci_slurmrepo_version: "fgcislurm1711"
      - slurm_x11_spank: True
      - slurm_topology_plugin: "topology/tree"
      - slurm_topologylist: 
