@@ -1,31 +1,14 @@
 ---
-# This sh/could be put in a separate role..
-  - name: Add FGI slurm repo
-    template:
-      src: fgislurm.repo
-      dest: /etc/yum.repos.d/fgislurm.repo
-      owner: root
-      group: root
-      mode: 0644
-      backup: yes
-    when: slurm_repo == 'fgci'
 
-  - name: Remove FGI slurm repo if using ohpc slurm
+  - name: Remove FGI slurm repo if it still exists somewhere
     file:
       path: "/etc/yum.repos.d/fgislurm.repo"
       state: absent
-    when: slurm_repo == 'ohpc'
 
-  - name: Import FGI slurm repo key
-    rpm_key:
-      key: http://idris.fgi.csc.fi/fgirepo6/RPM-GPG-KEY-CSC-GRID-2
-      state: present
-    when: slurm_repo == 'fgci'
-
-  - name: Install FGCI repo
+  - name: Install FGCI repo for extra packages like slurm-ohpc-fgci-addons
     package:
       pkg: http://idris.fgi.csc.fi/fgci7/x86_64/fgci/rpms/fgci-release7-1-1.el7.noarch.rpm
-    when: ansible_distribution_major_version == "7" and slurm_repo == 'fgci' and ansible_os_family == "RedHat"
+    when: ansible_distribution_major_version == "7" and slurm_repo == 'ohpc' and ansible_os_family == "RedHat"
 
 ##
     # Set slurm user and group locally on every host if uid/gid given
@@ -45,12 +28,6 @@
        state: present
     when:
      - slurm_packages.0 != ""
-
-  - name: install fgci Slurm addons
-    package:
-      name: slurm-fgi-addons
-      state: present
-    when: slurm_repo == 'fgci' and ansible_distribution_major_version == "7"
 
   - name: Copy pam.d/slurm
     copy: src=pam_slurm dest=/etc/pam.d/slurm owner=root mode=0644
