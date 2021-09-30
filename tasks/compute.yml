@@ -52,7 +52,7 @@
 
   - name: template in cgroup_allowed_devices for slurm
     template: src=cgroup_allowed_devices_file.j2 dest=/etc/slurm/cgroup_allowed_devices_file.conf owner=root mode=0644
-    when: slurm_fact_fgci_slurmrepo_version|int > 1702 and ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
+    when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"
 
   - name: start and enable slurmd
     service: name={{ slurmd_service }} state=started enabled=yes

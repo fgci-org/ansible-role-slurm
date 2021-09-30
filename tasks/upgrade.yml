@@ -1,10 +1,2 @@
 ---
 
-#### Upgrade
-
-  - name: Pause if we are upgrading between major slurm versions on the dbd host
-    pause: prompt="slurm is set to be upgraded on {{ inventory_hostname }}. This is a manual task. Press ENTER when the manual steps are done."
-    when: (slurm_fact_fgci_slurmrepo_version != reg_slurm_yum_version_major['stdout']) and (slurm_accounting_storage_host == inventory_hostname) and (reg_slurm_yum_version_major['stdout'] != "")
-    # if the fgci_slurmrepo variable is not same as the version installed
-    # if we are on the slurm accouting storage host
-    # if the version installed is not ""

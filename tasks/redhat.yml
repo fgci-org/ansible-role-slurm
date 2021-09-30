@@ -14,13 +14,6 @@
   # check which version of slurm is installed
 - include_tasks: version.yml
 
-  # include variables that are SLURM dependent
-- include_vars: "{{ item }}"
-  with_first_found:
-    - "slurm_{{ slurm_fact_fgci_slurmrepo_version }}.yml"
-    - "slurm_default.yml"
-  when: slurm_repo == 'fgci'
-
 - include_vars: slurm_ohpc.yml
   when: slurm_repo == 'ohpc'
 
