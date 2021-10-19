@@ -9,7 +9,7 @@
 # the output is empty, that is no jobs by the user running on the node
 # and no error occurred (timeout etc.)
 userlist=$(/usr/bin/squeue -w $(hostname -s) -o%u -h -u $SLURM_JOB_USER -t R,S,CF 2>&1)
-if [ -z $userlist ]; then
+if [ -z "$userlist" ]; then
     /bin/rm -rf {{ pam_tmp_inst_dir }}/$SLURM_JOB_USER {{ pam_var_tmp_inst_dir }}/$SLURM_JOB_USER /dev/shm/$SLURM_JOB_USER
 fi
 {% endif %}
