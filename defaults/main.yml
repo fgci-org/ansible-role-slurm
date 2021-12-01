@@ -192,6 +192,7 @@ slurm_JobAcctGatherType: "jobacct_gather/linux"
 slurm_JobAcctGatherFrequency: "energy=60,task=60"
 slurm_AcctGatherEnergyType: "acct_gather_energy/rapl"
 slurm_AcctGatherNodeFreq: "60"
+slurm_accounting_store_flags: "job_comment"
 
 # Job-private /tmp, /var/tmp and /dev/shm
 pam_use_namespace: False
