@@ -103,6 +103,8 @@ AccountingStorageType={{ slurm_accounting_storage_type }}
 AccountingStorageHost={{ slurm_accounting_storage_host }}
 {% if slurm_major_version|int < 21 %}
 AccountingStorageLoc={{ slurm_accounting_storage_loc }}
+{% else %}
+AccountingStoreFlags={{ slurm_accounting_store_flags }}
 {% endif %}
 AccountingStorageUser={{ slurm_accounting_storage_user }}
 AccountingStorageEnforce={{ slurm_accounting_storage_enforce }}
