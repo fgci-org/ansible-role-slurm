@@ -34,6 +34,9 @@
   - name: Make sure /usr/local/libexec/slurm/epilog.d exists
     file: path=/usr/local/libexec/slurm/epilog.d state=directory owner=root group=root mode=0755 recurse=yes
 
+  - name: Make sure /usr/local/libexec/slurm/prolog.d exists
+    file: path=/usr/local/libexec/slurm/prolog.d state=directory owner=root group=root mode=0755 recurse=yes
+
   - name: Create namespace epilog script
     template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
 
