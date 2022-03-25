@@ -69,6 +69,10 @@ Waittime={{ slurm_Waittime }}
 KillOnBadExit={{ slurm_KillOnBadExit }}
 KeepAliveTime={{ slurm_KeepAliveTime }}
 OverTimeLimit={{ slurm_OverTimeLimit }}
+{% if slurm_ResumeTimeout is defined %}
+ResumeTimeout={{ slurm_ResumeTimeout }}
+{% endif %}
+
 
 # SCHEDULING
 SchedulerType={{ slurm_SchedulerType }}
