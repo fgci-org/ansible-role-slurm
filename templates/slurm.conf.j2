@@ -44,7 +44,7 @@ JobSubmitPlugins={{ slurm_jobsubmitplugins }}
 {% endif %}
 Epilog={{ slurm_Epilog }}
 {% if slurm_Prolog is defined %}
-Prolog={{ slurm_Prolog }}
+#Prolog={{ slurm_Prolog }}
 {% endif %}
 TaskEpilog={{ slurm_TaskEpilog  }}
 TaskPlugin={{ slurm_TaskPlugin }}
