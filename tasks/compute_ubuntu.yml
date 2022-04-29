@@ -43,6 +43,9 @@
   - name: Create empty prolog script
     template: src=prolog.sh.j2 dest=/usr/local/libexec/slurm/prolog.d/prolog.sh owner=root group=root mode=0755
 
+  - name: Create empty prolog script
+    template: src=taskprolog.sh.j2 dest=/usr/local/libexec/slurm/taskprolog.sh owner=root group=root mode=0755
+
 # no longer relevant for ubuntu 18.04+. 
 #  - name: disable the slurm init script on compute nodes
 #    service: name=slurm enabled=no

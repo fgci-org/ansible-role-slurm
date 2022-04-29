@@ -47,6 +47,9 @@ Epilog={{ slurm_Epilog }}
 Prolog={{ slurm_Prolog }}
 {% endif %}
 TaskEpilog={{ slurm_TaskEpilog  }}
+{% if slurm_TaskProlog is defined %}
+TaskProlog={{ slurm_TaskProlog }}
+{% endif %}
 TaskPlugin={{ slurm_TaskPlugin }}
 UsePAM={{ slurm_usepam }}
 RebootProgram={{ slurm_RebootProgram }}

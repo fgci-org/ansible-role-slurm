@@ -48,6 +48,9 @@
   - name: Create empty prolog script
     template: src=prolog.sh.j2 dest=/usr/local/libexec/slurm/prolog.d/prolog.sh owner=root group=root mode=0755
 
+  - name: Create empty prolog script
+    template: src=taskprolog.sh.j2 dest=/usr/local/libexec/slurm/taskprolog.sh owner=root group=root mode=0755
+
   - name: create systemd override directories for slurmd
     file: path="/etc/systemd/system/slurmd.service.d" state=directory owner=root mode=0755
     when: slurm_systemd_override_slurmd and ansible_os_family == "RedHat" and ansible_distribution_major_version == "7"

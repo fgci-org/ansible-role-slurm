@@ -226,7 +226,7 @@ slurm_sysctl_tcp_max_syn_backlog: "4096" # 512 is the default in el7
 # - EpilogSlurmctld="/etc/slurm/slurmctld_epilog"
 # - SrunProlog=""
 # - SrunEpilog=""
-# - TaskProlog=""
+# - TaskProlog="/usr/local/libexec/slurm/taskprolog.sh" 
 # - TrackWCKey="no"
 # - TreeWidth="50"
 # - TmpFs=""
