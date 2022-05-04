@@ -50,6 +50,12 @@ TaskEpilog={{ slurm_TaskEpilog  }}
 {% if slurm_TaskProlog is defined %}
 TaskProlog={{ slurm_TaskProlog }}
 {% endif %}
+{% if slurm_PrologSlurmctld is defined %}
+PrologSlurmctld={{ slurm_PrologSlurmctld }}
+{% endif %}
+{% if slurm_EpilogSlurmctld is defined %}
+EpilogSlurmctld={{ slurm_EpilogSlurmctld }}
+{% endif %}
 TaskPlugin={{ slurm_TaskPlugin }}
 UsePAM={{ slurm_usepam }}
 RebootProgram={{ slurm_RebootProgram }}
