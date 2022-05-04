@@ -255,3 +255,10 @@ slurm_spank_x11_packages:
 # default for apt repository if using this for ubuntu clients
 slurm_apt_repo: False
 slurm_apt_url: "http://localhost/apt"
+
+slurm_taskprolog_script: "empty_taskprolog.sh.j2"
+slurm_taskepilog_script: "empty_taskepilog.sh.j2"
+slurm_prolog_scripts:
+  - "empty_prolog.sh.j2"
+slurm_epilog_scripts:
+  - "namespace_clean.sh.j2"
