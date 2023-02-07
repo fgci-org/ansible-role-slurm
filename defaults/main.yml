@@ -143,6 +143,8 @@ slurm_enforce_part_limits: "YES"
 
 slurm_usepam: "1"
 slurm_RebootProgram: "/sbin/reboot"
+slurm_communication_parameters: "block_null_hash,keepalivetime={{ slurm_KeepAliveTime }}"
+
 
 # If you wish to use job submit plugins (parameter JobSubmitPlugins=),
 # uncomment and edit the following:

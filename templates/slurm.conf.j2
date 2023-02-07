@@ -65,6 +65,9 @@ HealthCheckProgram={{ slurm_healthcheck_program }}
 {% endif %}
 GresTypes={{ slurm_grestypes }}
 MailProg=/usr/bin/smail
+{% if slurm_major_version|int > 21 %}
+CommunicationParameters={{ slurm_communication_parameters }}
+{% endif %}
 
 # TIMERS
 SlurmctldTimeout={{ slurm_SlurmctldTimeout }}
@@ -76,7 +79,10 @@ KillWait={{ slurm_KillWait }}
 CompleteWait={{ slurm_CompleteWait }}
 Waittime={{ slurm_Waittime }}
 KillOnBadExit={{ slurm_KillOnBadExit }}
+{% if slurm_major_version|int < 22 %}
+# KeepAliveTime moved under communicaton parameters for slurm 22.x on
 KeepAliveTime={{ slurm_KeepAliveTime }}
+{% endif %}
 OverTimeLimit={{ slurm_OverTimeLimit }}
 {% if slurm_ResumeTimeout is defined %}
 ResumeTimeout={{ slurm_ResumeTimeout }}
