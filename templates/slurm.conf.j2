@@ -43,7 +43,19 @@ EnforcePartLimits={{ slurm_enforce_part_limits }}
 JobSubmitPlugins={{ slurm_jobsubmitplugins }}
 {% endif %}
 Epilog={{ slurm_Epilog }}
+{% if slurm_Prolog is defined %}
+Prolog={{ slurm_Prolog }}
+{% endif %}
 TaskEpilog={{ slurm_TaskEpilog  }}
+{% if slurm_TaskProlog is defined %}
+TaskProlog={{ slurm_TaskProlog }}
+{% endif %}
+{% if slurm_PrologSlurmctld is defined %}
+PrologSlurmctld={{ slurm_PrologSlurmctld }}
+{% endif %}
+{% if slurm_EpilogSlurmctld is defined %}
+EpilogSlurmctld={{ slurm_EpilogSlurmctld }}
+{% endif %}
 TaskPlugin={{ slurm_TaskPlugin }}
 UsePAM={{ slurm_usepam }}
 RebootProgram={{ slurm_RebootProgram }}
@@ -53,6 +65,9 @@ HealthCheckProgram={{ slurm_healthcheck_program }}
 {% endif %}
 GresTypes={{ slurm_grestypes }}
 MailProg=/usr/bin/smail
+{% if slurm_major_version|int > 21 %}
+CommunicationParameters={{ slurm_communication_parameters }}
+{% endif %}
 
 # TIMERS
 SlurmctldTimeout={{ slurm_SlurmctldTimeout }}
@@ -64,8 +79,15 @@ KillWait={{ slurm_KillWait }}
 CompleteWait={{ slurm_CompleteWait }}
 Waittime={{ slurm_Waittime }}
 KillOnBadExit={{ slurm_KillOnBadExit }}
+{% if slurm_major_version|int < 22 %}
+# KeepAliveTime moved under communicaton parameters for slurm 22.x on
 KeepAliveTime={{ slurm_KeepAliveTime }}
+{% endif %}
 OverTimeLimit={{ slurm_OverTimeLimit }}
+{% if slurm_ResumeTimeout is defined %}
+ResumeTimeout={{ slurm_ResumeTimeout }}
+{% endif %}
+
 
 # SCHEDULING
 SchedulerType={{ slurm_SchedulerType }}

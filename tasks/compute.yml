@@ -33,14 +33,60 @@
     when: ansible_connection == 'chroot'
 
   - name: install slurmd packages
-    package: name="{{ slurm_compute_packages }}" state=present
+    package:
+      name: "{{ slurm_compute_packages }}"
+      state: present
     when: slurm_compute_packages is defined
 
   - name: Make sure /usr/local/libexec/slurm/epilog.d exists
     file: path=/usr/local/libexec/slurm/epilog.d state=directory owner=root group=root mode=0755 recurse=yes
 
-  - name: Create namespace epilog script
-    template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
+  - name: Make sure /usr/local/libexec/slurm/prolog.d exists
+    file: path=/usr/local/libexec/slurm/prolog.d state=directory owner=root group=root mode=0755 recurse=yes
+
+  - name: Create prolog scripts
+    template:
+      src={{ item }}
+      dest=/usr/local/libexec/slurm/prolog.d/{{ item | basename | regex_replace('\.j2$', '') }}
+      owner=root
+      group=root
+      mode=0755
+    loop: "{{ slurm_prolog_scripts }}"
+
+  - name: Create epilog scripts
+    template:
+       src={{ item }}
+       dest=/usr/local/libexec/slurm/epilog.d/{{ item | basename | regex_replace('\.j2$', '') }}
+       owner=root
+       group=root
+       mode=0755
+    loop: "{{ slurm_epilog_scripts }}"
+
+  - name: Create taskprolog script
+    template:
+       src={{ slurm_taskprolog_script }}
+       dest=/usr/local/libexec/slurm/taskprolog.sh
+       owner=root
+       group=root
+       mode=0755
+    when: slurm_TaskProlog | default(False)
+  
+  - name: Create taskepilog script
+    template:
+       src={{ slurm_taskepilog_script }}
+       dest=/usr/local/libexec/slurm/taskepilog.sh
+       owner=root
+       group=root
+       mode=0755
+    when: slurm_TaskEpilog | default(False)
+
+  #- name: Create empty prolog script
+  #  template: src=prolog.sh.j2 dest=/usr/local/libexec/slurm/prolog.d/prolog.sh owner=root group=root mode=0755
+
+  #- name: Create empty prolog script
+  #  template: src=taskprolog.sh.j2 dest=/usr/local/libexec/slurm/taskprolog.sh owner=root group=root mode=0755
+  
+
 
   - name: create systemd override directories for slurmd
     file: path="/etc/systemd/system/slurmd.service.d" state=directory owner=root mode=0755

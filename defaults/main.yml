@@ -55,7 +55,7 @@ slurm_SlurmctldPidFile: "/var/run/slurmctld.pid"
 slurm_SlurmdbdPidFile: "/var/run/slurmdbd.pid"
 slurm_SlurmdPidFile: "/var/run/slurmd.pid"
 slurm_CacheGroups: "1"
-slurm_Prolog: "/etc/slurm/prolog"
+slurm_Prolog: "/usr/local/libexec/slurm/prolog.d/*"
 slurm_Epilog: "/usr/local/libexec/slurm/epilog.d/*"
 slurm_TaskEpilog: "/usr/bin/epilog"
 slurm_TaskPlugin: "task/affinity,task/cgroup"
@@ -143,6 +143,8 @@ slurm_enforce_part_limits: "YES"
 
 slurm_usepam: "1"
 slurm_RebootProgram: "/sbin/reboot"
+slurm_communication_parameters: "block_null_hash,keepalivetime={{ slurm_KeepAliveTime }}"
+
 
 # If you wish to use job submit plugins (parameter JobSubmitPlugins=),
 # uncomment and edit the following:
@@ -226,7 +228,7 @@ slurm_sysctl_tcp_max_syn_backlog: "4096" # 512 is the default in el7
 # - EpilogSlurmctld="/etc/slurm/slurmctld_epilog"
 # - SrunProlog=""
 # - SrunEpilog=""
-# - TaskProlog=""
+# - TaskProlog="/usr/local/libexec/slurm/taskprolog.sh" 
 # - TrackWCKey="no"
 # - TreeWidth="50"
 # - TmpFs=""
@@ -255,3 +257,10 @@ slurm_spank_x11_packages:
 # default for apt repository if using this for ubuntu clients
 slurm_apt_repo: False
 slurm_apt_url: "http://localhost/apt"
+
+slurm_taskprolog_script: "empty_taskprolog.sh.j2"
+slurm_taskepilog_script: "empty_taskepilog.sh.j2"
+slurm_prolog_scripts:
+  - "empty_prolog.sh.j2"
+slurm_epilog_scripts:
+  - "namespace_clean.sh.j2"

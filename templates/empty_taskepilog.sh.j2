@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# {{ ansible_managed }}
+
+# By default, do nothing but record we did run:
+
+echo export SLURM_TASK_EPILOG_SCRIPT_RUN_AT=$( date +%s )
+
+exit 0

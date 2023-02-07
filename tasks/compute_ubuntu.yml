@@ -34,8 +34,17 @@
   - name: Make sure /usr/local/libexec/slurm/epilog.d exists
     file: path=/usr/local/libexec/slurm/epilog.d state=directory owner=root group=root mode=0755 recurse=yes
 
+  - name: Make sure /usr/local/libexec/slurm/prolog.d exists
+    file: path=/usr/local/libexec/slurm/prolog.d state=directory owner=root group=root mode=0755 recurse=yes
+
   - name: Create namespace epilog script
     template: src=namespace_clean.sh.j2 dest=/usr/local/libexec/slurm/epilog.d/namespace_clean.sh owner=root group=root mode=0755
+
+  - name: Create empty prolog script
+    template: src=prolog.sh.j2 dest=/usr/local/libexec/slurm/prolog.d/prolog.sh owner=root group=root mode=0755
+
+  - name: Create empty prolog script
+    template: src=taskprolog.sh.j2 dest=/usr/local/libexec/slurm/taskprolog.sh owner=root group=root mode=0755
 
 # no longer relevant for ubuntu 18.04+. 
 #  - name: disable the slurm init script on compute nodes
